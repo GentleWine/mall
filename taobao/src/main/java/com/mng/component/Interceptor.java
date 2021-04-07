@@ -12,7 +12,7 @@ import java.util.Arrays;
 public class Interceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if(request.getSession().getAttribute("account")==null) {
+        if(request.getSession().getAttribute("phone")==null) {
             request.getRequestDispatcher("/user/login").forward(request, response);
             return false;
         }

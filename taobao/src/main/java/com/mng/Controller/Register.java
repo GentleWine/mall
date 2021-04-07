@@ -12,46 +12,49 @@ public class Register {
     @Autowired
     UserRepository userRepository;
     User users;
-
-    String username;
-    String account;
+    String phone;
     String password;
     String confirm;
     String usertype;
+    String username;
+    String mail;
     @RequestMapping(value = "/user/register",method = RequestMethod.POST)
     public JSONObject register(@ModelAttribute("register") Registerbody requestbody){
-
-        username=requestbody.getUsername();
-        account=requestbody.getAccount();
+        phone=requestbody.getPhone();
         password=requestbody.getPassword();
         confirm=requestbody.getConfirm();
         usertype=requestbody.getUsertype();
+        username=requestbody.getUsername();
+        mail=requestbody.getMail();
         try {
-            if (username.isEmpty() || account.isEmpty() || password.isEmpty() || confirm.isEmpty() || usertype.isEmpty()) {
+            if (phone.isEmpty() || password.isEmpty() || confirm.isEmpty() ||
+                    usertype.isEmpty() || username.isEmpty() || mail.isEmpty()) {
                 throw new Exception("Please inspect the integrity!");
             }
             else if(!password.equals(confirm)){
                 throw new Exception("Inconsistent passwords!");
             }
-            else if(!userRepository.findByAccount(account).isEmpty()){
-                throw new Exception("Account has already existed!");
+            else if(!userRepository.findByPhone(phone).isEmpty()){
+                throw new Exception("phone has already existed!");
             }
-            else if(!(usertype.equals("buyer") || usertype.equals("seller"))){
+            else if(!(usertype.equals("0") || usertype.equals("1"))){
                 throw new Exception("wrong usertype!") ;
             }
             else{
                 users = new User();
-                users.setUsername(username);
-                users.setAccount(account);
+                users.setPhone(phone);
                 users.setPassword(password);
                 users.setUsertype(usertype);
+                users.setUsername(username);
+                users.setMail(mail);
                 userRepository.save(users);
                 JSONObject json = new JSONObject();
                 json.put("status","success");
                 json.put("username",username);
-                json.put("account",account);
+                json.put("phone",phone);
                 json.put("password",password);
                 json.put("usertype",usertype);
+                json.put("mail",mail);
                 return json;
             }
         }

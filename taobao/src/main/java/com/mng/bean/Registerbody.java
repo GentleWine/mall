@@ -5,8 +5,9 @@ import lombok.Data;
 @Data
 public class Registerbody {
     private String username;
-    private String account;
     private String password;
     private String confirm;
+    private String phone;
+    private String mail;
     private String usertype;
 }
