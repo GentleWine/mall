@@ -4,7 +4,7 @@
 An available, simple, secure and efficient E-commerce system
 
 #### Software Architecture
-Software architecture description
+Conventional web project
 
 #### Installation
 

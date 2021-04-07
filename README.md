@@ -4,34 +4,15 @@
 An available, simple, secure and efficient E-commerce system
 
 #### 软件架构
-软件架构说明
+传统的基于Cookie鉴权的web项目。
 
+#### 版本迭代
 
-#### 安装教程
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
+当前版本 v0.1.1
 
 #### 使用说明
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
-
-
-#### 特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+1.  taobao为主项目文件夹，后端小组的同学先拉取仓库中的项目主文件，将自己开发的部分添加修改进去，然后再与仓库进行合并上传。
+2.  database有数据库相关的资料和信息，账号密码私聊。
+3.  针对前端：你们所开发的模板网页放在taobao/src/main/resources/templates文件夹下。
+4.  针对前端：将你们的模板文件说明放入“template introduction”文件夹下，按照：网页所属的功能模块+网页的功能描述+网页名+所涉及的对象引用名（如有不足可适当增加详细说明）的格式进行说明。
