@@ -53,7 +53,7 @@
                 alert("please input Kind");
             }
             //添加商品 期待返回数据:{"type":true, "type":false}
-            $.get("add_goods",{Name:Name,Price:Price,Description:Description},
+            $.post("add_goods",{Name:Name,Price:Price,Description:Description},
             function(data){
                 if(data.type){
                     alert("Adding success!")
