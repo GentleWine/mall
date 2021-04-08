@@ -13,7 +13,9 @@ public class Interceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if(request.getSession().getAttribute("phone")==null) {
-            request.getRequestDispatcher("/user/login").forward(request, response);
+            System.out.println(request.getRequestURL());
+            System.out.println(request.getMethod());
+            request.getRequestDispatcher("/login").forward(request, response);
             return false;
         }
         else

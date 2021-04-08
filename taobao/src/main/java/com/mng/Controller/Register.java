@@ -29,16 +29,16 @@ public class Register {
         try {
             if (phone.isEmpty() || password.isEmpty() || confirm.isEmpty() ||
                     usertype.isEmpty() || username.isEmpty() || mail.isEmpty()) {
-                throw new Exception("Please inspect the integrity!");
+                throw new Exception("false");
             }
             else if(!password.equals(confirm)){
-                throw new Exception("Inconsistent passwords!");
+                throw new Exception("false");
             }
             else if(!userRepository.findByPhone(phone).isEmpty()){
-                throw new Exception("phone has already existed!");
+                throw new Exception("has been registered");
             }
             else if(!(usertype.equals("0") || usertype.equals("1"))){
-                throw new Exception("wrong usertype!") ;
+                throw new Exception("false") ;
             }
             else{
                 users = new User();
@@ -49,20 +49,20 @@ public class Register {
                 users.setMail(mail);
                 userRepository.save(users);
                 JSONObject json = new JSONObject();
-                json.put("status","success");
+                json.put("msg","true");
+                /*
                 json.put("username",username);
                 json.put("phone",phone);
                 json.put("password",password);
                 json.put("usertype",usertype);
-                json.put("mail",mail);
+                json.put("mail",mail);*/
                 return json;
             }
         }
         catch (Exception e)
         {
             JSONObject json = new JSONObject();
-            json.put("status","fail");
-            json.put("error",e.getMessage());
+            json.put("msg",e.getMessage());
             return json;
         }
     }
