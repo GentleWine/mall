@@ -42,7 +42,7 @@
                 var username = $(this).val();
 
                 //发送ajax请求。期望返回数据：{"userExsit":true,"msg":"Username has already been registered"}；{"userExsit":false,"msg":"Username is legal"}
-                $.get("findUsernameServlet",{username:username},
+                $.post("findUsernameServlet",{username:username},
                 function (data) {
                     //获取error_1元素
                     var s_username = $("#error_1");
