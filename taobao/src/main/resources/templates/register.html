@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -122,12 +121,14 @@
             function register() {
                 var uName = $("input[name='username']").val();
                 var upwd = $("input[name='password']").val();
+                var type= $("#type").value; 
                      $.ajax({
                         type: "post",
                         url: "*",
                         data: {
                         'passwd': upwd,
                         'uName': uName,
+                        'type':type,
                         },
                         dataType: "json",
                         success: function(data) {
@@ -184,18 +185,24 @@
             <div class="reg_form">
                 <form>
                     <ul>
-                        <li><label for="">Username：</label> <input type="text" name="username" id="username" class="inp">
+                        <li><label for="">Phone：</label> <input type="text" name="username" id="username" class="inp">
                             <!-- 要将输入的text进行判断，看用户名是否存在，然后用jquery判断是否显示那个error相关的span标签，下面几个都是如此判断 -->
                             <span id="error_1" class="error"> <i ></i></span></li>
-
 
                         <!-- <li><label for="">短信验证码：</label> <input type="text" class="inp">
                             <span class="success"> <i class="success_icon"></i> 短信验证码输入正确 </span></li> -->
                         <li><label for="">Password：</label> <input type="password" name="password" id="password" class="inp">
                             <span  id="error_2" class="error"> <i></i></span></li>
+
                         <!-- <li class="safe">安全程度 <em class="ruo">弱</em> <em class="zhong">中</em> <em class="qiang">强</em> </li> -->
                         <li><label for="">Confirm：</label> <input  type="password" name="confirm" id="confirm" class="inp">
-                            
+                        
+                        <li> <label for="">Type：</label> <select id='type'>
+                                <option value="Customer">Customer</option>
+                                <option value="Seller">Seller</option>
+                            </select>
+                        </li> 
+
                         <li class="agree"><input type="checkbox" name="" id=""> 
                             Agree to the agreement and register <a href="#">《User Agreement》</a>
                         
