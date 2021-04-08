@@ -121,14 +121,14 @@
             function register() {
                 var uName = $("input[name='username']").val();
                 var upwd = $("input[name='password']").val();
-                var type= $("#type").value; 
+                var Type= $("#Type").value; 
                      $.ajax({
                         type: "post",
                         url: "*",
                         data: {
                         'passwd': upwd,
                         'uName': uName,
-                        'type':type,
+                        'type':Type,
                         },
                         dataType: "json",
                         success: function(data) {
@@ -197,7 +197,7 @@
                         <!-- <li class="safe">安全程度 <em class="ruo">弱</em> <em class="zhong">中</em> <em class="qiang">强</em> </li> -->
                         <li><label for="">Confirm：</label> <input  type="password" name="confirm" id="confirm" class="inp">
                         
-                        <li> <label for="">Type：</label> <select id='type'>
+                        <li> <label for="">Type：</label> <select id='Type'>
                                 <option value="Customer">Customer</option>
                                 <option value="Seller">Seller</option>
                             </select>
