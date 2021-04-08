@@ -24,7 +24,10 @@
         body {
             margin: 5px;
         }
-
+        .buttontype{
+            width: 950px;
+            height: 30px;
+        }
         .text {
             margin-top: 5px;
         }
@@ -34,10 +37,10 @@
         
 
         function login() {
-            var username = $('#username');
+            var phoneNumber = $('#phoneNumber');
             var password = $('#password');
-            if($.trim(username.val()) == ""){
-                alert("please input username");
+            if($.trim(phoneNumber.val()) == ""){
+                alert("please input phoneNumber");
        
         }
 
@@ -47,9 +50,9 @@
 
 
             function reset() {
-                var username = document.getElementById("username").value;
+                var phoneNumber = document.getElementById("phoneNumber").value;
                 var password = document.getElementById("Password").value;
-                username = null;
+                phoneNumber = null;
                 password = null;
             }
     </script>
@@ -67,12 +70,12 @@
 
             <div class="form-group row">
 
-                <label for="InputUsername" class="col-sm-2 text-right text">Username:</label>
+                <label for="InputphoneNumber" class="col-sm-2 text-right text">phoneNumber:</label>
 
 
                 <div class="col-sm-10">
-                    <input type="username" class="form-control" id="username" placeholder="please input username" >
-                    <small id="emailHelp" class="form-text text-muted">We'll never share your username with anyone
+                    <input type="phoneNumber" class="form-control" id="phoneNumber" placeholder="please input phoneNumber" >
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your phoneNumber with anyone
                         else.</small>
                     <div class="alert alert-danger hide" id="addusererr">is must be not null</div>
                 </div>
@@ -87,6 +90,17 @@
                 </div>
 
             </div>
+
+            <div class="row"> 
+                <label for="" class="col-sm-2 text-right text">Type：</label>
+                <div class="col-sm-10 ">
+                    <select id='Type' class=" buttontype">
+                        <option value="Customer">Customer</option>
+                        <option value="Seller">Seller</option>
+                    </select>
+                </div>
+            
+            </div> 
 
             <div class="row">
                 <div class="col-sm-4"></div>
