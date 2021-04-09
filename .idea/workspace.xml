@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2ce70c9c-f337-473b-92a3-f08e7caad6e2" name="Default Changelist" comment="Utils, exceptions &amp; code cleanup">
+    <list default="true" id="2ce70c9c-f337-473b-92a3-f08e7caad6e2" name="Default Changelist" comment="fix qualified name">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/taobao/src/main/java/com/mng/controller/CommodityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/taobao/src/main/java/com/mng/controller/CommodityController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/taobao/src/main/java/com/mng/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/taobao/src/main/java/com/mng/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/taobao/src/main/java/com/mng/controller/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/taobao/src/main/java/com/mng/controller/RegisterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/taobao/src/main/java/com/mng/data/UserType.java" beforeDir="false" afterPath="$PROJECT_DIR$/taobao/src/main/java/com/mng/data/UserType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/taobao/src/main/java/com/mng/exception/LoginFailedException.java" beforeDir="false" afterPath="$PROJECT_DIR$/taobao/src/main/java/com/mng/exception/LoginFailedException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/taobao/src/main/java/com/mng/util/JsonBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/taobao/src/main/java/com/mng/util/JsonBuilder.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -92,7 +96,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617959255709</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="fix qualified name">
+      <created>1617959542614</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1617959542614</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -112,6 +123,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Utils, exceptions &amp; code cleanup" />
-    <option name="LAST_COMMIT_MESSAGE" value="Utils, exceptions &amp; code cleanup" />
+    <MESSAGE value="fix qualified name" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix qualified name" />
   </component>
 </project>

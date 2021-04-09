@@ -1,8 +1,8 @@
 package com.mng.data;
 
 public enum UserType {
-    NORMAL(0),
-    ADMIN(1);
+    CUSTOMER(0),
+    SELLER(1);
 
     private final int id;
 
@@ -13,9 +13,9 @@ public enum UserType {
     public static UserType getFromId(int id) {
         switch (id) {
             case 0:
-                return NORMAL;
+                return CUSTOMER;
             case 1:
-                return ADMIN;
+                return SELLER;
             default:
                 return null;
         }

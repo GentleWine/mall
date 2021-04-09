@@ -8,6 +8,7 @@ import com.mng.domain.KindDomain;
 import com.mng.domain.SellerDomain;
 import com.mng.domain.UserDomain;
 import com.mng.entity.Commodity;
+import com.mng.entity.Shop;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -37,13 +38,13 @@ public class CommodityController {
     public String home(Model model, HttpServletRequest request) {
         //TODO: 作为请求参数amount
         Pageable pageable = PageRequest.of(1, 30, Sort.Direction.DESC, "time");
-        Page<com.mng.entity.Shop> pages = shopRepository.findAll(pageable);
-        List<com.mng.entity.Shop> shops = pages.getContent();
+        Page<Shop> pages = shopRepository.findAll(pageable);
+        List<Shop> shops = pages.getContent();
         UserDomain user = new UserDomain();
         user.setName(request.getSession().getAttribute("username").toString());
 
         List<SellerDomain> sellers = new ArrayList<>();
-        for (com.mng.entity.Shop shop : shops) {
+        for (Shop shop : shops) {
             SellerDomain seller = new SellerDomain();
             seller.setName(shop.getShopname());
             List<KindDomain> kinds = new ArrayList<>();
