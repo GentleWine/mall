@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 
     <title>welcome</title>
     <style>
@@ -24,10 +24,7 @@
         body {
             margin: 5px;
         }
-        .buttontype{
-            width: 950px;
-            height: 30px;
-        }
+
         .text {
             margin-top: 5px;
         }
@@ -37,32 +34,45 @@
         
 
         function login() {
-            var phoneNumber = $('#phoneNumber');
+            var username = $('#username');
             var password = $('#password');
-            if($.trim(phoneNumber.val()) == ""){
-                alert("please input phoneNumber");
-       
+
+            location.href='index.html'
+            if($.trim(username.val()) == ""){
+                alert("please input username");
+            
+            var username=$("#username").value
+            var password=$("#Password").value
+            var Type=$("#Type").value
+            //发送ajax请求，判断用户名是否存在，然后判断密码是否正确
+            //期望返回数据：{"error_type":1,"error_type":2}
+            $.post("login",{username:username,password:password,type:Type},
+            function(data){
+                if(data.error_type==1){
+                    alert("User does not exist")
+                }
+                else{
+                    alert("Password incorrect")
+                }
+            },"json");
         }
+    }
 
-        }
-
-
-
-
-            function reset() {
-                var phoneNumber = document.getElementById("phoneNumber").value;
+        function reset() {
+                var username = document.getElementById("username").value;
                 var password = document.getElementById("Password").value;
-                phoneNumber = null;
+                username = null;
                 password = null;
+                location.href='file:///Users/wqy/Desktop/shoping/index.html';
             }
     </script>
 </head>
 
 
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script> -->
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script> -->
 
     <div class="container contentbody">
         <h1 style="text-align:center;padding-bottom: 20px;" class="font">Please log in</h1>
@@ -70,12 +80,12 @@
 
             <div class="form-group row">
 
-                <label for="InputphoneNumber" class="col-sm-2 text-right text">phoneNumber:</label>
+                <label for="InputUsername" class="col-sm-2 text-right text">Username:</label>
 
 
                 <div class="col-sm-10">
-                    <input type="phoneNumber" class="form-control" id="phoneNumber" placeholder="please input phoneNumber" >
-                    <small id="emailHelp" class="form-text text-muted">We'll never share your phoneNumber with anyone
+                    <input type="username" class="form-control" id="username" placeholder="please input username" >
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your username with anyone
                         else.</small>
                     <div class="alert alert-danger hide" id="addusererr">is must be not null</div>
                 </div>
@@ -87,10 +97,10 @@
                     <input type="password" class="form-control" id="Password" placeholder="please input password" >
                     <small id="emailHelp" class="form-text text-muted">We'll protect your password. </small>
                     <div class="alert alert-danger hide" id="addpasserr">is must be not null</div>
+                    
                 </div>
 
             </div>
-
             <div class="row"> 
                 <label for="" class="col-sm-2 text-right text">Type：</label>
                 <div class="col-sm-10 ">
@@ -102,9 +112,11 @@
             
             </div> 
 
+
             <div class="row">
                 <div class="col-sm-4"></div>
                 <button type="submit" class="btn btn-primary col-sm-1" onclick="login()">login</button>
+                <p id="demo"></p>
                 <div class="col-sm-2"></div>
                 <button type="submit" class="btn btn-primary col-sm-1" onclick="reset()">Reset</button>
             </div>
