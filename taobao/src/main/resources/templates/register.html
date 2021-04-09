@@ -92,9 +92,7 @@
                         //重新输入的密码不正确
                        $("#confirm").after("<span id='error_3' class='error' class='error_icon'>Error! please re-enter <i ></i></span></li> ")
                 }
-            });
-        }); 
-                    //注册
+            });                    //注册
             function register() {
                 if($("#user").value == ""){
                     alert("please input username");
@@ -105,52 +103,40 @@
                 var uName = $("input[name='Phone']").val();
                 var upwd = $("input[name='password']").val();
                 var Type= $("input[name='Type']").value; 
-                     $.ajax({
-                        type: "post",
-                        url: "RegisterServlet",
+                $.ajax({
+                    type: "post",
+                    url: "/register",
                         data: {
                         'passwd': upwd,
                         'uName': uName,
                         'type':Type,
                         },
-                        dataType: "json",
-                        success: function(data) {
-                        if(data["msg"] == "true") {
-                            $('.register-close').click();
-                            $.ajax({
-                                type: "post",
-                                url: "RegisterServle",
-                                data: {
-                                    'email': uname,
-                                    'password': upwd
-                                },
-                                dataType: "json",
-                                success: function(data) {
-                                    if(data['msg'] == "true") {
-                                        swal({
+                    dataType: "json",
+                    success: function(data){
+                        if(data['msg'] == "true") {
+                                    swal({
                                             title: "Welcome",
                                             text: "Now you can enter the login to see the shop!",
                                             type: "success"
                                              });
                                     }
-                                }
-                            });
-                        } else if(data["msg"] == "has been registered") {
+                        else if(data["msg"] == "has been registered") {
                             swal({
                                 title: "Sorry",
                                 text: "this Phone has been registered",
-                                type: "warning"
+                                type: "warning"W
                             });
-                        } else if(data["msg"] == "false") {
+                        }else if(data["msg"] == "false") {
                             swal({
                                 title: "Sorry",
                                 text: "Due to unknown reason，plz register again",
                                 type: "warning"
                             });
-                        }
+                                }
                     }
                 });
-                }
+            }
+                
     </script>
 </head>
 
