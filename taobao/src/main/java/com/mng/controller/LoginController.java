@@ -1,6 +1,6 @@
 package com.mng.controller;
 
-import com.mng.Repository.UserRepository;
+import com.mng.repository.UserRepository;
 import com.mng.bean.LoginBody;
 import com.mng.entity.EntityUser;
 import com.mng.exception.AuthenticationException;

@@ -1,6 +1,6 @@
 package com.mng.controller;
 
-import com.mng.Repository.UserRepository;
+import com.mng.repository.UserRepository;
 import com.mng.bean.RegisterBody;
 import com.mng.data.UserType;
 import com.mng.entity.EntityUser;
