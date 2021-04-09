@@ -7,6 +7,7 @@ import com.mng.domain.ItemDomain;
 import com.mng.domain.KindDomain;
 import com.mng.domain.SellerDomain;
 import com.mng.domain.UserDomain;
+import com.mng.entity.Commodity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -46,15 +47,15 @@ public class CommodityController {
             SellerDomain seller = new SellerDomain();
             seller.setName(shop.getShopname());
             List<KindDomain> kinds = new ArrayList<>();
-            List<com.mng.entity.Commodity> commodities = commodityRepository.findByShopid(shop.getShopid());
+            List<Commodity> commodities = commodityRepository.findByShopid(shop.getShopid());
             //通过map按属性分组
-            Map<Integer, List<com.mng.entity.Commodity>> collect = commodities.stream().collect(Collectors.groupingBy(com.mng.entity.Commodity::getCateid));
+            Map<Integer, List<Commodity>> collect = commodities.stream().collect(Collectors.groupingBy(Commodity::getCateid));
             for (Integer key : collect.keySet()) {
                 KindDomain kind = new KindDomain();
                 kind.setName(categoryRepository.findByCateid(key).get(0).getName());
-                List<com.mng.entity.Commodity> partition = collect.get(key);
+                List<Commodity> partition = collect.get(key);
                 List<ItemDomain> items = new ArrayList<>();
-                for (com.mng.entity.Commodity commodity : partition) {
+                for (Commodity commodity : partition) {
                     ItemDomain item = new ItemDomain();
                     item.setItem_title(commodity.getName());
                     item.setPrice(commodity.getPrice());
