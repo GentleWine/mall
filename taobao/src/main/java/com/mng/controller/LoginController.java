@@ -37,7 +37,7 @@ public class LoginController {
             } else if ((usersList = userRepository.findByPhone(phone)).isEmpty()) {
                 throw new LoginFailedException(ErrorType.ACCOUNT_NOT_FOUND);
             } else if (usersList.size() > 1) {
-                throw new LoginFailedException(ErrorType.ACCOUNT_NOT_FOUND);
+                throw new LoginFailedException(ErrorType.UNKNOWN);
             } else if (!usersList.get(0).getPassword().equals(password)) {
                 throw new LoginFailedException(ErrorType.PASSWORD_INCORRECT);
             } else {
@@ -49,7 +49,7 @@ public class LoginController {
                 request.getSession().setAttribute("usertype", usertype);
                 request.getSession().setAttribute("mail", mail);
                 return JsonBuilder.newObject()
-                        .put("error_type", "0")
+                        .put("error_type", String.valueOf(ErrorType.SUCCESS.ordinal()))
                         .buildAsJsonObject();
                 /*
                 json.put("username",username);

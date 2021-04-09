@@ -22,7 +22,8 @@ public class LoginFailedException extends AuthenticationException {
         SUCCESS("Success!"),
         ACCOUNT_NOT_FOUND("This account does not exist!"),
         PASSWORD_INCORRECT("Password Incorrect!"),
-        FIELD_MISSING("You must fill in all the fields when logging in!");
+        FIELD_MISSING("You must fill in all the fields when logging in!"),
+        UNKNOWN("Unknown Error!");
 
         private final String defaultMessage;
 
