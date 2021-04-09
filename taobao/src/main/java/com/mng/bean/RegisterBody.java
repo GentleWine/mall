@@ -3,7 +3,7 @@ package com.mng.bean;
 import lombok.Data;
 
 @Data
-public class Registerbody {
+public class RegisterBody {
     private String username;
     private String password;
     private String confirm;
