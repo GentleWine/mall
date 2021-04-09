@@ -37,24 +37,24 @@
     <script>
         $(function () {
             //给用户名输入框绑定 失去焦点事件blur
-            $("#username").blur(function () {
+            $("#Phone").blur(function () {
                 //获取文本框的值
-                var username = $(this).val();
+                var Phone = $(this).val();
 
-                //发送ajax请求。期望返回数据：{"userExsit":true,"msg":"Username has already been registered"}；{"userExsit":false,"msg":"Username is legal"}
-                $.post("findUsernameServlet",{username:username},
+                //发送ajax请求。期望返回数据：{"userExsit":true,"msg":"Phone has already been registered"}；{"userExsit":false,"msg":"Phone is legal"}
+                $.post("findUsernameServlet",{Phone:Phone},
                 function (data) {
                     //获取error_1元素
-                    var s_username = $("#error_1");
+                    var s_Phone = $("#error_1");
                     //判断userExsit值
                     if (data.userExsit){
                         //用户名存在
-                        s_username.css("color","red");
-                        s_username.html(data.msg);
+                        s_Phone.css("color","red");
+                        s_Phone.html(data.msg);
                     }else {
                         //用户名不存在
-                        s_username.css("color","green");
-                        s_username.html(data.msg);
+                        s_Phone.css("color","green");
+                        s_Phone.html(data.msg);
                         s_possword.addClass("error_icon")
                     }
                 },"json");
@@ -125,7 +125,7 @@
                 if($("#mail").value == ""){
                     alert("please input email");
                 }
-                var uName = $("input[name='username']").val();
+                var uName = $("input[name='Phone']").val();
                 var upwd = $("input[name='password']").val();
                 var Type= $("#Type").value; 
                      $.ajax({
@@ -161,7 +161,7 @@
                         } else if(data["msg"] == "has been registered") {
                             swal({
                                 title: "Sorry",
-                                text: "this username has been registered",
+                                text: "this Phone has been registered",
                                 type: "warning"
                             });
                         } else if(data["msg"] == "false") {
@@ -191,7 +191,7 @@
             <div class="reg_form">
                 <form>
                     <ul>
-                        <li><label for="">Phone：</label> <input type="text" name="username" id="username" class="inp">
+                        <li><label for="">Phone：</label> <input type="text" name="Phone" id="Phone" class="inp">
                             <!-- 要将输入的text进行判断，看用户名是否存在，然后用jquery判断是否显示那个error相关的span标签，下面几个都是如此判断 -->
                             <span id="error_1" class="error"> <i ></i></span></li>
                         <li><label for="">Username：</label> <input type="text" name="user" id="user" class="inp">
