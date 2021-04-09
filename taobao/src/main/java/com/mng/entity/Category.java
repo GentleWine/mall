@@ -12,7 +12,7 @@ import org.hibernate.annotations.DynamicInsert;
 @Data
 @Entity
 @Table(name = "category")
-public class Category  implements Serializable {
+public class Category implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer cateid;
