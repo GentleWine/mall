@@ -71,7 +71,7 @@ public class RegisterController {
             }
         } catch (AuthenticationException e) {
             return JsonBuilder.newObject()
-                    .put("status", "fail")
+                    .put("status", "FAIL")
                     .put("error_type", e.getMessage())
                     .toString();
         }
