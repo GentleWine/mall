@@ -1,10 +1,10 @@
 package com.mng.controller;
 
-import com.mng.repository.UserRepository;
 import com.mng.bean.LoginBody;
 import com.mng.entity.EntityUser;
 import com.mng.exception.AuthenticationException;
 import com.mng.exception.LoginFailedException;
+import com.mng.repository.UserRepository;
 import com.mng.util.JsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,14 +18,14 @@ import java.util.List;
 @RestController
 public class LoginController {
     @Autowired
-    UserRepository userRepository;
-    List<EntityUser> usersList;
-    String phone;
-    String password;
-    int usertype;
+    protected UserRepository userRepository;
+    protected List<EntityUser> usersList;
+    protected String phone;
+    protected String password;
+    protected int usertype;
 
-    String username;
-    String mail;
+    protected String username;
+    protected String mail;
 
     @RequestMapping(value = "/user/login", method = RequestMethod.POST)
     public String login(HttpServletRequest request, @ModelAttribute("login") LoginBody requestBody) {

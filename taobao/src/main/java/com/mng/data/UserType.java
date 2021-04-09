@@ -10,10 +10,6 @@ public enum UserType {
         this.id = number;
     }
 
-    public int getId() {
-        return id;
-    }
-
     public static UserType getFromId(int id) {
         switch (id) {
             case 0:
@@ -27,5 +23,9 @@ public enum UserType {
 
     public static boolean isValidUserType(int id) {
         return getFromId(id) != null;
+    }
+
+    public int getId() {
+        return id;
     }
 }

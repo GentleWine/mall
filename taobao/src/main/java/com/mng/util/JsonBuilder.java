@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class JsonBuilder {
 
-    ObjectNode json;
+    private final ObjectNode json;
 
     private JsonBuilder() {
         this.json = JsonNodeFactory.instance.objectNode();
@@ -81,7 +81,8 @@ public class JsonBuilder {
     }
 
     public static class ArrayBuilder {
-        ArrayNode json;
+
+        private final ArrayNode json;
 
         private ArrayBuilder() {
             this.json = JsonNodeFactory.instance.arrayNode();

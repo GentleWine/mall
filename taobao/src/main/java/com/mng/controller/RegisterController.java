@@ -1,11 +1,11 @@
 package com.mng.controller;
 
-import com.mng.repository.UserRepository;
 import com.mng.bean.RegisterBody;
 import com.mng.data.UserType;
 import com.mng.entity.EntityUser;
 import com.mng.exception.AuthenticationException;
 import com.mng.exception.RegisterFailedException;
+import com.mng.repository.UserRepository;
 import com.mng.util.JsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class RegisterController {
     @Autowired
-    UserRepository userRepository;
-    EntityUser user;
-    String phone;
-    String password;
-    String confirm;
-    int usertype;
-    String username;
-    String mail;
+    protected UserRepository userRepository;
+    protected EntityUser user;
+    protected String phone;
+    protected String password;
+    protected String confirm;
+    protected int usertype;
+    protected String username;
+    protected String mail;
 
     @RequestMapping(value = "/user/register", method = RequestMethod.POST)
     public String register(@ModelAttribute("register") RegisterBody requestBody) {
