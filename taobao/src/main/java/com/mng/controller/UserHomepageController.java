@@ -14,6 +14,6 @@ public class UserHomepageController {
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String jumpRegister() {
-        return "index";
+        return "register";
     }
 }
