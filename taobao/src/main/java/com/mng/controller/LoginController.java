@@ -39,7 +39,7 @@ public class LoginController {
             } else if (usersList.size() > 1) {
                 throw new LoginFailedException(ErrorType.ACCOUNT_NOT_FOUND);
             } else if (!usersList.get(0).getPassword().equals(password)) {
-                throw new LoginFailedException(ErrorType.ACCOUNT_NOT_FOUND);
+                throw new LoginFailedException(ErrorType.PASSWORD_INCORRECT);
             } else {
                 username = usersList.get(0).getUsername();
                 mail = usersList.get(0).getMail();
