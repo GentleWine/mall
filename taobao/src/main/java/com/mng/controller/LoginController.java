@@ -54,6 +54,12 @@ public class LoginController {
                 request.getSession().setAttribute("username", username);
                 request.getSession().setAttribute("usertype", usertype);
                 request.getSession().setAttribute("mail", mail);
+
+                return JsonBuilder.newObject()
+                        .put("status", "SUCCESS")
+                        .put("error_type", "0")
+                        .toString();
+                /*
                 return JsonBuilder.newObject()
                         .put("status", "success")
                         .put("username", username)
@@ -61,11 +67,12 @@ public class LoginController {
                         .put("phone", phone)
                         .put("mail", mail)
                         .toString();
+                 */
             }
         } catch (AuthenticationException e) {
             return JsonBuilder.newObject()
-                    .put("status", "fail")
-                    .put("error", e.getMessage())
+                    .put("status", "FAIL")
+                    .put("error_type", e.getMessage())
                     .toString();
         }
     }

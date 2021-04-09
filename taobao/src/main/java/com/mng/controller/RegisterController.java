@@ -55,6 +55,11 @@ public class RegisterController {
                 user.setMail(mail);
                 userRepository.save(user);
                 return JsonBuilder.newObject()
+                        .put("status", "SUCCESS")
+                        .put("error_type", "0")
+                        .toString();
+                /*
+                return JsonBuilder.newObject()
                         .put("status", "success")
                         .put("username", username)
                         .put("phone", phone)
@@ -62,11 +67,12 @@ public class RegisterController {
                         .put("usertype", String.valueOf(usertype))
                         .put("mail", mail)
                         .toString();
+                 */
             }
         } catch (AuthenticationException e) {
             return JsonBuilder.newObject()
                     .put("status", "fail")
-                    .put("error", e.getMessage())
+                    .put("error_type", e.getMessage())
                     .toString();
         }
     }
