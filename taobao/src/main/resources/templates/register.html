@@ -42,23 +42,6 @@
                 var Phone = $(this).val();
 
                 //发送ajax请求。期望返回数据：{"userExsit":true,"msg":"Phone has already been registered"}；{"userExsit":false,"msg":"Phone is legal"}
-                $.post("findUsernameServlet",{Phone:Phone},
-                function (data) {
-                    //获取error_1元素
-                    var s_Phone = $("#error_1");
-                    //判断userExsit值
-                    if (data.userExsit){
-                        //用户名存在
-                        s_Phone.css("color","red");
-                        s_Phone.html(data.msg);
-                    }else {
-                        //用户名不存在
-                        s_Phone.css("color","green");
-                        s_Phone.html(data.msg);
-                        s_possword.addClass("error_icon")
-                    }
-                },"json");
-            });
         
         //     $("#password").blur(function () {
         //         //获取文本框的值
