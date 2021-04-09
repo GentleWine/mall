@@ -93,19 +93,20 @@
                        $("#confirm").after("<span id='error_3' class='error' class='error_icon'>Error! please re-enter <i ></i></span></li> ")
                 }
             });                    //注册
-            function register() {
+        function register() {
                 if($("#user").value == ""){
                     alert("please input username");
                 }
-                if($("#mail").value == ""){
+                else if($("#mail").value == ""){
                     alert("please input email");
                 }
-                var uName = $("input[name='Phone']").val();
-                var upwd = $("input[name='password']").val();
-                var Type= $("input[name='Type']").value; 
-                $.ajax({
-                    type: "post",
-                    url: "/register",
+                else{
+                    var uName = $("input[name='Phone']").val();
+                    var upwd = $("input[name='password']").val();
+                    var Type= $("input[name='Type']").value; 
+                    $.ajax({
+                        type: "post",
+                        url: "/register",
                         data: {
                         'passwd': upwd,
                         'uName': uName,
@@ -114,17 +115,17 @@
                     dataType: "json",
                     success: function(data){
                         if(data['msg'] == "true") {
-                                    swal({
-                                            title: "Welcome",
-                                            text: "Now you can enter the login to see the shop!",
-                                            type: "success"
-                                             });
-                                    }
+                            swal({
+                                    title: "Welcome",
+                                    text: "Now you can enter the login to see the shop!",
+                                    type: "success"
+                                    });
+                            }
                         else if(data["msg"] == "has been registered") {
                             swal({
                                 title: "Sorry",
                                 text: "this Phone has been registered",
-                                type: "warning"W
+                                type: "warning"
                             });
                         }else if(data["msg"] == "false") {
                             swal({
@@ -135,6 +136,7 @@
                                 }
                     }
                 });
+                }
             }
                 
     </script>
