@@ -4,9 +4,13 @@ import com.alibaba.fastjson.JSONObject;
 import com.mng.Repository.UserRepository;
 import com.mng.bean.RegisterBody;
 import com.mng.entity.User;
+import com.mng.exception.RegisterFailedException;
+import com.mng.util.JsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class RegisterController {
@@ -31,13 +35,13 @@ public class RegisterController {
         try {
             if (phone.isEmpty() || password.isEmpty() || confirm.isEmpty() ||
                     usertype.isEmpty() || username.isEmpty() || mail.isEmpty()) {
-                throw new Exception("false");
+                throw new RegisterFailedException("false");
             } else if (!password.equals(confirm)) {
-                throw new Exception("false");
+                throw new RegisterFailedException("false");
             } else if (!userRepository.findByPhone(phone).isEmpty()) {
-                throw new Exception("has been registered");
+                throw new RegisterFailedException("has been registered");
             } else if (!(usertype.equals("0") || usertype.equals("1"))) {
-                throw new Exception("false");
+                throw new RegisterFailedException("false");
             } else {
                 users = new User();
                 users.setPhone(phone);
@@ -46,17 +50,17 @@ public class RegisterController {
                 users.setUsername(username);
                 users.setMail(mail);
                 userRepository.save(users);
-                JSONObject json = new JSONObject();
-                json.put("msg", "true");
+                return JsonBuilder.newObject()
+                        .put("msg", "true")
+                        .buildAsJsonObject();
                 /*
                 json.put("username",username);
                 json.put("phone",phone);
                 json.put("password",password);
                 json.put("usertype",usertype);
                 json.put("mail",mail);*/
-                return json;
             }
-        } catch (Exception e) {
+        } catch (RegisterFailedException e) {
             JSONObject json = new JSONObject();
             json.put("msg", e.getMessage());
             return json;

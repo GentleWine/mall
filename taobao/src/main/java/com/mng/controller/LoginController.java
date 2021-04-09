@@ -4,9 +4,14 @@ import com.alibaba.fastjson.JSONObject;
 import com.mng.Repository.UserRepository;
 import com.mng.bean.LoginBody;
 import com.mng.entity.User;
+import com.mng.exception.LoginFailedException;
+import com.mng.exception.LoginFailedException.ErrorType;
+import com.mng.util.JsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -28,13 +33,13 @@ public class LoginController {
         password = loginbody.getPassword();
         try {
             if (phone.isEmpty() || password.isEmpty()) {
-                throw new Exception("1");
+                throw new LoginFailedException(ErrorType.FIELD_MISSING);
             } else if ((usersList = userRepository.findByPhone(phone)).isEmpty()) {
-                throw new Exception("1");
+                throw new LoginFailedException(ErrorType.ACCOUNT_NOT_FOUND);
             } else if (usersList.size() > 1) {
-                throw new Exception("1");
+                throw new LoginFailedException(ErrorType.ACCOUNT_NOT_FOUND);
             } else if (!usersList.get(0).getPassword().equals(password)) {
-                throw new Exception("2");
+                throw new LoginFailedException(ErrorType.ACCOUNT_NOT_FOUND);
             } else {
                 username = usersList.get(0).getUsername();
                 mail = usersList.get(0).getMail();
@@ -43,19 +48,19 @@ public class LoginController {
                 request.getSession().setAttribute("username", username);
                 request.getSession().setAttribute("usertype", usertype);
                 request.getSession().setAttribute("mail", mail);
-                JSONObject json = new JSONObject();
-                json.put("error_type", "0");
+                return JsonBuilder.newObject()
+                        .put("error_type", "0")
+                        .buildAsJsonObject();
                 /*
                 json.put("username",username);
                 json.put("usertype",usertype);
                 json.put("phone",phone);
                 json.put("mail",mail);*/
-                return json;
             }
-        } catch (Exception e) {
-            JSONObject json = new JSONObject();
-            json.put("error_type", e.getMessage());
-            return json;
+        } catch (LoginFailedException e) {
+            return JsonBuilder.newObject()
+                    .put("error_type", String.valueOf(e.getErrorType().ordinal()))
+                    .buildAsJsonObject();
         }
     }
 }

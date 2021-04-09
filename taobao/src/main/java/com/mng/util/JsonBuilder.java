@@ -1,5 +1,8 @@
 package com.mng.util;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
@@ -78,6 +81,10 @@ public class JsonBuilder {
         return json;
     }
 
+    public JSONObject buildAsJsonObject() {
+        return JSON.parseObject(this.toString());
+    }
+
     @Override
     public String toString() {
         return json.toString();
@@ -151,8 +158,8 @@ public class JsonBuilder {
             return json;
         }
 
-        public ArrayNode buildAsArray() {
-            return json;
+        public JSONArray buildAsJsonArray() {
+            return JSON.parseArray(this.toString());
         }
     }
 }
