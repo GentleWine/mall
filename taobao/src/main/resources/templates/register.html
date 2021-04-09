@@ -119,6 +119,12 @@
         }); 
                     //注册
             function register() {
+                if($("#user").value == ""){
+                    alert("please input username");
+                }
+                if($("#mail").value == ""){
+                    alert("please input email");
+                }
                 var uName = $("input[name='username']").val();
                 var upwd = $("input[name='password']").val();
                 var Type= $("#Type").value; 
@@ -188,7 +194,8 @@
                         <li><label for="">Phone：</label> <input type="text" name="username" id="username" class="inp">
                             <!-- 要将输入的text进行判断，看用户名是否存在，然后用jquery判断是否显示那个error相关的span标签，下面几个都是如此判断 -->
                             <span id="error_1" class="error"> <i ></i></span></li>
-
+                        <li><label for="">Username：</label> <input type="text" name="user" id="user" class="inp">
+                        <li><label for="">Mail：</label> <input type="email" name="mail" id="mail" class="inp">
                         <!-- <li><label for="">短信验证码：</label> <input type="text" class="inp">
                             <span class="success"> <i class="success_icon"></i> 短信验证码输入正确 </span></li> -->
                         <li><label for="">Password：</label> <input type="password" name="password" id="password" class="inp">
