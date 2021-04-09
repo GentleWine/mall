@@ -35,12 +35,6 @@
     <link rel="stylesheet" href="/css/register.css">
     <script src="/static/js/jquery-3.2.1.min.js"></script>
     <script>
-        $(function () {
-            //给用户名输入框绑定 失去焦点事件blur
-            $("#Phone").blur(function () {
-                //获取文本框的值
-                var Phone = $(this).val();
-
                 //发送ajax请求。期望返回数据：{"userExsit":true,"msg":"Phone has already been registered"}；{"userExsit":false,"msg":"Phone is legal"}
         
         //     $("#password").blur(function () {
