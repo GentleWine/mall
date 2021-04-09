@@ -47,14 +47,14 @@
             //期望返回数据：{"error_type":1,"error_type":2}
             $.post("login",{username:username,password:password},
             function(data){
-                if(data.error_type=="1"){
+                if(data.error_type==1){
                     alert("User does not exist")
                 }
                 else if(data.error_type=="2"){
                     alert("Password incorrect")
                 }
                 else if(data.error_type=="0"){
-                if(dara.id==“0”){
+                if(data.id==0){
                     window.location.href="index.html"
                 }
                 else{
