@@ -9,6 +9,10 @@ public class LoginFailedException extends AuthenticationException {
         this.errorType = errorType;
     }
 
+    public ErrorType getErrorType() {
+        return errorType;
+    }
+
     public enum ErrorType {
         SUCCESS,
         ACCOUNT_NOT_FOUND,
