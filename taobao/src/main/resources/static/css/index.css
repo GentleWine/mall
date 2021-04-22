@@ -1,3 +1,4 @@
+
 .main {
     width: 980px;
     height: 455px;
@@ -162,9 +163,6 @@
 .tab_list ul li {
     float: left;
 }
-.tab_list ul li a {
-    margin: 0 15px;
-}
 .floor .w {
     margin-top: 30px;
 }
@@ -186,10 +184,27 @@
     float: left;
     width: 85px;
     height: 34px;
-    border-bottom: 1px solid #ccc;
     text-align: center;
     line-height: 33px;
     margin-right: 10px;
+}
+.col_210  ul .welcome_list1 {
+    color: red;
+}
+.col_210  ul .welcome_list2 {
+    color: orange;
+}
+.col_210  ul .welcome_list3 {
+    color: yellow;
+}
+.col_210  ul .welcome_list4 {
+    color: green;
+}
+.col_210  ul .welcome_list5 {
+    color: blue;
+}
+.col_210  ul .welcome_list6 {
+    color: purple;
 }
 .col_210  ul {
     padding-left: 12px;
@@ -238,8 +253,6 @@
     padding: 22px 20px 0;
     background: #fff;
     position: relative;
-    color: -webkit-link;
-    cursor: pointer;
     font-size: 12px;
 }
 
@@ -259,13 +272,11 @@
     padding-top: 10px;
 }
 
-.item_price {
+.item-a .item_price {
     display: block;
     height: 25px;
     padding: 6px 0 0;
     line-height: 1.6;
-    color: -webkit-link;
-    cursor: pointer;
     font-size: 12px;
     text-align: -webkit-match-parent;
 }
@@ -276,7 +287,6 @@
     line-height: 17px;
     background-color: #fff;
     display: block;
-    cursor: pointer;
 }
 .item_footer {
     margin-top: 4px;
@@ -284,7 +294,14 @@
     padding: 9px 0;
     position: relative;
 }
-
+.cart_button {
+    font-style: italic;
+    font-size: 8px;
+    background-color: #fff;
+}
+.cart_button :hover {
+    border: 1px chartreuse;
+}
 .snav {
     text-align: right;
     height: 20px;
@@ -292,4 +309,34 @@
     margin: 20px auto;
     color: #70f3ff;
     border-bottom: 1px solid #70f3ff;
+}
+.hello {
+    height: 80px;
+    text-align: center;
+    background-color: #f9f9f9;
+}
+.hello .hello_user p {
+    margin: 10px;
+    display: inline-block;
+    font-size: large;
+}
+
+.shopping_cart {
+    position: fixed;
+    top: 20%;
+    width: 100px;
+    height: 80px;
+    left: 50%;
+    margin-left: 600px;
+    text-align: center;
+    background-color: #f9f9f9;
+}
+
+.shopping_cart .into_cart_info {
+    font-style: italic;
+    font-size: 8px;
+}
+
+.shopping_cart .into_cart_info :hover {
+    color: red;
 }
