@@ -1,13 +1,11 @@
-package com.mng.controller;
+package com.mng.controller.account;
 
 import com.alibaba.fastjson.JSONObject;
-import com.mng.Repository.UserRepository;
 import com.mng.bean.LoginBody;
 import com.mng.entity.User;
 import com.mng.exception.LoginFailedException;
 import com.mng.exception.LoginFailedException.ErrorType;
 import com.mng.util.JsonBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,9 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
-public class LoginController {
-    @Autowired
-    UserRepository userRepository;
+public class LoginController extends AccountControllerBase {
     List<User> usersList;
     String phone;
     String password;

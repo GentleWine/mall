@@ -1,8 +1,8 @@
-package com.mng.controller;
+package com.mng.controller.shop;
 
-import com.mng.Repository.CategoryRepository;
-import com.mng.Repository.CommodityRepository;
-import com.mng.Repository.ShopRepository;
+import com.mng.repository.CategoryRepository;
+import com.mng.repository.CommodityRepository;
+import com.mng.repository.ShopRepository;
 import com.mng.domain.ItemDomain;
 import com.mng.domain.KindDomain;
 import com.mng.domain.SellerDomain;
