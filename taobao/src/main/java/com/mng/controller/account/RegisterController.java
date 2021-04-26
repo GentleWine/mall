@@ -1,21 +1,17 @@
-package com.mng.controller;
+package com.mng.controller.account;
 
 import com.alibaba.fastjson.JSONObject;
-import com.mng.repository.UserRepository;
 import com.mng.bean.RegisterBody;
 import com.mng.entity.User;
 import com.mng.exception.RegisterFailedException;
 import com.mng.util.JsonBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class RegisterController {
-    @Autowired
-    UserRepository userRepository;
+public class RegisterController extends AccountControllerBase {
     User users;
     String phone;
     String password;
@@ -40,7 +36,7 @@ public class RegisterController {
                 throw new RegisterFailedException("false");
             } else if (!userRepository.findByPhone(phone).isEmpty()) {
                 throw new RegisterFailedException("has been registered");
-            } else if (!(usertype.equals("0") || usertype.equals("1")|| usertype.equals("2"))) {
+            } else if (!(usertype.equals("0") || usertype.equals("1") || usertype.equals("2"))) {
                 throw new RegisterFailedException("false");
             } else {
                 users = new User();

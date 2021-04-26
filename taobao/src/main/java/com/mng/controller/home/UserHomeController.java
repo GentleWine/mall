@@ -16,15 +16,23 @@ public class UserHomeController {
         return "register";
     }
 
-    @RequestMapping(value = "/user/index",method = RequestMethod.GET)
-    public  String index(){ return "redirect:/index";}
+    @RequestMapping(value = "/user/index", method = RequestMethod.GET)
+    public String index() {
+        return "redirect:/index";
+    }
 
-    @RequestMapping(value = "/index",method = RequestMethod.GET)
-    public  String index2(){ return "index";}
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    public String index2() {
+        return "index";
+    }
 
-    @RequestMapping(value = "/user/seller",method = RequestMethod.GET)
-    public  String seller(){ return "redirect:/seller";}
+    @RequestMapping(value = "/user/seller", method = RequestMethod.GET)
+    public String seller() {
+        return "redirect:/seller";
+    }
 
-    @RequestMapping(value = "/seller",method = RequestMethod.GET)
-    public  String seller2(){ return "seller";}
+    @RequestMapping(value = "/seller", method = RequestMethod.GET)
+    public String seller2() {
+        return "seller";
+    }
 }

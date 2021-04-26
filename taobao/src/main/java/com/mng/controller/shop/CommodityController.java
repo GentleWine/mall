@@ -1,14 +1,14 @@
 package com.mng.controller.shop;
 
-import com.mng.repository.CategoryRepository;
-import com.mng.repository.CommodityRepository;
-import com.mng.repository.ShopRepository;
 import com.mng.domain.ItemDomain;
 import com.mng.domain.KindDomain;
 import com.mng.domain.SellerDomain;
 import com.mng.domain.UserDomain;
 import com.mng.entity.Commodity;
 import com.mng.entity.Shop;
+import com.mng.repository.CategoryRepository;
+import com.mng.repository.CommodityRepository;
+import com.mng.repository.ShopRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
