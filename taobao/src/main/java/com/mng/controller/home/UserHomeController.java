@@ -6,13 +6,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class UserHomeController {
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/login", method = RequestMethod.GET)
     public String login() {
         return "login";
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/register", method = RequestMethod.GET)
     public String register() {
         return "register";
     }
+
+    @RequestMapping(value = "/user/index",method = RequestMethod.GET)
+    public  String index(){ return "redirect:/index";}
+
+    @RequestMapping(value = "/index",method = RequestMethod.GET)
+    public  String index2(){ return "index";}
+
+    @RequestMapping(value = "/user/seller",method = RequestMethod.GET)
+    public  String seller(){ return "redirect:/seller";}
+
+    @RequestMapping(value = "/seller",method = RequestMethod.GET)
+    public  String seller2(){ return "seller";}
 }
