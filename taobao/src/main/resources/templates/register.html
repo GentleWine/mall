@@ -28,12 +28,12 @@
     </style>
     <title>Register</title>
     <!-- 引入favicon图标 -->
-    <link rel="shortcut icon" href="register_icon.png" />
+    <link rel="shortcut icon" href="/favicon.ico" />
     <!-- 引入我们初始化的css -->
-    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/base.css" type="text/css">
     <!-- 引入我们自己的注册页面的css -->
-    <link rel="stylesheet" href="/css/register.css">
-    <script src="/static/js/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="/css/register.css"type="text/css" >
+    <script src="https://cdn.jsdelivr.net/npm/jquery@2.1.4/dist/jquery.min.js"></script>
     <script>
                 //发送ajax请求。期望返回数据：{"userExsit":true,"msg":"Phone has already been registered"}；{"userExsit":false,"msg":"Phone is legal"}
         
@@ -101,38 +101,33 @@
                     alert("please input email");
                 }
                 else{
-                    var uName = $("input[name='Phone']").val();
-                    var upwd = $("input[name='password']").val();
-                    var Type= $("input[name='Type']").value; 
+                    var username=$("#username").val()
+                    var mail=$("#mail").val()
+                    var phone = $("input[name='Phone']").val();
+                    var password = $("input[name='password']").val();
+                    var confirm=$("#confirm").val()
+                    var usertype= $("#usertype").val();
                     $.ajax({
                         type: "post",
-                        url: "/register",
+                        url: "/user/register",
                         data: {
-                        'passwd': upwd,
-                        'uName': uName,
-                        'type':Type,
+                        'username': username,
+                        'phone': phone,
+                        'usertype':usertype,
+                        'password':password,
+                        'confirm':confirm,
+                        'mail':mail,
                         },
                     dataType: "json",
                     success: function(data){
+                        console.log(data);
                         if(data['msg'] == "true") {
-                            swal({
-                                    title: "Welcome",
-                                    text: "Now you can enter the login to see the shop!",
-                                    type: "success"
-                                    });
+                            window.location.href="login"
                             }
                         else if(data["msg"] == "has been registered") {
-                            swal({
-                                title: "Sorry",
-                                text: "this Phone has been registered",
-                                type: "warning"
-                            });
+                            alert("this Phone has been registered");
                         }else if(data["msg"] == "false") {
-                            swal({
-                                title: "Sorry",
-                                text: "Due to unknown reason，plz register again",
-                                type: "warning"
-                            });
+                            alert("Due to unknown reason，plz register again");
                                 }
                     }
                 });
@@ -146,12 +141,12 @@
     <div class="w">
         <header>
             <div class="logo">
-                <a href="index.html"> <img src="/images/xdu.png" alt=""></a>
+                <a href="index"> <img src="/images/xdu.png" alt=""></a>
             </div>
         </header>
         <div class="registerarea">
             <h3>New User Registration
-                <div class="login">Account already exists, <a href="login.html">Login</a></div>
+                <div class="login">Account already exists, <a href="login">Login</a></div>
             </h3>
             <div class="reg_form">
                 <form>
@@ -159,7 +154,7 @@
                         <li><label for="">Phone：</label> <input type="text" name="Phone" id="Phone" class="inp">
                             <!-- 要将输入的text进行判断，看用户名是否存在，然后用jquery判断是否显示那个error相关的span标签，下面几个都是如此判断 -->
                             <span id="error_1" class="error"> <i ></i></span></li>
-                        <li><label for="">Username：</label> <input type="text" name="user" id="user" class="inp">
+                        <li><label for="">Username：</label> <input type="text" name="username" id="username" class="inp">
                         <li><label for="">Mail：</label> <input type="email" name="mail" id="mail" class="inp">
                         <!-- <li><label for="">短信验证码：</label> <input type="text" class="inp">
                             <span class="success"> <i class="success_icon"></i> 短信验证码输入正确 </span></li> -->
@@ -169,9 +164,10 @@
                         <!-- <li class="safe">安全程度 <em class="ruo">弱</em> <em class="zhong">中</em> <em class="qiang">强</em> </li> -->
                         <li><label for="">Confirm：</label> <input  type="password" name="confirm" id="confirm" class="inp">
                         
-                        <li> <label for="">Type：</label> <select id='Type'>
-                                <option value="Customer">Customer</option>
-                                <option value="Seller">Seller</option>
+                        <li> <label for="">Type：</label> <select id='usertype'>
+                                <option value="0">Customer</option>
+                                <option value="1">Seller</option>
+                                <option value="Administrator">Administrator</option>
                             </select>
                         </li> 
 
@@ -180,7 +176,7 @@
                         
                         </li>
                         <li>
-                            <input type="submit" value="Register" class="btn" onclick="register()">
+                            <button type="button" value="Register" class="btn" onclick="register()">Register</button>
                         </li>
                     </ul>
                 </form>
