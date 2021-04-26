@@ -1,11 +1,13 @@
-package com.mng.controller.account;
+package com.mng.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.mng.repository.UserRepository;
 import com.mng.bean.LoginBody;
 import com.mng.entity.User;
 import com.mng.exception.LoginFailedException;
 import com.mng.exception.LoginFailedException.ErrorType;
 import com.mng.util.JsonBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,7 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
-public class LoginController extends AccountControllerBase {
+public class LoginController {
+    @Autowired
+    UserRepository userRepository;
     List<User> usersList;
     String phone;
     String password;
@@ -44,19 +48,15 @@ public class LoginController extends AccountControllerBase {
                 request.getSession().setAttribute("username", username);
                 request.getSession().setAttribute("usertype", usertype);
                 request.getSession().setAttribute("mail", mail);
-                return JsonBuilder.newObject()
-                        .put("error_type", String.valueOf(ErrorType.SUCCESS.ordinal()))
-                        .buildAsJsonObject();
-                /*
-                json.put("username",username);
+                JSONObject json = new JSONObject();
+                json.put("error_type", String.valueOf(ErrorType.SUCCESS.ordinal()));
                 json.put("usertype",usertype);
-                json.put("phone",phone);
-                json.put("mail",mail);*/
+                return json;
             }
         } catch (LoginFailedException e) {
-            return JsonBuilder.newObject()
-                    .put("error_type", String.valueOf(e.getErrorType().ordinal()))
-                    .buildAsJsonObject();
+            JSONObject json = new JSONObject();
+            json.put("error_type", String.valueOf(e.getErrorType().ordinal()));
+            return json;
         }
     }
 }

@@ -1,17 +1,21 @@
-package com.mng.controller.account;
+package com.mng.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.mng.repository.UserRepository;
 import com.mng.bean.RegisterBody;
 import com.mng.entity.User;
 import com.mng.exception.RegisterFailedException;
 import com.mng.util.JsonBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class RegisterController extends AccountControllerBase {
+public class RegisterController {
+    @Autowired
+    UserRepository userRepository;
     User users;
     String phone;
     String password;
@@ -36,7 +40,7 @@ public class RegisterController extends AccountControllerBase {
                 throw new RegisterFailedException("false");
             } else if (!userRepository.findByPhone(phone).isEmpty()) {
                 throw new RegisterFailedException("has been registered");
-            } else if (!(usertype.equals("0") || usertype.equals("1"))) {
+            } else if (!(usertype.equals("0") || usertype.equals("1")|| usertype.equals("2"))) {
                 throw new RegisterFailedException("false");
             } else {
                 users = new User();
@@ -49,12 +53,6 @@ public class RegisterController extends AccountControllerBase {
                 return JsonBuilder.newObject()
                         .put("msg", "true")
                         .buildAsJsonObject();
-                /*
-                json.put("username",username);
-                json.put("phone",phone);
-                json.put("password",password);
-                json.put("usertype",usertype);
-                json.put("mail",mail);*/
             }
         } catch (RegisterFailedException e) {
             JSONObject json = new JSONObject();
