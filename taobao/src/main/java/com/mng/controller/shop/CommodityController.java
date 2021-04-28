@@ -1,4 +1,4 @@
-package com.mng.controller.shop;
+package com.mng.Controller.shop;
 
 import com.mng.domain.ItemDomain;
 import com.mng.domain.KindDomain;
@@ -37,7 +37,7 @@ public class CommodityController {
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String home(Model model, HttpServletRequest request) {
         //TODO: 作为请求参数amount
-        Pageable pageable = PageRequest.of(1, 30, Sort.Direction.DESC, "time");
+        Pageable pageable = PageRequest.of(1, 30, Sort.Direction.DESC, "shopid");
         Page<Shop> pages = shopRepository.findAll(pageable);
         List<Shop> shops = pages.getContent();
         UserDomain user = new UserDomain();

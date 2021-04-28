@@ -14,7 +14,7 @@ public class Interceptor implements HandlerInterceptor {
         if (request.getSession().getAttribute("phone") == null) {
             Log.i("Request URL: " + request.getRequestURL());
             Log.i("Request Method: " + request.getMethod());
-            request.getRequestDispatcher("/user/login").forward(request, response);
+            request.getRequestDispatcher("/").forward(request, response);
             return false;
         } else {
             return true;

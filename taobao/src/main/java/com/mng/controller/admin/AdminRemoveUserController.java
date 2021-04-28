@@ -1,8 +1,8 @@
-package com.mng.controller.admin;
+package com.mng.Controller.admin;
 
 import com.alibaba.fastjson.JSONObject;
+import com.mng.Controller.account.AccountControllerBase;
 import com.mng.bean.UserRemoveBody;
-import com.mng.controller.account.AccountControllerBase;
 import com.mng.entity.User;
 import com.mng.util.JsonBuilder;
 import org.springframework.web.bind.annotation.ModelAttribute;
