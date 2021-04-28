@@ -534,8 +534,8 @@
         <div class="snav w">
             <h3 th:text="${kind.name}">computer</h3>
         </div>
-        <ul class="all_goods w" th:each="item:${kind.items}">
-        <li class="goods">
+        <ul class="all_goods w">
+        <li class="goods" th:each="item:${kind.items}">
             <a href="#" class="item-a">
                 <img src="favicon.png" alt="" width="194px" height="198px">
                 <div class="item_title" th:text="${item.item_title}"> a good goods a good goods </div>
