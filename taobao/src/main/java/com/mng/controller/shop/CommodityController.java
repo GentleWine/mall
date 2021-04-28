@@ -9,6 +9,7 @@ import com.mng.entity.Shop;
 import com.mng.repository.CategoryRepository;
 import com.mng.repository.CommodityRepository;
 import com.mng.repository.ShopRepository;
+import com.mng.util.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -37,7 +38,8 @@ public class CommodityController {
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String home(Model model, HttpServletRequest request) {
         //TODO: 作为请求参数amount
-        Pageable pageable = PageRequest.of(1, 30, Sort.Direction.DESC, "shopid");
+        //attention: zero-based page index
+        Pageable pageable = PageRequest.of(0, 30, Sort.Direction.DESC, "shopid");
         Page<Shop> pages = shopRepository.findAll(pageable);
         List<Shop> shops = pages.getContent();
         UserDomain user = new UserDomain();
