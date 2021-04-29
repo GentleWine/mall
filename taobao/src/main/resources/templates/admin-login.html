@@ -68,7 +68,7 @@
         </style>
     </head>
     <body>
-    	<form class="layui-form" action="" method="post">
+    	<form class="layui-form" action="/admin/login" method="post">
     		<div class="container">
     			<button class="close" title="Close">X</button>
     			<div class="layui-form-mid layui-word-aux">
@@ -78,7 +78,7 @@
 			  <div class="layui-form-item">
 			    <label class="layui-form-label">Username:</label>
 			    <div class="layui-input-block">
-			      <input type="text" name="title" required  lay-verify="required" placeholder="Username" autocomplete="off" class="layui-input">
+			      <input type="text" name="username" required  lay-verify="required" placeholder="Username" autocomplete="off" class="layui-input">
 			    </div>
 			  </div>
 			  <div class="layui-form-item">
@@ -92,7 +92,7 @@
 			   <div class="layui-form-item">
 			    <label class="layui-form-label">验证码</label>
 			    <div class="layui-input-inline">
-			      <input type="text" name="title" required  lay-verify="required" placeholder="请输入验证码" autocomplete="off" class="layui-input verity">
+			      <input type="text" name="username" required  lay-verify="required" placeholder="请输入验证码" autocomplete="off" class="layui-input verity">
 			    </div>
 			    <div class="layui-form-mid layui-word-aux">辅助文字</div> 
 		      
@@ -136,7 +136,7 @@
 			 
 			  //自定义验证规则
 			  form.verify({
-			    title: function(value){
+			    username: function(value){
 			      if(value.length < 5){
 			        return '标题至少得5个字符啊';
 			      }
