@@ -1,4 +1,4 @@
-package com.mng.Controller.account;
+package com.mng.controller.account;
 
 import com.alibaba.fastjson.JSONObject;
 import com.mng.bean.LoginBody;

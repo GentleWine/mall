@@ -1,7 +1,7 @@
-package com.mng.Controller.admin;
+package com.mng.controller.admin;
 
 import com.alibaba.fastjson.JSONObject;
-import com.mng.Controller.account.AccountControllerBase;
+import com.mng.controller.account.AccountControllerBase;
 import com.mng.bean.UserRemoveBody;
 import com.mng.entity.User;
 import com.mng.util.JsonBuilder;
