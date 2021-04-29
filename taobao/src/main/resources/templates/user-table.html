@@ -38,6 +38,7 @@
             table = layui.table;
 
         table.render({
+            method: 'POST',
             elem: '#currentTableId',
             url: '/admin/users',
             toolbar: '#toolbarDemo',

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class ErrorController implements org.springframework.boot.web.servlet.error.ErrorController {
+
     public static final String PATH = "/error";
 
     @RequestMapping(PATH)
