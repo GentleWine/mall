@@ -1,9 +1,9 @@
 package com.mng.controller.admin;
 
 import com.alibaba.fastjson.JSONObject;
-import com.mng.controller.account.AccountControllerBase;
-import com.mng.bean.UserRemoveBody;
 import com.mng.bean.AdminLoginBody;
+import com.mng.bean.UserRemoveBody;
+import com.mng.controller.account.AccountControllerBase;
 import com.mng.entity.User;
 import com.mng.util.JsonBuilder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -25,7 +25,7 @@ public class AdminController extends AccountControllerBase {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public JSONObject login(HttpServletRequest request, @ModelAttribute("login") AdminLoginBody body) {
-        if(body.getUsername().equals(ADMIN_USERNAME) && body.getPassword().equals(ADMIN_PASSWORD)) {
+        if (body.getUsername().equals(ADMIN_USERNAME) && body.getPassword().equals(ADMIN_PASSWORD)) {
             return JsonBuilder.newObject()
                     .put("success", true)
                     .buildAsJsonObject();

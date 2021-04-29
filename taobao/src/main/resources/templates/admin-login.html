@@ -1,11 +1,17 @@
-
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-		<script type="text/javascript" src="/js/layui.js"></script>
-		<link rel="stylesheet" href="/css/layui.css" type="text/css">
-        <style type="text/css">
+<head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="/js/layui.js"></script>
+    <link rel="stylesheet" href="/css/layui.css" type="text/css">
+    <style type="text/css">
+			html {
+  			background: url('https://www.pixel4k.com/preview.php?src=https://www.pixel4k.com/wp-content/uploads/2018/10/small-memory-4k_1540749683.jpg&w=1920&h=1440') no-repeat center center fixed;
+  			-webkit-background-size: cover;
+  			-moz-background-size: cover;
+  			-o-background-size: cover;
+  			background-size: cover;
+			}
       		.container{
       			width: 420px;
       			height: 320px;
@@ -65,58 +71,62 @@
 			 text-decoration: underline; 
 			}
  
-        </style>
-    </head>
-    <body>
-    	<form class="layui-form" action="/admin/login" method="post">
-    		<div class="container">
-    			<button class="close" title="Close">X</button>
-    			<div class="layui-form-mid layui-word-aux">
-    				<h1>Taobao Admin Panel</h1> 		
-					<br>		
-    			</div>
-			  <div class="layui-form-item">
-			    <label class="layui-form-label">Username:</label>
-			    <div class="layui-input-block">
-			      <input type="text" name="username" required  lay-verify="required" placeholder="Username" autocomplete="off" class="layui-input">
-			    </div>
-			  </div>
-			  <div class="layui-form-item">
-			    <label class="layui-form-label">Password:</label>
-			    <div class="layui-input-inline">
-			      <input type="password" name="password" required lay-verify="required" placeholder="Password" autocomplete="off" class="layui-input">
-			    </div>
-			    <!-- <div class="layui-form-mid layui-word-aux">辅助文字</div> -->
-			  </div>
-			  <!--
-			   <div class="layui-form-item">
-			    <label class="layui-form-label">验证码</label>
-			    <div class="layui-input-inline">
-			      <input type="text" name="username" required  lay-verify="required" placeholder="请输入验证码" autocomplete="off" class="layui-input verity">
-			    </div>
-			    <div class="layui-form-mid layui-word-aux">辅助文字</div> 
-		      
-			  </div>
-			  <div class="layui-form-item">
-				    <label class="layui-form-label">记住密码</label>
-				    <div class="layui-input-block">
-				      <input type="checkbox" name="close" lay-skin="switch" lay-text="ON|OFF">
-				    </div>
-			  </div> -->
- 
-			  <div class="layui-form-item">
-			    <div class="layui-input-block">
-			      <button class="layui-btn" lay-submit lay-filter="formDemo">Log In</button>	     
-			    </div>
-			  </div>
-				<!--
-			  </div>
-			   <a href="" class="font-set">忘记密码?</a>  <a href="" class="font-set">立即注册</a>
-			</div>
-		-->
-		</form>
-		<script type="text/javascript" src="layui/layui.js"></script>
-		<script>
+
+    </style>
+</head>
+<body>
+<form class="layui-form" action="/admin/login" method="post">
+    <div class="container">
+        <button class="close" title="Close">X</button>
+        <div class="layui-form-mid layui-word-aux">
+            <h1>Taobao Admin Panel</h1>
+            <br>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Username:</label>
+            <div class="layui-input-block">
+                <input type="text" name="username" required lay-verify="required" placeholder="Username"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Password:</label>
+            <div class="layui-input-inline">
+                <input type="password" name="password" required lay-verify="required" placeholder="Password"
+                       autocomplete="off" class="layui-input">
+            </div>
+            <!-- <div class="layui-form-mid layui-word-aux">辅助文字</div> -->
+        </div>
+        <!--
+         <div class="layui-form-item">
+          <label class="layui-form-label">验证码</label>
+          <div class="layui-input-inline">
+            <input type="text" name="username" required  lay-verify="required" placeholder="请输入验证码" autocomplete="off" class="layui-input verity">
+          </div>
+          <div class="layui-form-mid layui-word-aux">辅助文字</div>
+
+        </div>
+        <div class="layui-form-item">
+              <label class="layui-form-label">记住密码</label>
+              <div class="layui-input-block">
+                <input type="checkbox" name="close" lay-skin="switch" lay-text="ON|OFF">
+              </div>
+        </div> -->
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">Log In</button>
+            </div>
+        </div>
+        <!--
+      </div>
+       <a href="" class="font-set">忘记密码?</a>  <a href="" class="font-set">立即注册</a>
+    </div>
+-->
+    </div>
+</form>
+<script type="text/javascript" src="layui/layui.js"></script>
+<script>
 			layui.use(['form', 'layedit', 'laydate'], function(){
 			  var form = layui.form
 			  ,layer = layui.layer
@@ -179,5 +189,6 @@
 			  
 			  
 			});
-			</script>
-    </body>
+
+</script>
+</body>

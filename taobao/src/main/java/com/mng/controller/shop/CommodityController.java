@@ -1,4 +1,4 @@
-package com.mng.Controller.shop;
+package com.mng.controller.shop;
 
 import com.mng.domain.ItemDomain;
 import com.mng.domain.KindDomain;
@@ -9,7 +9,6 @@ import com.mng.entity.Shop;
 import com.mng.repository.CategoryRepository;
 import com.mng.repository.CommodityRepository;
 import com.mng.repository.ShopRepository;
-import com.mng.util.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
