@@ -39,7 +39,8 @@ public class AdminController extends UserContentProvider {
     public String generateUserTable(HttpServletRequest request, UserTableRequestBody body) {
         setLimit(body.getLimit());
         setPage(body.getPage());
-        return findUsers();
+        String json = findUsers();
+        return json == null ? "{}" : json;
     }
 
     @RequestMapping(value = "/remove-user", method = RequestMethod.POST)

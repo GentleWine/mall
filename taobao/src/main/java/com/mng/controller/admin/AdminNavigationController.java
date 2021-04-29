@@ -11,4 +11,9 @@ public class AdminNavigationController {
     public String resolveLogin() {
         return "admin-login";
     }
+
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    public String resolveUsers() {
+        return "user-table";
+    }
 }
