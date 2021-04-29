@@ -27,7 +27,7 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
                 }
             }
             if (statusCode == HttpStatus.NOT_FOUND.value()) {
-                errorDescription = "The page you are requesting does not exist.";
+                errorDescription = "The page you have requested does not exist.";
             }
         }
         request.setAttribute("error_name", errorName);

@@ -3,7 +3,7 @@ package com.mng.controller.admin;
 import com.alibaba.fastjson.JSONObject;
 import com.mng.bean.AdminLoginBody;
 import com.mng.bean.UserRemoveBody;
-import com.mng.controller.account.AccountControllerBase;
+import com.mng.bean.UserTableRequestBody;
 import com.mng.entity.User;
 import com.mng.util.JsonBuilder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/admin")
-public class AdminController extends AccountControllerBase {
+public class AdminController extends UserContentProvider {
 
     // TODO: Move admin validation to SQL query
     public static final String ADMIN_USERNAME = "admin";
@@ -33,6 +33,13 @@ public class AdminController extends AccountControllerBase {
         return JsonBuilder.newObject()
                 .put("success", false)
                 .buildAsJsonObject();
+    }
+
+    @RequestMapping(value = "/users", method = RequestMethod.POST)
+    public String generateUserTable(HttpServletRequest request, UserTableRequestBody body) {
+        setLimit(body.getLimit());
+        setPage(body.getPage());
+        return findUsers();
     }
 
     @RequestMapping(value = "/remove-user", method = RequestMethod.POST)
