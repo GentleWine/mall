@@ -8,11 +8,13 @@ import com.mng.util.JsonBuilder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 
+@RestController
 public class AdminRemoveUserController extends AccountControllerBase {
     @RequestMapping(value = "/admin/remove-user", method = RequestMethod.POST)
     public JSONObject resolve(HttpServletRequest request, @ModelAttribute("user") UserRemoveBody body) {
