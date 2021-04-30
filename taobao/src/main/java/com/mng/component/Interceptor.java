@@ -4,15 +4,18 @@ import com.mng.util.Log;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @Component
 public class Interceptor implements HandlerInterceptor {
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws ServletException, IOException {
 
         // Admin Panel
+
         if (request.getRequestURL().toString().matches("^(https?://)?[a-zA-Z0-9.-]+/admin(/\\S+)?/?$")) {
             String loginUrl = request.getContextPath() + "/admin/login";
             Log.i("Request URL on Admin Section: " + request.getRequestURL());

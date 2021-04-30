@@ -144,7 +144,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login</title>
     <!-- 引入favicon图标 -->
-    <link rel="shortcut icon" href="../favicon.png" />
+    <link rel="shortcut icon" href="../favicon.png"/>
     <!-- 引入我们初始化的css -->
     <link rel="stylesheet" href="../css/base.css">
     <!-- 引入我们自己的注册页面的css -->
@@ -168,6 +168,8 @@
         .text {
             margin-top: 5px;
         }
+
+
     </style>
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.1.4/dist/jquery.min.js"></script>
     <script>
@@ -221,59 +223,62 @@
 
         }
                 
+
+
     </script>
 </head>
 
 <body>
-    <div class="w">
-        <header>
-            <div class="logo">
-                <a href="index"> <img src="../favicon.ico" alt=""></a>
-            </div>
-        </header>
-        <div class="registerarea">
-            <h3>User Login
-                <div class="login">You don't have an account, <a href="register">Register</a></div>
-            </h3>
-            <div class="reg_form">
-                <form action="">
-                    <ul>
-                        <li><label for="">Phone：</label> <input type="text" name="Phone" id="Phone" class="inp">
-                            <!-- 要将输入的text进行判断，看用户名是否存在，然后用jquery判断是否显示那个error相关的span标签，下面几个都是如此判断 -->
-                            <span id="error_1" class="error"> <i ></i></span></li>
-                       
-                        <li><label for="">Password：</label> <input type="password" name="password" id="password" class="inp">
-                            <span  id="error_2" class="error"> <i></i></span></li>
+<div class="w">
+    <header>
+        <div class="logo">
+            <a href="index"> <img src="../favicon.ico" alt=""></a>
+        </div>
+    </header>
+    <div class="registerarea">
+        <h3>User Login
+            <div class="login">You don't have an account, <a href="register">Register</a></div>
+        </h3>
+        <div class="reg_form">
+            <form action="">
+                <ul>
+                    <li><label for="">Phone：</label> <input type="text" name="Phone" id="Phone" class="inp">
+                        <!-- 要将输入的text进行判断，看用户名是否存在，然后用jquery判断是否显示那个error相关的span标签，下面几个都是如此判断 -->
+                        <span id="error_1" class="error"> <i></i></span></li>
 
-                       
-<!-- 
-                        <li class="agree"><input type="checkbox" name="" id=""> 
-                            Agree to the agreement and register <a href="#">《User Agreement》</a>
-                        
-                        </li> -->
-                        <li>
-                            <button type="button" class="btn" onclick="login()">Login</button>   
-                        </li>
-                        <li>
-                            <button type="button" class="btn" onclick="reset()">Reset</button>
-                        </li>
-                    </ul>
-                </form>
+                    <li><label for="">Password：</label> <input type="password" name="password" id="password"
+                                                               class="inp">
+                        <span id="error_2" class="error"> <i></i></span></li>
+
+
+                    <!--
+                                            <li class="agree"><input type="checkbox" name="" id="">
+                                                Agree to the agreement and register <a href="#">《User Agreement》</a>
+
+                                            </li> -->
+                    <li>
+                        <button type="button" class="btn" onclick="login()">Login</button>
+                    </li>
+                    <li>
+                        <button type="button" class="btn" onclick="reset()">Reset</button>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+    <footer>
+        <div class="mod_copyright">
+            <div class="links">
+                <a href="#">About us</a> | <a href="#">Contact us</a> | Contact Customer Service
+
+            </div>
+            <div class="copyright">
+                Address：South Campus of Xidian University, Xi'an, Shaanxi Province Postcode：710000
+
             </div>
         </div>
-        <footer>
-            <div class="mod_copyright">
-                <div class="links">
-                    <a href="#">About us</a> | <a href="#">Contact us</a> | Contact Customer Service 
-    
-                </div>
-                <div class="copyright">
-                    Address：South Campus of Xidian University, Xi'an, Shaanxi Province Postcode：710000 
-                    
-                </div>
-            </div>
-        </footer>
-    </div>
+    </footer>
+</div>
 </body>
 
 </html>
