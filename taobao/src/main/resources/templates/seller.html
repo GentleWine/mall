@@ -273,7 +273,7 @@
     <div class="snav w">
         <h3 th:text="${kind.name}">computer</h3>
     </div>
-    <ul class="all_goods w"  id="${item.id}">
+    <ul class="all_goods w" >
         <li class="goods" th:each="item:${kind.items}">
             <a href="#" class="item-a">
                 <img src="favicon.png" alt="" width="194px" height="198px">
@@ -282,52 +282,12 @@
                 </div>
                 <div class="seller_info"><span th:text="${item.seller_info}">xdubuy_office</span></div>
                 <div class="item_footer">
-                    <button type="button" class="btn btn-default delete" data-toggle="modal">Delete</button>
+                    <button type="button" class="btn btn-default delete" data-toggle="modal" id="${item.id}">Delete</button>
                 </div>
             </a>
         </li>
     </ul>
 </div>
-
-
-<!--     <ul class="all_goods w">
-        <li class="goods">
-            <a href="#" class="item-a">
-                <img src="favicon.png" alt="" width="194px" height="198px">
-                <div class="item_title"> a good goods a good goods </div>
-                <div class="item_price"><span>RMB</span><span class="price_css">1</span></div>
-                <div class="seller_info"><span>xdubuy_office</span></div>
-                <div class="item_footer"><button type="button" class="btn btn-default delete"  data-toggle="modal">Delete</button></div>
-            </a>
-        </li>
-        <li class="goods">
-            <a href="#" class="item-a">
-                <img src="favicon.png" alt="" width="194px" height="198px">
-                <div class="item_title"> a good goods a good goods </div>
-                <div class="item_price"><span>RMB</span><span class="price_css">2</span></div>
-                <div class="seller_info"><span>xdubuy_office</span></div>
-                <div class="item_footer"><button type="button" class="btn btn-default delete" id="delete" data-toggle="modal">Delete</button></div>
-            </a>
-        </li>
-        <li class="goods">
-            <a href="#" class="item-a"><img src="favicon.png" alt="" width="194px" height="198px">
-                <div class="item_title"> a good goods a good goods </div>
-                <div class="item_price"><span>RMB</span><span class="price_css">3</span></div>
-                <div class="seller_info"><span>xdubuy_office</span></div>
-                <div class="item_footer"><button type="button" class="btn btn-default delete" id="delete" data-toggle="modal" >Delete</button></div>
-            </a>
-        </li>
-        <li class="goods">
-            <a href="#" class="item-a">
-                <img src="favicon.png" alt="" width="194px" height="198px">
-                <div class="item_title"> a good goods a good goods </div>
-                <div class="item_price"><span>RMB</span><span class="price_css">4</span></div>
-                <div class="seller_info"><span>xdubuy_office</span></div>
-                <div class="item_footer"><button type="button" class="btn btn-default delete" id="delete" data-toggle="modal">Delete</button></div>
-            </a>
-        </li>
-    </ul> -->
-
 <!-- 底部模块的制作 start -->
 <footer class="footer">
     <div class="w">
