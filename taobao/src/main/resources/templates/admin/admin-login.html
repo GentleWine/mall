@@ -7,7 +7,7 @@
     <title>Admin Login</title>
     <style type="text/css">
 			html {
-  			background: url('https://www.pixel4k.com/preview.php?src=https://www.pixel4k.com/wp-content/uploads/2018/10/small-memory-4k_1540749683.jpg&w=1920&h=1440') no-repeat center center fixed;
+  			background: url('/images/admin-login-bg.jpg') no-repeat center center fixed;
   			-webkit-background-size: cover;
   			-moz-background-size: cover;
   			-o-background-size: cover;
@@ -73,10 +73,11 @@
 			}
  
 
+
     </style>
 </head>
 <body>
-<form class="layui-form" action="/admin/login" method="post">
+<form class="layui-form" action="javascript:login();" method="post">
     <div class="container">
         <button class="close" title="Close">X</button>
         <div class="layui-form-mid layui-word-aux">
@@ -86,14 +87,14 @@
         <div class="layui-form-item">
             <label class="layui-form-label">Username:</label>
             <div class="layui-input-block">
-                <input type="text" name="username" required lay-verify="required" placeholder="Username"
+                <input type="text" name="username" id="username" required lay-verify="required" placeholder="Username"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">Password:</label>
             <div class="layui-input-inline">
-                <input type="password" name="password" required lay-verify="required" placeholder="Password"
+                <input type="password" name="password" id="password" required lay-verify="required" placeholder="Password"
                        autocomplete="off" class="layui-input">
             </div>
             <!-- <div class="layui-form-mid layui-word-aux">辅助文字</div> -->
@@ -126,9 +127,37 @@
 -->
     </div>
 </form>
+<script src="https://cdn.jsdelivr.net/npm/jquery@2.1.4/dist/jquery.min.js"></script>
 <script type="text/javascript" src="layui/layui.js"></script>
 <script>
-			layui.use(['form', 'layedit', 'laydate'], function(){
+            var username = null;
+            var password = null;
+            function login() {
+                username = $("#username").val();
+                password = $("#password").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/admin/login",
+                    data: {
+                        'username': username,
+                        'password': password,
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if(data["success"] === true) {
+                            window.location.href = "/admin/users";
+                        } else {
+                            alert("Username or password incorrect");
+                        }
+                    },
+                    error: function(data) {
+                        alert("Login Failed!");
+                        console.log(data);
+                    }
+                });
+            }
+			layui.use(['form', 'layedit', 'laydate'], function() {
 			  var form = layui.form
 			  ,layer = layui.layer
 			  ,layedit = layui.layedit
@@ -141,26 +170,26 @@
 			  laydate.render({
 			    elem: '#date1'
 			  });
-			  
-			  //创建一个编辑器
-			  var editIndex = layedit.build('LAY_demo_editor');
-			 
+
 			  //自定义验证规则
 			  form.verify({
 			    username: function(value){
 			      if(value.length < 5){
-			        return '标题至少得5个字符啊';
+			        return 'Username must be at least 5 characters.';
 			      }
 			    }
 			    ,pass: [
-			      /^[\S]{6,12}$/
-			      ,'密码必须6到12位，且不能出现空格'
+			      /^[\S]{6,128}$/
+			      ,'Password must be 6-128 characters without space.'
 			    ]
 			    ,content: function(value){
 			      layedit.sync(editIndex);
 			    }
 			  });
 			  
+			  //创建一个编辑器
+			  var editIndex = layedit.build('LAY_demo_editor');
+
 			  //监听指定开关
 			  form.on('switch(switchTest)', function(data){
 			    layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
@@ -176,20 +205,11 @@
 			    })
 			    return false;
 			  });
-			 
-			  //表单初始赋值
-			 /* form.val('example', {
-			    "username": "贤心" // "name": "value"
-			    ,"password": "123456"
-			    ,"interest": 1
-			    ,"like[write]": true //复选框选中状态
-			    ,"close": true //开关状态
-			    ,"sex": "女"
-			    ,"desc": "我爱 layui"
-			  })*/
+
 			  
 			  
 			});
+
 
 </script>
 </body>

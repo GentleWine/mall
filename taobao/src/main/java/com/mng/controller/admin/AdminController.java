@@ -25,7 +25,10 @@ public class AdminController extends UserContentProvider {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public JSONObject login(HttpServletRequest request, @ModelAttribute("login") AdminLoginBody body) {
-        if (body.getUsername().equals(ADMIN_USERNAME) && body.getPassword().equals(ADMIN_PASSWORD)) {
+        final String username = body.getUsername();
+        final String password = body.getPassword();
+        if (ADMIN_USERNAME.equals(username) && ADMIN_PASSWORD.equals(password)) {
+            request.getSession().setAttribute("admin_username", username);
             return JsonBuilder.newObject()
                     .put("success", true)
                     .buildAsJsonObject();
@@ -35,8 +38,6 @@ public class AdminController extends UserContentProvider {
                 .buildAsJsonObject();
     }
 
-
-    // TODO: 登陆检查
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     public String generateUserTable(HttpServletRequest request, UserTableRequestBody body) {
         setLimit(body.getLimit());
