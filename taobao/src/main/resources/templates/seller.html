@@ -55,7 +55,6 @@
         $(document).ready(function(){
             $(".delete").click(function(){
                 $('#delcfmModel').modal();
-                $(this).parents(".goods").remove();
             });
             $('#delcfmModel').on('show.bs.modal', function (event) {
                   var btnThis = $(event.relatedTarget); //触发事件的按钮
