@@ -1,4 +1,4 @@
-package com.mng.Controller.shop;
+package com.mng.controller.shop;
 
 import com.mng.domain.SellerDomain;
 import com.mng.domain.UserDomain;
@@ -30,7 +30,6 @@ public class CommodityController extends ShopBase {
 
         List<SellerDomain> sellers = getsellers(shops);
         model.addAttribute("sellers", sellers);
-        model.addAttribute("user", user);
         return "index";
     }
 }

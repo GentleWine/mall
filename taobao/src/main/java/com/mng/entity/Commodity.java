@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Table(name = "commodity")
 public class Commodity implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer comid;
 
     private Integer cateid;
