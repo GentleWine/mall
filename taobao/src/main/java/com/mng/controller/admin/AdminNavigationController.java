@@ -9,11 +9,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class AdminNavigationController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String resolveLogin() {
-        return "admin-login";
+        return "admin/admin-login";
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public String resolveUsers() {
-        return "user-table";
+        return "admin/user-table";
     }
+
+    @RequestMapping(value = "/table/add", method = RequestMethod.GET)
+    public String resolveTableAdd() {
+        return "admin/table/add";
+    }
+
+    @RequestMapping(value = "/table/edit", method = RequestMethod.GET)
+    public String resolveTableEdit() {
+        return "admin/table/edit";
+    }
+
 }

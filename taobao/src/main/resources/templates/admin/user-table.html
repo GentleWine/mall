@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>layui</title>
+    <title>User List</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -18,16 +18,16 @@
 
         <script type="text/html" id="toolbarDemo">
             <div class="layui-btn-container">
-                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加</button>
-                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除</button>
+                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add">Add</button>
+                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete">Delete</button>
             </div>
         </script>
 
         <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
 
         <script type="text/html" id="currentTableBar">
-            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
-            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">Edit</a>
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">Delete</a>
         </script>
 
     </div>
@@ -44,7 +44,7 @@
             url: '/admin/users',
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
-                title: '提示',
+                title: 'Hint',
                 layEvent: 'LAYTABLE_TIPS',
                 icon: 'layui-icon-tips'
             }],
@@ -70,7 +70,7 @@
         form.on('submit(data-search-btn)', function (data) {
             var result = JSON.stringify(data.field);
             layer.alert(result, {
-                title: '最终的搜索信息'
+                title: 'Search Result'
             });
 
             //执行搜索重载
@@ -92,13 +92,13 @@
         table.on('toolbar(currentTableFilter)', function (obj) {
             if (obj.event === 'add') {  // 监听添加操作
                 var index = layer.open({
-                    title: '添加用户',
+                    title: 'Add User',
                     type: 2,
                     shade: 0.2,
                     maxmin:true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '../page/table/add.html',
+                    content: '/admin/table/add',
                 });
                 $(window).on("resize", function () {
                     layer.full(index);
@@ -120,20 +120,20 @@
             if (obj.event === 'edit') {
 
                 var index = layer.open({
-                    title: '编辑用户',
+                    title: 'Edit User',
                     type: 2,
                     shade: 0.2,
                     maxmin:true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '../page/table/edit.html',
+                    content: '/admin/table/edit',
                 });
                 $(window).on("resize", function () {
                     layer.full(index);
                 });
                 return false;
             } else if (obj.event === 'delete') {
-                layer.confirm('真的删除行么', function (index) {
+                layer.confirm('Do you really want to delete this row?', function (index) {
                     obj.del();
                     layer.close(index);
                 });
