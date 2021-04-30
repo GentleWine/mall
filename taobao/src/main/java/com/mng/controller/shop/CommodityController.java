@@ -30,7 +30,6 @@ public class CommodityController extends ShopBase {
 
         List<SellerDomain> sellers = getsellers(shops);
         model.addAttribute("sellers", sellers);
-        model.addAttribute("user", user);
         return "index";
     }
 }

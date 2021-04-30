@@ -3,6 +3,7 @@ package com.mng.controller.shop;
 import com.mng.Repository.CategoryRepository;
 import com.mng.Repository.CommodityRepository;
 import com.mng.Repository.ShopRepository;
+import com.mng.Repository.UserRepository;
 import com.mng.domain.ItemDomain;
 import com.mng.domain.KindDomain;
 import com.mng.domain.SellerDomain;
@@ -22,6 +23,8 @@ public class ShopBase {
     ShopRepository shopRepository;
     @Autowired
     CategoryRepository categoryRepository;
+    @Autowired
+    UserRepository userRepository;
     public List<SellerDomain> getsellers(List<Shop> shops)
     {
         List<SellerDomain> sellers = new ArrayList<>();
