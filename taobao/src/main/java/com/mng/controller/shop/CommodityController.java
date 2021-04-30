@@ -1,15 +1,8 @@
-package com.mng.controller.shop;
+package com.mng.Controller.shop;
 
 import com.mng.domain.SellerDomain;
 import com.mng.domain.UserDomain;
 import com.mng.entity.Shop;
-<<<<<<< HEAD
-=======
-import com.mng.repository.CategoryRepository;
-import com.mng.repository.CommodityRepository;
-import com.mng.repository.ShopRepository;
-import org.springframework.beans.factory.annotation.Autowired;
->>>>>>> 21e45f8e6b144cc61153d007d92a8873089382e7
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
-public class CommodityController extends ShopBase{
+public class CommodityController extends ShopBase {
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String home(Model model, HttpServletRequest request) {
