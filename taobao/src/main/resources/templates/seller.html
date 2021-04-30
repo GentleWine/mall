@@ -53,42 +53,13 @@
         $('#myModal').on('shown.bs.modal', function () {
             $('#myInput').focus()
         });
-
         $(document).ready(function(){
             $(".delete").click(function(){
                 $('#delcfmModel').modal();
+                  var delid = $(this).attr("id");
+                  console.log(delid);
+                  $("#delid").text(delid); 
             });
-            $('#delcfmModel').on('show.bs.modal', function (event) {
-                  var btnThis = $(event.relatedTarget); //触发事件的按钮
-                  var theli = btnThis.parent().parent().parent();
-                  var theul = theli.parent();
-                  var delid = theul.attr("id");
-                  $("#delid").text(delid); }
-            )
-            // var option={
-            //     target:        '#output1',   // target element(s) to be updated with server response 
-            //     beforeSubmit:  function(){
-
-
-            //     },  // pre-submit callback 
-            //     success:       showResponse  // post-submit callback 
- 
-            //                                     // other available options: 
-            //                                     //url:       url         // override for form's 'action' attribute 
-            //                                     //type:      type        // 'get' or 'post', override for form's 'method' attribute 
-            //                                     //dataType:  null        // 'xml', 'script', or 'json' (expected server response type) 
-            //                                     //clearForm: true        // clear all form fields after successful submit 
-            //                                     //resetForm: true        // reset the form after successful submit 
- 
-            //                                     // $.ajax options can be used here too, for example: 
-            //                                     //timeout:   3000 
-            // };
-            // $("infoTable").ajaxForm(options).submit(function(){
-            //     $(this).ajaxsumbit(options);
-            //     return false;
-            // }
-            //     );
-
             }
         );
         function isNumber(val) {
@@ -206,8 +177,7 @@
                 <li>welcome to xdubuy！&nbsp;</li>
                 <li>
                     <!-- <p class="suibian">welcome!</p>           其中class随便放在了common.css文件最后面        -->
-                    <a href="#">please log in!</a> &nbsp; <a href="register.html" class="style_red">Free
-                    registration</a>
+                     <p th:text="${seller.name}"></p>
                 </li>
             </ul>
         </div>
