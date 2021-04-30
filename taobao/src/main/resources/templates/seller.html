@@ -96,6 +96,7 @@
         }
         function mysubmit(){
             console.log("right");
+
             var Name=$.trim($("#Name").val());
             var Price=$.trim($("#Price").val());
             var Description=$.trim($("#Description").val());
@@ -115,13 +116,13 @@
             else if(Kind == ""){
                 alert("please input Kind");
             }else{
-                var data = {"Name":Name,"Price":Price,"Description":Description}
-                var obj = JSON.stringify(data);
+                var data = {"name":Name,"price":Price,"kind":Kind,"description":Description};
+               // var obj = JSON.stringify(data);
                 //添加商品 期待返回数据:{"type":true, "type":false}
-            $.post("add_goods",obj,
+            $.post("/add_goods",data,
             function(data){
-                res = JSON.parse(data)
-                if(res.type){
+                //res = JSON.parse(data)
+                if(data["type"]=="true"){
                     alert("Adding success!");
                     location.reload();
                 }
@@ -272,8 +273,8 @@
     <div class="snav w">
         <h3 th:text="${kind.name}">computer</h3>
     </div>
-    <ul class="all_goods w" th:each="item:${kind.items}" id="${item.id}">
-        <li class="goods">
+    <ul class="all_goods w"  id="${item.id}">
+        <li class="goods" th:each="item:${kind.items}">
             <a href="#" class="item-a">
                 <img src="favicon.png" alt="" width="194px" height="198px">
                 <div class="item_title" th:text="${item.item_title}"> a good goods a good goods</div>
