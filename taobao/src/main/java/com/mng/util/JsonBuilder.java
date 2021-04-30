@@ -77,6 +77,16 @@ public class JsonBuilder {
         return this;
     }
 
+    public JsonBuilder put(String key, Enum<?> element) {
+        json.put(key, element.name());
+        return this;
+    }
+
+    public JsonBuilder put(String key, Object element) {
+        json.put(key, element.toString());
+        return this;
+    }
+
     public ObjectNode build() {
         return json;
     }
@@ -146,6 +156,16 @@ public class JsonBuilder {
 
         public ArrayBuilder put(String element) {
             json.add(element);
+            return this;
+        }
+
+        public ArrayBuilder put(Enum<?> element) {
+            json.add(element.name());
+            return this;
+        }
+
+        public ArrayBuilder put(Object element) {
+            json.add(element.toString());
             return this;
         }
 

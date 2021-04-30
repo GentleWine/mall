@@ -2,32 +2,32 @@ package com.mng.exception;
 
 public class LoginFailedException extends AuthenticationException {
 
-    private final ErrorType errorType;
+    private final Status status;
 
-    public LoginFailedException(ErrorType errorType, String message) {
+    public LoginFailedException(Status status, String message) {
         super(message);
-        this.errorType = errorType;
+        this.status = status;
     }
 
-    public LoginFailedException(ErrorType errorType) {
-        super(errorType.getDefaultMessage());
-        this.errorType = errorType;
+    public LoginFailedException(Status status) {
+        super(status.getDefaultMessage());
+        this.status = status;
     }
 
-    public ErrorType getErrorType() {
-        return errorType;
+    public Status getStatus() {
+        return status;
     }
 
-    public enum ErrorType {
+    public enum Status {
         SUCCESS("Success!"),
         ACCOUNT_NOT_FOUND("This account does not exist!"),
         PASSWORD_INCORRECT("Password Incorrect!"),
-        FIELD_MISSING("You must fill in all the fields when logging in!"),
+        FIELD_MISSING("You must fill in all of the required fields when logging in!"),
         UNKNOWN("Unknown Error!");
 
         private final String defaultMessage;
 
-        ErrorType(String msg) {
+        Status(String msg) {
             this.defaultMessage = msg;
         }
 
