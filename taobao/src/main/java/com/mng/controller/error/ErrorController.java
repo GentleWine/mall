@@ -1,4 +1,4 @@
-package com.mng.controller.error;
+package com.mng.Controller.error;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;

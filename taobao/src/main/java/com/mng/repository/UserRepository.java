@@ -1,4 +1,4 @@
-package com.mng.repository;
+package com.mng.Repository;
 
 import com.mng.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;

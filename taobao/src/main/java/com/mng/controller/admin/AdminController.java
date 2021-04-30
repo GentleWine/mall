@@ -1,4 +1,4 @@
-package com.mng.controller.admin;
+package com.mng.Controller.admin;
 
 import com.alibaba.fastjson.JSONObject;
 import com.mng.bean.AdminLoginBody;
