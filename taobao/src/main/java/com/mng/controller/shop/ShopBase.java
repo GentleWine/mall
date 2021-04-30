@@ -1,4 +1,4 @@
-package com.mng.Controller.shop;
+package com.mng.controller.shop;
 
 import com.mng.Repository.CategoryRepository;
 import com.mng.Repository.CommodityRepository;

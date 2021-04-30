@@ -1,4 +1,4 @@
-package com.mng.Controller.admin;
+package com.mng.controller.admin;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
