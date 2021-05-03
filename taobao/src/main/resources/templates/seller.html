@@ -74,16 +74,14 @@
         function urlSubmit(){
             var delid = $("#delid").text();
             console.log(delid);
-            var data = {"id":delid};
-            var obj = JSON.stringify(data);
+            var delData = {"id":delid};
             $.ajax({
                             type:"post", 
                             url:"/delete",
                             async:false,
-                            data:obj,
+                            data:delData,
                             dataType: 'json',
                             success: function(data) {
-                                res = JSON.parse(data);
                                 if(res.dataType == "success"){
                                     alert("delete the item successfully!");
                                     location.reload();
