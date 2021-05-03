@@ -280,7 +280,7 @@
                 </div>
                 <div class="seller_info"><span th:text="${item.seller_info}">xdubuy_office</span></div>
                 <div class="item_footer">
-                    <button type="button" class="btn btn-default delete" data-toggle="modal" id="${item.id}">Delete</button>
+                    <button type="button" class="btn btn-default delete" data-toggle="modal" th:id="${item.id}">Delete</button>
                 </div>
             </a>
         </li>
