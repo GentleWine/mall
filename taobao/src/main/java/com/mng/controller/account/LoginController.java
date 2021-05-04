@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.mng.bean.LoginBody;
 import com.mng.entity.User;
 import com.mng.exception.LoginFailedException;
-import com.mng.exception.LoginFailedException.ErrorType;
+import com.mng.exception.LoginFailedException.Status;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,13 +28,13 @@ public class LoginController extends AccountControllerBase {
         password = loginbody.getPassword();
         try {
             if (phone.isEmpty() || password.isEmpty()) {
-                throw new LoginFailedException(ErrorType.FIELD_MISSING);
+                throw new LoginFailedException(Status.FIELD_MISSING);
             } else if ((usersList = userRepository.findByPhone(phone)).isEmpty()) {
-                throw new LoginFailedException(ErrorType.ACCOUNT_NOT_FOUND);
+                throw new LoginFailedException(Status.ACCOUNT_NOT_FOUND);
             } else if (usersList.size() > 1) {
-                throw new LoginFailedException(ErrorType.UNKNOWN);
+                throw new LoginFailedException(Status.UNKNOWN);
             } else if (!usersList.get(0).getPassword().equals(password)) {
-                throw new LoginFailedException(ErrorType.PASSWORD_INCORRECT);
+                throw new LoginFailedException(Status.PASSWORD_INCORRECT);
             } else {
                 username = usersList.get(0).getUsername();
                 mail = usersList.get(0).getMail();
@@ -44,13 +44,13 @@ public class LoginController extends AccountControllerBase {
                 request.getSession().setAttribute("usertype", usertype);
                 request.getSession().setAttribute("mail", mail);
                 JSONObject json = new JSONObject();
-                json.put("error_type", String.valueOf(ErrorType.SUCCESS.ordinal()));
+                json.put("error_type", String.valueOf(Status.SUCCESS.ordinal()));
                 json.put("usertype", usertype);
                 return json;
             }
         } catch (LoginFailedException e) {
             JSONObject json = new JSONObject();
-            json.put("error_type", String.valueOf(e.getErrorType().ordinal()));
+            json.put("error_type", String.valueOf(e.getStatus().ordinal()));
             return json;
         }
     }

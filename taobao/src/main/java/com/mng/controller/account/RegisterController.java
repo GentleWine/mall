@@ -31,13 +31,13 @@ public class RegisterController extends AccountControllerBase {
         try {
             if (phone.isEmpty() || password.isEmpty() || confirm.isEmpty() ||
                     usertype.isEmpty() || username.isEmpty() || mail.isEmpty()) {
-                throw new RegisterFailedException("false");
+                throw new Exception("false");
             } else if (!password.equals(confirm)) {
-                throw new RegisterFailedException("false");
+                throw new Exception("false");
             } else if (!userRepository.findByPhone(phone).isEmpty()) {
-                throw new RegisterFailedException("has been registered");
+                throw new Exception("has been registered");
             } else if (!(usertype.equals("0") || usertype.equals("1") || usertype.equals("2"))) {
-                throw new RegisterFailedException("false");
+                throw new Exception("false");
             } else {
                 users = new User();
                 users.setPhone(phone);
@@ -50,7 +50,7 @@ public class RegisterController extends AccountControllerBase {
                         .put("msg", "true")
                         .buildAsJsonObject();
             }
-        } catch (RegisterFailedException e) {
+        } catch (Exception e) {
             JSONObject json = new JSONObject();
             json.put("msg", e.getMessage());
             return json;
