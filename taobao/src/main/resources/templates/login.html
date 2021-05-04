@@ -180,7 +180,7 @@
             var phone = $("#Phone").val();
             var password = $("#password").val();
             //发送ajax请求，判断用户名是否存在，然后判断密码是否正确
-            //期望返回数据：{"status":"SUCCESS"}
+            //期望返回数据：{"error_type":1,"error_type":2}
             $.ajax({
                 type: "POST",
                 url: "/user/login",
@@ -190,15 +190,19 @@
                 },
                 dataType: "json",
                 success: function (data) {
-                    if (data["status"] == "SUCCESS") {
-                        if (data["usertype"] == 0) {
+                    if (data["error_type"] == "1") {
+                        alert("User does not exist");
+                    }
+                    else if (data["error_type"] == "2") {
+                        alert("Password incorrect");
+                    }
+                    else if (data["error_type"] == "0") {
+                        if (data["usertype"] == "0") {
                             window.location.href = "home";
                         }
                         else {
                             window.location.href = "seller";
                         }
-                    } else {
-                        alert(data["error_description"]);
                     }
                 },
                 error:function(data){

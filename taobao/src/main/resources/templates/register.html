@@ -27,9 +27,6 @@
         }
 
 
-
-
-
     </style>
     <title>Register</title>
     <!-- 引入favicon图标 -->
@@ -112,31 +109,33 @@
                     var password = $("input[name='password']").val();
                     var confirm=$("#confirm").val()
                     var usertype= $("#usertype").val();
-                    var agreement = $("#user_agreement").prop("checked");
                     $.ajax({
                         type: "post",
                         url: "/user/register",
                         data: {
                         'username': username,
                         'phone': phone,
-                        'usertype': usertype,
-                        'password': password,
-                        'confirm': confirm,
-                        'mail': mail,
-                        'agreementAgreed': agreement
-                    },
+                        'usertype':usertype,
+                        'password':password,
+                        'confirm':confirm,
+                        'mail':mail,
+                        },
                     dataType: "json",
                     success: function(data){
                         console.log(data);
-                        if(data['status'] == "SUCCESS") {
-                            window.location.href="/";
-                        } else {
-                            alert(data['error_description']);
-                        }
+                        if(data['msg'] == "true") {
+                            window.location.href="/"
+                            }
+                        else if(data["msg"] == "has been registered") {
+                            alert("this Phone has been registered");
+                        }else if(data["msg"] == "false") {
+                            alert("Due to unknown reason，plz register again");
+                                }
                     }
                 });
                 }
             }
+                
 
 
     </script>
@@ -156,28 +155,28 @@
         <div class="reg_form">
             <form>
                 <ul>
-                    <li><label>Phone：</label> <input type="text" name="Phone" id="Phone" class="inp">
+                    <li><label for="">Phone：</label> <input type="text" name="Phone" id="Phone" class="inp">
                         <!-- 要将输入的text进行判断，看用户名是否存在，然后用jquery判断是否显示那个error相关的span标签，下面几个都是如此判断 -->
                         <span id="error_1" class="error"> <i></i></span></li>
-                    <li><label>Username：</label> <input type="text" name="username" id="username" class="inp">
-                    <li><label>Mail：</label> <input type="email" name="mail" id="mail" class="inp">
+                    <li><label for="">Username：</label> <input type="text" name="username" id="username" class="inp">
+                    <li><label for="">Mail：</label> <input type="email" name="mail" id="mail" class="inp">
                         <!-- <li><label for="">短信验证码：</label> <input type="text" class="inp">
                             <span class="success"> <i class="success_icon"></i> 短信验证码输入正确 </span></li> -->
-                    <li><label>Password：</label> <input type="password" name="password" id="password"
-                                                        class="inp">
+                    <li><label for="">Password：</label> <input type="password" name="password" id="password"
+                                                               class="inp">
                         <span id="error_2" class="error"> <i></i></span></li>
 
                     <!-- <li class="safe">安全程度 <em class="ruo">弱</em> <em class="zhong">中</em> <em class="qiang">强</em> </li> -->
-                    <li><label>Confirm：</label> <input type="password" name="confirm" id="confirm" class="inp">
+                    <li><label for="">Confirm：</label> <input type="password" name="confirm" id="confirm" class="inp">
 
-                    <li><label>Type：</label> <select id='usertype'>
+                    <li><label for="">Type：</label> <select id='usertype'>
                         <option value="0">Customer</option>
                         <option value="1">Seller</option>
                         <option value="Administrator">Administrator</option>
                     </select>
                     </li>
 
-                    <li class="agree"><input type="checkbox" name="" id="user_agreement">
+                    <li class="agree"><input type="checkbox" name="" id="">
                         Agree to the agreement and register <a href="#">《User Agreement》</a>
 
                     </li>
