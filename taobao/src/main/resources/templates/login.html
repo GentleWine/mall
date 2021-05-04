@@ -180,7 +180,7 @@
             var phone = $("#Phone").val();
             var password = $("#password").val();
             //发送ajax请求，判断用户名是否存在，然后判断密码是否正确
-            //期望返回数据：{"error_type":1,"error_type":2}
+            //期望返回数据：{"status":"SUCCESS"}
             $.ajax({
                 type: "POST",
                 url: "/user/login",
@@ -190,26 +190,20 @@
                 },
                 dataType: "json",
                 success: function (data) {
-                    if (data["error_type"] == "1") {
-                        alert("User does not exist");
-                    }
-                    else if (data["error_type"] == "2") {
-                        alert("Password incorrect");
-                    }
-                    else if (data["error_type"] == "0") {
-                        if (data["usertype"] == "0") {
+                    if (data["status"] == "SUCCESS") {
+                        if (data["usertype"] == 0) {
                             window.location.href = "home";
                         }
                         else {
                             window.location.href = "seller";
                         }
+                    } else {
+                        alert(data["error_description"]);
                     }
                 },
                 error:function(data){
+                    alert("Login failed for unknown reasons");
                     console.log(data);
-                },
-                complete:res=>{
-                    console.log("dfdgfhfhf");
                 }
             });
         };
@@ -237,7 +231,7 @@
     </header>
     <div class="registerarea">
         <h3>User Login
-            <div class="login">You don't have an account, <a href="register">Register</a></div>
+            <span class="login">Don't have an account? <a href="register">Register</a></span>
         </h3>
         <div class="reg_form">
             <form action="">
