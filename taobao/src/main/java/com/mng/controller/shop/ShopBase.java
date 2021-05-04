@@ -45,6 +45,7 @@ public class ShopBase {
                     item.setItem_title(commodity.getName());
                     item.setPrice(commodity.getPrice());
                     item.setSeller_info(commodity.getDetail());
+                    item.setId(commodity.getComid());
                     items.add(item);
                 }
                 kind.setItems(items);
