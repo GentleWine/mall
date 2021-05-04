@@ -40,7 +40,7 @@
     <script>
        $(function(){
        $.ajax({
-                type:"get", 
+                type:"get",
                 url:"/delete_getmodel",
                 async:false,
                 data:{},
@@ -74,25 +74,35 @@
         function urlSubmit(){
             var delid = $("#delid").text();
             console.log(delid);
-            var data = {"id":delid};
-            var obj = JSON.stringify(data);
-            $.ajax({
-                            type:"post", 
-                            url:"/delete",
-                            async:false,
-                            data:obj,
-                            dataType: 'json',
-                            success: function(data) {
-                                res = JSON.parse(data);
-                                if(res.dataType == "success"){
-                                    alert("delete the item successfully!");
-                                    location.reload();
-                                }
-                                else{
-                                    alert("due to unknown reason,delete unsuccessfully!");
-                                }
-                     }
-             });
+            var delData = {"comid":delid};
+            $.post("/delete_goods",delData,
+                function(data) {
+                    if(data["type"] == "success"){
+                        alert("delete the item successfully!");
+                        location.reload();
+                    }
+                    else{
+                        alert("due to unknown reason,delete unsuccessfully!");
+                    }
+                           },"json"
+
+                );
+        //     $.ajax({
+        //                     type:"post",
+        //                     url:"/delete_goods",
+        //                     //async:false,
+        //                     data:delData,
+        //                     dataType: "json",
+        //                     success: function(data) {
+        //                         if(data["type"] == "success"){
+        //                             alert("delete the item successfully!");
+        //                             location.reload();
+        //                         }
+        //                         else{
+        //                             alert("due to unknown reason,delete unsuccessfully!");
+        //                         }
+        //                    }
+        //      });
         }
         function mysubmit(){
             console.log("right");
@@ -282,7 +292,7 @@
                 </div>
                 <div class="seller_info"><span th:text="${item.seller_info}">xdubuy_office</span></div>
                 <div class="item_footer">
-                    <button type="button" class="btn btn-default delete" data-toggle="modal" id="${item.id}">Delete</button>
+                    <button type="button" class="btn btn-default delete" data-toggle="modal" th:id="${item.id}">Delete</button>
                 </div>
             </a>
         </li>

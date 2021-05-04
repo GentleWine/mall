@@ -10,4 +10,5 @@ public class RegisterBody {
     private String phone;
     private String mail;
     private String usertype;
+    private boolean agreementAgreed;
 }

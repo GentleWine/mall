@@ -202,10 +202,8 @@
                     }
                 },
                 error:function(data){
+                    alert("Login failed for unknown reasons");
                     console.log(data);
-                },
-                complete:res=>{
-                    console.log("dfdgfhfhf");
                 }
             });
         };
@@ -233,7 +231,7 @@
     </header>
     <div class="registerarea">
         <h3>User Login
-            <div class="login">You don't have an account, <a href="register">Register</a></div>
+            <span class="login">Don't have an account? <a href="register">Register</a></span>
         </h3>
         <div class="reg_form">
             <form action="">
