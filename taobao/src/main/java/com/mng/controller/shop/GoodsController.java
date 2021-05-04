@@ -78,11 +78,9 @@ public class GoodsController extends ShopBase{
             }else if ((commodityList = commodityRepository.findByComid(comid)).isEmpty()) {
                 throw new Exception("false");
             } else {
-                System.out.println("1#");
                 commodityRepository.deleteByComid(comid);
                 JSONObject json = new JSONObject();
                 json.put("type","success");
-                System.out.println("2#");
                 return json;
 
             }
