@@ -40,7 +40,7 @@
     <script>
        $(function(){
        $.ajax({
-                type:"get", 
+                type:"get",
                 url:"/delete_getmodel",
                 async:false,
                 data:{},
@@ -74,23 +74,35 @@
         function urlSubmit(){
             var delid = $("#delid").text();
             console.log(delid);
-            var delData = {"id":delid};
-            $.ajax({
-                            type:"post", 
-                            url:"/delete_goods",
-                            async:false,
-                            data:delData,
-                            dataType: 'json',
-                            success: function(data) {
-                                if(data["type"] == "success"){
-                                    alert("delete the item successfully!");
-                                    location.reload();
-                                }
-                                else{
-                                    alert("due to unknown reason,delete unsuccessfully!");
-                                }
-                     }
-             });
+            var delData = {"comid":delid};
+            $.post("/delete_goods",delData,
+                function(data) {
+                    if(data["type"] == "success"){
+                        alert("delete the item successfully!");
+                        location.reload();
+                    }
+                    else{
+                        alert("due to unknown reason,delete unsuccessfully!");
+                    }
+                           },"json"
+
+                );
+        //     $.ajax({
+        //                     type:"post",
+        //                     url:"/delete_goods",
+        //                     //async:false,
+        //                     data:delData,
+        //                     dataType: "json",
+        //                     success: function(data) {
+        //                         if(data["type"] == "success"){
+        //                             alert("delete the item successfully!");
+        //                             location.reload();
+        //                         }
+        //                         else{
+        //                             alert("due to unknown reason,delete unsuccessfully!");
+        //                         }
+        //                    }
+        //      });
         }
         function mysubmit(){
             console.log("right");
