@@ -1,4 +1,4 @@
-package com.mng.Repository;
+package com.mng.repository;
 
 import com.mng.entity.Commodity;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,14 +11,17 @@ import java.util.List;
 
 public interface CommodityRepository extends JpaRepository<Commodity, Integer> {
     List<Commodity> findByShopid(Integer shopid);
-    List<Commodity> findByShopidAndName(Integer shopid,String name);
+
+    List<Commodity> findByShopidAndName(Integer shopid, String name);
+
     List<Commodity> findByComid(Integer comid);
+
     @Transactional
     void deleteByComid(Integer comid);
 
     @Modifying
     @Transactional
-    @Query(value="update commodity  set amount =:newamount where comid =:comid",nativeQuery = true)
-    public int updateAmountByComid(@Param("newamount") Double newamount, @Param("comid") Integer comid);
+    @Query(value = "update commodity  set amount =:newamount where comid =:comid", nativeQuery = true)
+    int updateAmountByComid(@Param("newamount") Double newamount, @Param("comid") Integer comid);
 
 }

@@ -1,6 +1,5 @@
 package com.mng.controller.admin;
 
-import com.alibaba.fastjson.JSONObject;
 import com.mng.bean.AdminLoginBody;
 import com.mng.bean.UserRemoveBody;
 import com.mng.bean.UserTableRequestBody;
@@ -24,18 +23,18 @@ public class AdminController extends UserContentProvider {
     public static final String ADMIN_PASSWORD = "123456";
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public JSONObject login(HttpServletRequest request, @ModelAttribute("login") AdminLoginBody body) {
+    public String login(HttpServletRequest request, @ModelAttribute("login") AdminLoginBody body) {
         final String username = body.getUsername();
         final String password = body.getPassword();
         if (ADMIN_USERNAME.equals(username) && ADMIN_PASSWORD.equals(password)) {
             request.getSession().setAttribute("admin_username", username);
             return JsonBuilder.newObject()
                     .put("success", true)
-                    .buildAsJsonObject();
+                    .build();
         }
         return JsonBuilder.newObject()
                 .put("success", false)
-                .buildAsJsonObject();
+                .build();
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.POST)
@@ -47,15 +46,15 @@ public class AdminController extends UserContentProvider {
     }
 
     @RequestMapping(value = "/remove-user", method = RequestMethod.POST)
-    public JSONObject removeUser(HttpServletRequest request, @ModelAttribute("user") UserRemoveBody body) {
+    public String removeUser(HttpServletRequest request, @ModelAttribute("user") UserRemoveBody body) {
         final Integer userId = body.getUserId();
         final String username = body.getUsername();
-        final JSONObject jsonSuccess = JsonBuilder.newObject()
+        final String jsonSuccess = JsonBuilder.newObject()
                 .put("success", true)
-                .buildAsJsonObject();
-        final JSONObject jsonFail = JsonBuilder.newObject()
+                .build();
+        final String jsonFail = JsonBuilder.newObject()
                 .put("success", false)
-                .buildAsJsonObject();
+                .build();
         if (userId != null) {
             Optional<User> userToRemove = userRepository.findById(userId);
             if (userToRemove.isPresent()) {

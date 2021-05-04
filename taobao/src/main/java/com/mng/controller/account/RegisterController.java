@@ -1,6 +1,5 @@
 package com.mng.controller.account;
 
-import com.alibaba.fastjson.JSONObject;
 import com.mng.bean.RegisterBody;
 import com.mng.data.UserType;
 import com.mng.entity.User;
@@ -25,7 +24,7 @@ public class RegisterController extends AccountControllerBase {
     boolean agreed;
 
     @RequestMapping(value = "/user/register", method = RequestMethod.POST)
-    public JSONObject register(@ModelAttribute("register") RegisterBody requestbody) {
+    public String register(@ModelAttribute("register") RegisterBody requestbody) {
         phone = requestbody.getPhone();
         password = requestbody.getPassword();
         confirm = requestbody.getConfirm();
@@ -38,7 +37,7 @@ public class RegisterController extends AccountControllerBase {
             if ("".equals(phone) || "".equals(password) || "".equals(confirm) ||
                     "".equals(usertype) || "".equals(username) || "".equals(mail)) {
                 throw new RegisterFailedException(Status.FIELD_MISSING);
-            } else if(!agreed) {
+            } else if (!agreed) {
                 throw new RegisterFailedException(Status.AGREEMENT_NOT_AGREED);
             } else if (!password.equals(confirm)) {
                 throw new RegisterFailedException(Status.PASSWORD_CONFIRM_MISMATCH);
@@ -51,16 +50,16 @@ public class RegisterController extends AccountControllerBase {
                 } catch (IllegalArgumentException e) {
                     throw new RegisterFailedException(Status.INVALID_USER_TYPE);
                 }
-                if(!username.matches(Constants.USERNAME_REGEX)) {
+                if (!username.matches(Constants.USERNAME_REGEX)) {
                     throw new RegisterFailedException(Status.INVALID_USERNAME);
                 }
-                if(password.length() < 6) {
+                if (password.length() < 6) {
                     throw new RegisterFailedException(Status.PASSWORD_TOO_SHORT);
                 }
-                if(!mail.matches(Constants.EMAIL_REGEX)) {
+                if (!mail.matches(Constants.EMAIL_REGEX)) {
                     throw new RegisterFailedException(Status.INVALID_EMAIL);
                 }
-                if(!phone.matches(Constants.PHONE_REGEX)) {
+                if (!phone.matches(Constants.PHONE_REGEX)) {
                     throw new RegisterFailedException(Status.INVALID_PHONE);
                 }
                 user = new User();
@@ -72,13 +71,13 @@ public class RegisterController extends AccountControllerBase {
                 userRepository.save(user);
                 return JsonBuilder.newObject()
                         .put("status", Status.SUCCESS)
-                        .buildAsJsonObject();
+                        .build();
             }
         } catch (RegisterFailedException e) {
             return JsonBuilder.newObject()
                     .put("status", e.getStatus())
                     .put("error_description", e.getMessage())
-                    .buildAsJsonObject();
+                    .build();
         }
     }
 }

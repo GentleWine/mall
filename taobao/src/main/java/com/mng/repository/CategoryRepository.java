@@ -1,4 +1,4 @@
-package com.mng.Repository;
+package com.mng.repository;
 
 import com.mng.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;

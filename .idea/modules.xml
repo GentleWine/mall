@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/taobao/.mvn/.mvn.iml" filepath="$PROJECT_DIR$/taobao/.mvn/.mvn.iml" />
       <module fileurl="file://$PROJECT_DIR$/taobao/src/main/main.iml" filepath="$PROJECT_DIR$/taobao/src/main/main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/taobao/taobao.iml" filepath="$PROJECT_DIR$/taobao/taobao.iml" />
       <module fileurl="file://$PROJECT_DIR$/taobao/src/test/test.iml" filepath="$PROJECT_DIR$/taobao/src/test/test.iml" />
     </modules>
   </component>

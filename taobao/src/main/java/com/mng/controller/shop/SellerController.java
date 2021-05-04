@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.util.List;
 
 @Controller
-public class SellerController extends ShopBase{
+public class SellerController extends ShopControllerBase {
 
     @RequestMapping(value = "/seller", method = RequestMethod.GET)
     public String seller(Model model, HttpServletRequest request) {

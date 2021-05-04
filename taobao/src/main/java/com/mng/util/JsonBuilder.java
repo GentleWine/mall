@@ -1,22 +1,19 @@
 package com.mng.util;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 /**
  * 用于创建JSON
  */
+@SuppressWarnings("unused")
 public class JsonBuilder {
 
-    private final ObjectNode json;
+    private final JsonObject json;
 
     private JsonBuilder() {
-        this.json = JsonNodeFactory.instance.objectNode();
+        this.json = new JsonObject();
     }
 
     public static JsonBuilder newObject() {
@@ -27,72 +24,72 @@ public class JsonBuilder {
         return new ArrayBuilder();
     }
 
-    public JsonBuilder put(String key, JsonNode element) {
-        json.set(key, element);
+    public JsonBuilder put(String key, JsonElement element) {
+        json.add(key, element);
         return this;
     }
 
     public JsonBuilder put(String key, int element) {
-        json.put(key, element);
+        json.addProperty(key, element);
         return this;
     }
 
     public JsonBuilder put(String key, short element) {
-        json.put(key, element);
+        json.addProperty(key, element);
         return this;
     }
 
     public JsonBuilder put(String key, byte element) {
-        json.put(key, element);
+        json.addProperty(key, element);
         return this;
     }
 
     public JsonBuilder put(String key, long element) {
-        json.put(key, element);
+        json.addProperty(key, element);
         return this;
     }
 
     public JsonBuilder put(String key, double element) {
-        json.put(key, element);
+        json.addProperty(key, element);
         return this;
     }
 
     public JsonBuilder put(String key, float element) {
-        json.put(key, element);
+        json.addProperty(key, element);
         return this;
     }
 
     public JsonBuilder put(String key, char element) {
-        json.put(key, element);
+        json.addProperty(key, element);
         return this;
     }
 
     public JsonBuilder put(String key, boolean element) {
-        json.put(key, element);
+        json.addProperty(key, element);
         return this;
     }
 
     public JsonBuilder put(String key, String element) {
-        json.put(key, element);
+        json.addProperty(key, element);
         return this;
     }
 
     public JsonBuilder put(String key, Enum<?> element) {
-        json.put(key, element.toString());
+        json.addProperty(key, element.toString());
         return this;
     }
 
     public JsonBuilder put(String key, Object element) {
-        json.put(key, element.toString());
+        json.addProperty(key, element.toString());
         return this;
     }
 
-    public ObjectNode build() {
-        return json;
+    public String build() {
+        return json.toString();
     }
 
-    public JSONObject buildAsJsonObject() {
-        return JSON.parseObject(this.toString());
+    public JsonObject buildAsJsonObject() {
+        return json;
     }
 
     @Override
@@ -102,13 +99,13 @@ public class JsonBuilder {
 
     public static class ArrayBuilder {
 
-        private final ArrayNode json;
+        private final JsonArray json;
 
         private ArrayBuilder() {
-            this.json = JsonNodeFactory.instance.arrayNode();
+            this.json = new JsonArray();
         }
 
-        public ArrayBuilder put(JsonNode element) {
+        public ArrayBuilder put(JsonElement element) {
             json.add(element);
             return this;
         }
@@ -174,12 +171,12 @@ public class JsonBuilder {
             return json.toString();
         }
 
-        public ArrayNode build() {
-            return json;
+        public String build() {
+            return json.toString();
         }
 
-        public JSONArray buildAsJsonArray() {
-            return JSON.parseArray(this.toString());
+        public JsonArray buildAsJsonArray() {
+            return json;
         }
     }
 }

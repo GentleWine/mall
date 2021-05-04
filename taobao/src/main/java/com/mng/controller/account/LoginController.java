@@ -1,6 +1,5 @@
 package com.mng.controller.account;
 
-import com.alibaba.fastjson.JSONObject;
 import com.mng.bean.LoginBody;
 import com.mng.entity.User;
 import com.mng.exception.LoginFailedException;
@@ -24,7 +23,7 @@ public class LoginController extends AccountControllerBase {
     String mail;
 
     @RequestMapping(value = "/user/login", method = RequestMethod.POST)
-    public JSONObject login(HttpServletRequest request, @ModelAttribute("login") LoginBody loginbody) {
+    public String login(HttpServletRequest request, @ModelAttribute("login") LoginBody loginbody) {
         phone = loginbody.getPhone();
         password = loginbody.getPassword();
         try {
@@ -47,13 +46,13 @@ public class LoginController extends AccountControllerBase {
                 return JsonBuilder.newObject()
                         .put("status", Status.SUCCESS)
                         .put("usertype", Integer.parseInt(usertype))
-                        .buildAsJsonObject();
+                        .build();
             }
         } catch (LoginFailedException e) {
             return JsonBuilder.newObject()
                     .put("status", e.getStatus())
                     .put("error_description", e.getMessage())
-                    .buildAsJsonObject();
+                    .build();
         }
     }
 }

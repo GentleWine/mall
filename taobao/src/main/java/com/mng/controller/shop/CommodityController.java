@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
-public class CommodityController extends ShopBase {
+public class CommodityController extends ShopControllerBase {
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String home(Model model, HttpServletRequest request) {
@@ -30,6 +30,7 @@ public class CommodityController extends ShopBase {
 
         List<SellerDomain> sellers = getsellers(shops);
         model.addAttribute("sellers", sellers);
+        model.addAttribute("user", user);
         return "index";
     }
 }
