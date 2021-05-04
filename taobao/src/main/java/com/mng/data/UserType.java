@@ -10,14 +10,22 @@ public enum UserType {
         this.id = number;
     }
 
-    public static UserType getFromId(int id) {
+    public static UserType getFromId(int id) throws IllegalArgumentException {
         switch (id) {
             case 0:
                 return CUSTOMER;
             case 1:
                 return SELLER;
             default:
-                return null;
+                throw new IllegalArgumentException("Invalid User Type");
+        }
+    }
+
+    public static UserType getFromIdOrNull(int id) {
+        try {
+            return getFromId(id);
+        } catch (IllegalArgumentException e) {
+            return null;
         }
     }
 
