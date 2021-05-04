@@ -2,8 +2,8 @@ package com.mng.controller.account;
 
 import com.mng.bean.LoginBody;
 import com.mng.entity.User;
-import com.mng.exception.LoginFailedException;
-import com.mng.exception.LoginFailedException.Status;
+import com.mng.exception.authentication.LoginFailedException;
+import com.mng.exception.authentication.LoginFailedException.Status;
 import com.mng.util.JsonBuilder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;

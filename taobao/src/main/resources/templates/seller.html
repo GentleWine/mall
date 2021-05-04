@@ -78,14 +78,14 @@
             var delData = {"comid":delid};
             $.post("/delete_goods",delData,
                 function(data) {
-                    if(data["type"] == "success"){
-                        alert("delete the item successfully!");
+                    if(data["success"] == true){
+                        alert("Item deleted successfully!");
                         location.reload();
                     }
-                    else{
-                        alert("due to unknown reason,delete unsuccessfully!");
+                    else {
+                        alert("Item failed to delete! Reason: " + data["error"]);
                     }
-                           },"json"
+                },"json"
 
                 );
         //     $.ajax({
@@ -95,7 +95,7 @@
         //                     data:delData,
         //                     dataType: "json",
         //                     success: function(data) {
-        //                         if(data["type"] == "success"){
+        //                         if(data["success"] == true){
         //                             alert("delete the item successfully!");
         //                             location.reload();
         //                         }
@@ -129,16 +129,16 @@
             }else{
                 var data = {"name":Name,"price":Price,"kind":Kind,"description":Description};
                // var obj = JSON.stringify(data);
-                //添加商品 期待返回数据:{"type":true, "type":false}
+                //添加商品 期待返回数据:{"success":true, "success":false}
             $.post("/add_goods",data,
-            function(data){
+            function(data) {
                 //res = JSON.parse(data)
-                if(data["type"]=="true"){
-                    alert("Adding success!");
+                if(data["success"] == true){
+                    alert("Item is successfully added!");
                     location.reload();
                 }
                 else{
-                    alert("Adding fail!");
+                    alert("Item failed to add! Reason: " + data["error"]);
                 }
             },"json"
             );
@@ -150,9 +150,6 @@
         //     var obj = JSON.stringify(id);
         //     console.log(obj);
         // }
-
-
-
 
     </script>
 

@@ -1,9 +1,13 @@
 package com.mng.controller.shop;
 
-import com.alibaba.fastjson.JSONObject;
 import com.mng.bean.AddGoodsBody;
 import com.mng.entity.Commodity;
 import com.mng.entity.Shop;
+import com.mng.exception.goods.GoodAddFailedException;
+import com.mng.exception.goods.GoodAlterFailedException;
+import com.mng.exception.goods.GoodDeleteFailedException;
+import com.mng.exception.goods.GoodException;
+import com.mng.util.JsonBuilder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,8 +16,7 @@ import java.util.List;
 @RestController
 public class GoodsController extends ShopControllerBase {
     @RequestMapping(value = "/add_goods", method = RequestMethod.POST)
-    public JSONObject addGoods(HttpServletRequest request, @ModelAttribute("addGoods") AddGoodsBody addGoodsBody) throws Exception {
-        List<Commodity> commodityList;
+    public String addGoods(HttpServletRequest request, @ModelAttribute("addGoods") AddGoodsBody addGoodsBody) {
 
         Integer cateid = addGoodsBody.getKind();
         Integer shopid;
@@ -24,19 +27,15 @@ public class GoodsController extends ShopControllerBase {
         double amount = 100;
         String status = "1";
 
-        //System.out.println(name);
-
         List<Shop> shops = shopRepository.findByOwnerid(userRepository.findByPhone(request.getSession().getAttribute("phone").toString()).get(0).getUserid());
         Shop shop = shops.get(0);
         shopid = shop.getShopid();
 
-        //System.out.println(shopid+"asd");
-        //System.out.println(request.getSession().getAttribute("phone").toString());
         try {
-            if (name.isEmpty() || detail.isEmpty()) {
-                throw new Exception("false");
-            } else if (!(commodityList = commodityRepository.findByShopidAndName(shopid, name)).isEmpty()) {
-                throw new Exception("false");
+            if ("".equals(name) || "".equals(detail)) {
+                throw new GoodAddFailedException("Name or detail is empty!");
+            } else if (!commodityRepository.findByShopidAndName(shopid, name).isEmpty()) {
+                throw new GoodAddFailedException("Shop does not exist!");
             } else {
 
                 Commodity commodity = new Commodity();
@@ -49,71 +48,66 @@ public class GoodsController extends ShopControllerBase {
                 commodity.setAmount(amount);
                 commodity.setStatus(status);
                 commodityRepository.save(commodity);
-                JSONObject json = new JSONObject();
-                json.put("type", "true");
-                return json;
+                return JsonBuilder.newObject()
+                        .put("success", true)
+                        .build();
 
             }
-        } catch (Exception e) {
-            JSONObject json = new JSONObject();
-            json.put("type", e.getMessage());
-            return json;
+        } catch (GoodException e) {
+            return JsonBuilder.newObject()
+                    .put("success", false)
+                    .put("error", e.toString())
+                    .build();
         }
     }
 
     @RequestMapping(value = "/delete_goods", method = RequestMethod.POST)
-    public JSONObject deleteGoods(HttpServletRequest request, @RequestParam("comid") Integer comid) throws Exception {
-        List<Commodity> commodityList;
-        //Integer comid = (Integer) request.getSession().getAttribute("comid");
+    public String deleteGoods(HttpServletRequest request, @RequestParam("comid") Integer comid) {
 
         System.out.println(comid);
-//        commodityList=commodityRepository.findAll();
-//        for(Commodity c : commodityList){
-//            System.out.println(c.toString()+"\n");
-//        }
-
         try {
-            if (comid.equals(null)) {
-                throw new Exception("false");
-            } else if ((commodityList = commodityRepository.findByComid(comid)).isEmpty()) {
-                throw new Exception("false");
+            if (comid == null) {
+                throw new GoodDeleteFailedException("Commodity cannot be null");
+            } else if (commodityRepository.findByComid(comid).isEmpty()) {
+                throw new GoodDeleteFailedException("Commodity cannot be empty");
             } else {
                 commodityRepository.deleteByComid(comid);
-                JSONObject json = new JSONObject();
-                json.put("type", "success");
-                return json;
-
+                return JsonBuilder.newObject()
+                        .put("success", true)
+                        .build();
             }
-        } catch (Exception e) {
-            JSONObject json = new JSONObject();
-            json.put("type", e.getMessage());
-            return json;
+        } catch (GoodException e) {
+            return JsonBuilder.newObject()
+                    .put("success", false)
+                    .put("error", e.toString())
+                    .build();
         }
     }
 
 
     @RequestMapping(value = "/changeGoodsAmount", method = RequestMethod.POST)
-    public JSONObject changeGoodsAmount(HttpServletRequest request, @RequestParam("comid") Integer comid, @RequestParam("delta_amount") Double delta_amount) throws Exception {
+    public String changeGoodsAmount(HttpServletRequest request, @RequestParam("comid") Integer comid, @RequestParam("delta_amount") Double delta_amount) {
         List<Commodity> commodityList;
         System.out.println(comid);
         try {
-            if (comid.equals(null) || delta_amount.equals(null)) {
-                throw new Exception("false");
+            if (comid == null || delta_amount == null) {
+                throw new GoodAlterFailedException("ID or changed amount is null");
             } else if ((commodityList = commodityRepository.findByComid(comid)).isEmpty()) {
-                throw new Exception("false");
+                throw new GoodAlterFailedException("Commodity with this id does not exist!");
             } else if (commodityList.get(0).getAmount() + delta_amount < 0) {
-                throw new Exception("false");
+                throw new GoodAlterFailedException("Amount can't be changed to a negative value!");
             } else {
-                Double newamount = commodityList.get(0).getAmount() + delta_amount;
-                commodityRepository.updateAmountByComid(newamount, comid);
-                JSONObject json = new JSONObject();
-                json.put("type", "success");
-                return json;
+                Double newAmount = commodityList.get(0).getAmount() + delta_amount;
+                commodityRepository.updateAmountByComid(newAmount, comid);
+                return JsonBuilder.newObject()
+                        .put("success", true)
+                        .build();
             }
-        } catch (Exception e) {
-            JSONObject json = new JSONObject();
-            json.put("type", e.getMessage());
-            return json;
+        } catch (GoodException e) {
+            return JsonBuilder.newObject()
+                    .put("success", false)
+                    .put("error", e.toString())
+                    .build();
         }
     }
 }

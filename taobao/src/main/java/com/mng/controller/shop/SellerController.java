@@ -22,7 +22,12 @@ public class SellerController extends ShopControllerBase {
         if (!sellers.isEmpty()) {
             model.addAttribute("seller", sellers.get(0));
             //model.addAttribute("phone",request.getSession().getAttribute("phone"));
-            Log.i("ok");
+            Log.i("Seller session OK");
+        } else {
+            Log.i("Seller is empty");
+            SellerDomain seller = new SellerDomain();
+            seller.setName(request.getSession().getAttribute("username").toString());
+            model.addAttribute("seller", seller);
         }
         return "seller";
     }

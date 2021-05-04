@@ -1,4 +1,4 @@
-package com.mng.exception;
+package com.mng.exception.authentication;
 
 public class LoginFailedException extends AuthenticationException {
 
@@ -16,6 +16,16 @@ public class LoginFailedException extends AuthenticationException {
 
     public Status getStatus() {
         return status;
+    }
+
+    @Override
+    public String getStatusName() {
+        return status.toString();
+    }
+
+    @Override
+    public String getStatusDescription() {
+        return status.defaultMessage;
     }
 
     public enum Status {
