@@ -90,4 +90,31 @@ public class GoodsController extends ShopBase{
             return json;
         }
     }
+
+
+    @RequestMapping(value = "/changeGoodsAmount",method = RequestMethod.POST)
+    public JSONObject changeGoodsAmount(HttpServletRequest request, @RequestParam("comid") Integer comid,@RequestParam("delta_amount") Double delta_amount) throws Exception {
+        List<Commodity>  commodityList;
+        System.out.println(comid);
+        try {
+            if(comid.equals(null)||delta_amount.equals(null)){
+                throw new Exception("false");
+            }else if ((commodityList = commodityRepository.findByComid(comid)).isEmpty()) {
+                throw new Exception("false");
+            }else if (commodityList.get(0).getAmount()+delta_amount<0){
+                throw new Exception("false");
+            }
+            else {
+                Double newamount =commodityList.get(0).getAmount()+delta_amount;
+                commodityRepository.updateAmountByComid(newamount,comid);
+                JSONObject json = new JSONObject();
+                json.put("type","success");
+                return json;
+            }
+        }catch( Exception e){
+            JSONObject json = new JSONObject();
+            json.put("type", e.getMessage());
+            return json;
+        }
+    }
 }
