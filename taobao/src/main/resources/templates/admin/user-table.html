@@ -137,13 +137,39 @@
                      return false;
                  } else if (obj.event === 'delete') {
                      layer.confirm('Do you really want to delete this row?', function (index) {
-                         obj.del();
+                        $.ajax({
+                            type: "post",
+                            url: "/admin/remove-user",
+                            data: {userId: obj.data.userid},
+                            dataType: "json",
+                            success: function(data) {
+                                var success = data['success'] == true;
+                                var msg = "Success!";
+                                if (!success) {
+                                    msg = "Remove failed!";
+                                }
+                                var index = layer.alert(msg, {
+                                    title: 'Remove User'
+                             }, function() {
+
+                             // 关闭弹出层
+                             layer.close(index);
+
+                             obj.del();
+
+                             var iframeIndex = parent.layer.getFrameIndex(window.name);
+                             parent.layer.close(iframeIndex);
+
+                         });
+                     }
+                            });
                          layer.close(index);
                      });
                  }
              });
 
          });
-      </script>
+
+</script>
 </body>
 </html>

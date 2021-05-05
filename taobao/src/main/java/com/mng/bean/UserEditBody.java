@@ -1,13 +1,10 @@
 package com.mng.bean;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class UserEditBody {
+public class UserEditBody extends UserAddBody {
     private int id;
-    private String username;
-    private String password;
-    private String usertype;
-    private String phone;
-    private String mail;
 }

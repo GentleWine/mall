@@ -7,7 +7,5 @@ import javax.annotation.Nullable;
 @Data
 public class UserRemoveBody {
     @Nullable
-    private Integer userId;
-    @Nullable
-    private String username;
+    private int userId;
 }

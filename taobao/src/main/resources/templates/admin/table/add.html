@@ -68,26 +68,36 @@
             $ = layui.$;
 
         //监听提交
-        form.on('submit(saveBtn)', function (data) {
-            var index = layer.alert(JSON.stringify(data.field), {
-                title: '最终的提交信息'
-            }, function () {
+        form.on('submit(saveBtn)', function (data1) {
+            $.ajax({
+                     type: "post",
+                     url: "/admin/add-user",
+                     data: data1.field,
+                     dataType: "json",
+                     success: function(data) {
+                         var success = data['success'] == true;
+                         var msg = "Success!";
+                         if (!success) {
+                             msg = data['reason'];
+                         }
+                         var index = layer.alert(msg, {
+                             title: 'Add User'
+                         }, function() {
 
-                // 关闭弹出层
-                layer.close(index);
+                             // 关闭弹出层
+                             layer.close(index);
 
-                var iframeIndex = parent.layer.getFrameIndex(window.name);
-                parent.layer.close(iframeIndex);
+                             var iframeIndex = parent.layer.getFrameIndex(window.name);
+                             parent.layer.close(iframeIndex);
 
-            });
+                         });
+                     }
+                 });
 
             return false;
         });
 
     });
-
-
-
 
 </script>
 </body>
