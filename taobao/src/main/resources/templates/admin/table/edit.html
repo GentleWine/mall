@@ -11,21 +11,24 @@
     <link rel="stylesheet" href="/css/public.css" media="all">
     <script type="text/javascript" src="/js/layui.js"></script>
     <style>
-        body {
-            background-color: #ffffff;
-        }
-
-
-
-
-    </style>
+         body {
+         background-color: #ffffff;
+         }
+      </style>
 </head>
 <body>
 <div class="layui-form layuimini-form">
     <div class="layui-form-item">
+        <label class="layui-form-label required">ID</label>
+        <div class="layui-input-block">
+            <input type="text" id="id" name="id" lay-verify="required" lay-reqtext="ID can't be empty!"
+                   placeholder="Input ID" value="" class="layui-input" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label class="layui-form-label required">Username</label>
         <div class="layui-input-block">
-            <input type="text" name="username" lay-verify="required" lay-reqtext="Username can't be empty!"
+            <input type="text" id="username" name="username" lay-verify="required" lay-reqtext="Username can't be empty!"
                    placeholder="Input Username" value="" class="layui-input">
             <tip>Changed username of the user.</tip>
         </div>
@@ -33,28 +36,31 @@
     <div class="layui-form-item">
         <label class="layui-form-label required">Password</label>
         <div class="layui-input-block">
-            <input type="text" name="password" lay-verify="required" lay-reqtext="Password can't be empty!"
+            <input type="text" id="password" name="password" lay-verify="required"
+                   lay-reqtext="Password can't be empty!"
                    placeholder="Input Password" value="" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label required">User Type</label>
         <div class="layui-input-block">
-            <input type="radio" name="usertype" value="0" title="Customer" checked="">
-            <input type="radio" name="usertype" value="1" title="Seller">
+            <input type="radio" id="usertype_0" name="usertype" value="0" title="Customer" checked>
+            <input type="radio" id="usertype_1" name="usertype" value="1" title="Seller">
+            <input type="radio" id="usertype_2" name="usertype" value="2" title="Admin">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label required">Phone Number</label>
         <div class="layui-input-block">
-            <input type="number" name="phone" lay-verify="required" lay-reqtext="Phone Number can't be empty!"
+            <input type="number" id="phone" name="phone" lay-verify="required"
+                   lay-reqtext="Phone Number can't be empty!"
                    placeholder="Input Phone Number" value="" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">Email</label>
         <div class="layui-input-block">
-            <input type="email" name="mail" placeholder="Input Email" value="" class="layui-input">
+            <input type="email" id="mail" name="mail" placeholder="Input Email" value="" class="layui-input">
         </div>
     </div>
     <br>
@@ -66,33 +72,59 @@
 </div>
 <script type="text/javascript" src="/js/layui.js"></script>
 <script>
-    layui.use(['form'], function () {
-        var form = layui.form,
-            layer = layui.layer,
-            $ = layui.$;
+    function child(obj){
+        document.getElementById("id").value = obj.userid; //获取父界面的传值
+        document.getElementById("username").value = obj.username;
+        document.getElementById("password").value = obj.password;
+        document.getElementById("phone").value = obj.phone;
+        document.getElementById("mail").value = obj.mail;
+        if(obj.usertype == "0") {
+            document.getElementById("usertype_0").checked = true;
+        } else if(obj.usertype == "1") {
+            document.getElementById("usertype_1").checked = true;
+        } else if(obj.usertype == "2") {
+            document.getElementById("usertype_2").checked = true;
+        }
+    }
 
-        //监听提交
-        form.on('submit(saveBtn)', function (data) {
-            var index = layer.alert(JSON.stringify(data.field), {
-                title: 'Submitted Data:'
-            }, function () {
+         layui.use(['form'], function() {
+                 var form = layui.form,
+                 layer = layui.layer,
+                 $ = layui.$;
 
-                // 关闭弹出层
-                layer.close(index);
+             //监听提交
+             form.on('submit(saveBtn)', function(data1) {
 
-                var iframeIndex = parent.layer.getFrameIndex(window.name);
-                parent.layer.close(iframeIndex);
+                 $.ajax({
+                     type: "post",
+                     url: "/admin/edit-user",
+                     data: data1.field,
+                     dataType: "json",
+                     success: function(data) {
+                         var success = data['success'] == true;
+                         var msg = "Success!";
+                         if (!success) {
+                             msg = data['reason'];
+                         }
+                         var index = layer.alert(msg, {
+                             title: 'Edit User'
+                         }, function() {
 
-            });
+                             // 关闭弹出层
+                             layer.close(index);
 
-            return false;
-        });
+                             var iframeIndex = parent.layer.getFrameIndex(window.name);
+                             parent.layer.close(iframeIndex);
 
-    });
+                         });
+                     }
+                 });
+
+                 return false;
+             });
+         });
 
 
-
-
-</script>
+      </script>
 </body>
 </html>

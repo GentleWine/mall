@@ -11,11 +11,18 @@ import java.io.IOException;
 
 @Component
 public class Interceptor implements HandlerInterceptor {
+
+    public static String[] requireLoginPaths = new String[]{
+            "home",
+            "seller",
+            "add_goods",
+            "delete_goods",
+            "changeGoodsAmount"
+    };
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws ServletException, IOException {
 
         // Admin Panel
-
         if (request.getRequestURL().toString().matches("^(https?://)?[a-zA-Z0-9.-]+/admin(/\\S+)?/?$")) {
             String loginUrl = request.getContextPath() + "/admin/login";
             Log.i("Request URL on Admin Section: " + request.getRequestURL());
@@ -26,13 +33,18 @@ public class Interceptor implements HandlerInterceptor {
             }
             return true;
         }
-        if (request.getSession().getAttribute("phone") == null) {
-            Log.i("Request URL: " + request.getRequestURL());
-            Log.i("Request Method: " + request.getMethod());
-            request.getRequestDispatcher("/").forward(request, response);
-            return false;
-        } else {
-            return true;
+
+        for (String path : requireLoginPaths) {
+            if (request.getRequestURL().toString().matches("^(https?://)?[a-zA-Z0-9.-]+/" + path + "(/\\S+)?/?$")) {
+                if (request.getSession().getAttribute("phone") == null) {
+                    Log.i("Request URL: " + request.getRequestURL());
+                    Log.i("Request Method: " + request.getMethod());
+                    request.getRequestDispatcher("/").forward(request, response);
+                    return false;
+                }
+            }
         }
+        return true;
+
     }
 }
