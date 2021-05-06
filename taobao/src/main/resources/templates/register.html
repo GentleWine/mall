@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css" rel="stylesheet">
     <style>
         .contentbody {
             margin-top: 100px;
@@ -27,19 +27,18 @@
         }
 
 
-
     </style>
     <title>Register</title>
     <!-- 引入favicon图标 -->
-    <link rel="shortcut icon" href="/favicon.ico"/>
+    <link href="/favicon.ico" rel="shortcut icon"/>
     <!-- 引入我们初始化的css -->
-    <link rel="stylesheet" href="/css/base.css" type="text/css">
+    <link href="/css/base.css" rel="stylesheet" type="text/css">
     <!-- 引入我们自己的注册页面的css -->
-    <link rel="stylesheet" href="/css/register.css" type="text/css">
+    <link href="/css/register.css" rel="stylesheet" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.1.4/dist/jquery.min.js"></script>
     <script>
-                //发送ajax请求。期望返回数据：{"userExsit":true,"msg":"Phone has already been registered"}；{"userExsit":false,"msg":"Phone is legal"}
-        
+        //发送ajax请求。期望返回数据：{"userExsit":true,"msg":"Phone has already been registered"}；{"userExsit":false,"msg":"Phone is legal"}
+
         //     $("#password").blur(function () {
         //         //获取文本框的值
         //         var password = $(this).val();
@@ -53,7 +52,7 @@
         //             if (data.userExsit){
         //                 //用户名存在
         //                 s_possword.css("color","red");
-                        
+
         //                 s_possword.html(data.msg);
         //             }else {
         //                 //用户名不存在
@@ -62,59 +61,56 @@
         //                 s_possword.html(data.msg);
         //             }
         //         },"json");
-           
+
         // });
         $("#confirm").blur(function () {
-                //获取文本框的值
-                var password_1 = $(this).value;
-                //获取上一个文本框中密码
-                var password_2=$("#password").value;
-                //判断两个密码是否一致
-                //发送ajax请求。期望返回数据：{"confirm":true,"msg":"correct"}；{"confirm":false,"msg":"Error! please re-enter!"}
-                // $.get("password_confirm",{password1:password_1, password2:password_2},
-                // function (data) {
-                //     //获取error_3元素
-                //     var s_possword = $("#error_3");
-                //     //判断userExsit值
-                //     if (data.userExsit){
-                //         //用户名存在
-                //         s_possword.css("color","red");
-                        
-                //         s_possword.html(data.msg);
-                //     }else {
-                //         //用户名不存在
-                //         s_possword.css("color","green");
-                //         s_possword.addClass("error_icon")
-                //         s_possword.html(data.msg);
-                //     }
-                // },"json");
-                if(password_1==password_2){
-                    $("#confirm").after("<span id='error_3' class='error' >Correct!<i ></i></span></li> ")
-                }
-                else{
-                        //重新输入的密码不正确
-                       $("#confirm").after("<span id='error_3' class='error' class='error_icon'>Error! please re-enter <i ></i></span></li> ")
-                }
-            });                    //注册
+            //获取文本框的值
+            var password_1 = $(this).value;
+            //获取上一个文本框中密码
+            var password_2 = $("#password").value;
+            //判断两个密码是否一致
+            //发送ajax请求。期望返回数据：{"confirm":true,"msg":"correct"}；{"confirm":false,"msg":"Error! please re-enter!"}
+            // $.get("password_confirm",{password1:password_1, password2:password_2},
+            // function (data) {
+            //     //获取error_3元素
+            //     var s_possword = $("#error_3");
+            //     //判断userExsit值
+            //     if (data.userExsit){
+            //         //用户名存在
+            //         s_possword.css("color","red");
+
+            //         s_possword.html(data.msg);
+            //     }else {
+            //         //用户名不存在
+            //         s_possword.css("color","green");
+            //         s_possword.addClass("error_icon")
+            //         s_possword.html(data.msg);
+            //     }
+            // },"json");
+            if (password_1 == password_2) {
+                $("#confirm").after("<span id='error_3' class='error' >Correct!<i ></i></span></li> ")
+            } else {
+                //重新输入的密码不正确
+                $("#confirm").after("<span id='error_3' class='error' class='error_icon'>Error! please re-enter <i ></i></span></li> ")
+            }
+        });                    //注册
         function register() {
-                if($("#user").value == ""){
-                    alert("please input username");
-                }
-                else if($("#mail").value == ""){
-                    alert("please input email");
-                }
-                else{
-                    var username=$("#username").val()
-                    var mail=$("#mail").val()
-                    var phone = $("input[name='Phone']").val();
-                    var password = $("input[name='password']").val();
-                    var confirm=$("#confirm").val()
-                    var usertype= $("#usertype").val();
-                    var agreement = $("#user_agreement").prop("checked");
-                    $.ajax({
-                        type: "post",
-                        url: "/user/register",
-                        data: {
+            if ($("#user").value == "") {
+                alert("please input username");
+            } else if ($("#mail").value == "") {
+                alert("please input email");
+            } else {
+                let username = $("#username").val();
+                let mail = $("#mail").val();
+                let phone = $("input[name='Phone']").val();
+                let password = $("input[name='password']").val();
+                let confirm = $("#confirm").val();
+                let usertype = $("#usertype").val();
+                let agreement = $("#user_agreement").prop("checked");
+                $.ajax({
+                    type: "post",
+                    url: "/user/register",
+                    data: {
                         'username': username,
                         'phone': phone,
                         'usertype': usertype,
@@ -124,17 +120,17 @@
                         'agreementAgreed': agreement
                     },
                     dataType: "json",
-                    success: function(data){
+                    success: function (data) {
                         console.log(data);
-                        if(data['status'] == "SUCCESS") {
-                            window.location.href="/";
+                        if (data['status'] === "SUCCESS") {
+                            window.location.href = "/";
                         } else {
                             alert(data['error_description']);
                         }
                     }
                 });
-                }
             }
+        }
 
     </script>
 </head>
@@ -143,7 +139,7 @@
 <div class="w">
     <header>
         <div class="logo">
-            <a href="index"> <img src="/images/xdu.png" alt=""></a>
+            <a href="index"> <img alt="" src="/images/xdu.png"></a>
         </div>
     </header>
     <div class="registerarea">
@@ -153,33 +149,44 @@
         <div class="reg_form">
             <form>
                 <ul>
-                    <li><label>Phone：</label> <input type="text" name="Phone" id="Phone" class="inp">
+                    <li><label for="Phone">Phone：</label> <input class="inp" id="Phone" name="Phone" type="text">
                         <!-- 要将输入的text进行判断，看用户名是否存在，然后用jquery判断是否显示那个error相关的span标签，下面几个都是如此判断 -->
-                        <span id="error_1" class="error"> <i></i></span></li>
-                    <li><label>Username：</label> <input type="text" name="username" id="username" class="inp">
-                    <li><label>Mail：</label> <input type="email" name="mail" id="mail" class="inp">
+                        <span class="error" id="error_1"> <i></i></span></li>
+                    <li><label for="username">Username：</label> <input class="inp"
+                                                                       id="username"
+                                                                       name="username"
+                                                                       type="text">
+                    <li><label for="mail">Mail：</label> <input class="inp" id="mail" name="mail" type="email">
                         <!-- <li><label for="">短信验证码：</label> <input type="text" class="inp">
                             <span class="success"> <i class="success_icon"></i> 短信验证码输入正确 </span></li> -->
-                    <li><label>Password：</label> <input type="password" name="password" id="password"
-                                                        class="inp">
-                        <span id="error_2" class="error"> <i></i></span></li>
+                    <li><label for="password">Password：</label> <input class="inp" id="password" name="password"
+                                                                       type="password">
+                        <span class="error" id="error_2"> <i></i></span></li>
 
                     <!-- <li class="safe">安全程度 <em class="ruo">弱</em> <em class="zhong">中</em> <em class="qiang">强</em> </li> -->
-                    <li><label>Confirm：</label> <input type="password" name="confirm" id="confirm" class="inp">
+                    <li><label for="confirm">Confirm：</label> <input class="inp"
+                                                                     id="confirm"
+                                                                     name="confirm"
+                                                                     type="password">
 
-                    <li><label>Type：</label> <select id='usertype'>
-                        <option value="0">Customer</option>
-                        <option value="1">Seller</option>
-                        <option value="Administrator">Administrator</option>
-                    </select>
+                    <li>
+                        <label for="usertype">Type：</label>
+                        <select id='usertype'>
+                            <option value="0">Customer</option>
+                            <option value="1">Seller</option>
+                            <option value="Administrator">Administrator</option>
+                        </select>
                     </li>
-
-                    <li class="agree"><input type="checkbox" name="" id="user_agreement">
-                        Agree to the agreement and register <a href="#">《User Agreement》</a>
+                    <li class="agree" style="position:relative; right:120px;"><label for="user_agreement"></label><input
+                            id="user_agreement"
+                            name=""
+                            type="checkbox">&nbsp;&nbsp;Agree to the agreement
+                                            and register
+                        <a href="#"><u>User Agreement</u></a>
 
                     </li>
                     <li>
-                        <button type="button" value="Register" class="btn" onclick="register()">Register</button>
+                        <button class="btn" onclick="register()" type="button" value="Register">Register</button>
                     </li>
                 </ul>
             </form>

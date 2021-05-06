@@ -3,102 +3,104 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <title>xdubuy</title>
     <!-- 网站说明 -->
-    <meta name="description"
-          content="xdubuy-Focusing on building a mall of good quatity for xduer"/>
+    <meta content="xdubuy-Focusing on building a mall of good quatity for xduer"
+          name="description"/>
     <!-- 关键字 -->
-    <meta name="keywords" content="Snacks, stationery, daily necessities"/>
+    <meta content="Snacks, stationery, daily necessities" name="keywords"/>
 
     <!-- 引入favicon图标 -->
-    <link rel="shortcut icon" href="favicon.ico"/>
+    <link href="favicon.ico" rel="shortcut icon"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.1.4/dist/jquery.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
     <!-- 引入我们初始化样式文件 -->
-    <link rel="stylesheet" href="css/base.css">
+    <link href="css/base.css" rel="stylesheet">
     <!-- 引入我们公共的样式文件 -->
-    <link rel="stylesheet" href="css/common.css">
+    <link href="css/common.css" rel="stylesheet">
     <!-- 引入我们index.css文件  -->
-    <link rel="stylesheet" href="css/index.css">
+    <link href="css/index.css" rel="stylesheet">
     <style>
         @font-face {
-    font-family: 'iconfont';
-    src: url('icon/iconfont.eot');
-    src: url('icon/iconfont.eot?#iefix') format('embedded-opentype'),
-        url('icon/iconfont.woff2') format('woff2'),
-        url('icon/iconfont.woff') format('woff'),
-        url('icon/iconfont.ttf') format('truetype'),
-        url('icon/iconfont.svg#iconfont') format('svg');
-  }
-  .iconfont {
-    margin-left: 5px;
-    font-family: "iconfont" !important;
-    font-size: 30px;
-    font-style: normal;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background-color: #fff;
-  }
+            font-family: 'iconfont';
+            src: url('icon/iconfont.eot');
+            src: url('icon/iconfont.eot?#iefix') format('embedded-opentype'),
+            url('icon/iconfont.woff2') format('woff2'),
+            url('icon/iconfont.woff') format('woff'),
+            url('icon/iconfont.ttf') format('truetype'),
+            url('icon/iconfont.svg#iconfont') format('svg');
+        }
 
+        .iconfont {
+            margin-left: 5px;
+            font-family: "iconfont", sans-serif !important;
+            font-size: 30px;
+            font-style: normal;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: #fff;
+        }
 
 
     </style>
 </head>
 <script type="text/javascript">
-        $(function(){
-            $.ajax({
-                 type:"get", 
-                 url:"/home",
-                 async:false,
-                 data:{},
-                 dataType: 'json',
-                 success: function(data) {
-                     console.log(data);
-                 }
-             });
+    $(function () {
+        $.ajax({
+            type: "get",
+            url: "/home",
+            async: false,
+            data: {},
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+            }
         });
-		$('#myModal').on('shown.bs.modal', function () {
-            $('#myInput').focus()
-        });
-        //this js中指当前对象
-        function add_shoppingcar(btn){
-            var a=btn.parentNode.parentNode;
-            var divs=a.getElementsByTagName("div");
-            var name=divs[0].innerHTML;
-            console.log(name);
-            var spans = divs[1].getElementsByTagName("span")
-            var price=spans[0].innerHTML;
-            console.log(price);
-            var tbody=document.getElementById("goods");
-                        console.log(tbody);
-            var row=tbody.insertRow();//insertRow表格开头插入新行
-            row.innerHTML="<td>"+name+"</td>"+
-        "<td>"+price+"</td>"+
-        "<td align='center'>"+
-        "<input type='button' value='-' id='jian'  onclick='change(this,-1)'  />"+
-        "<input id='text' type='text' size='1' value='1' readonly='readonly' />"+
-        "<input type='button' value='+' id='add'  onclick='change(this,1)'  />"+
-        "</td>"+
-        "<td>"+price+"</td>"+
-        "<td align='center'>"+
-            "<input type='button' value='X' onclick='del(this)'/>"+
-        "</td>"+
-        "</tr>"
+    });
+    $('#myModal').on('shown.bs.modal', function () {
+        $('#myInput').focus()
+    });
+
+    //this js中指当前对象
+    function add_shoppingcar(btn) {
+        var a = btn.parentNode.parentNode;
+        var divs = a.getElementsByTagName("div");
+        var name = divs[0].innerHTML;
+        console.log(name);
+        var spans = divs[1].getElementsByTagName("span")
+        var price = spans[0].innerHTML;
+        console.log(price);
+        var tbody = document.getElementById("goods");
+        console.log(tbody);
+        var row = tbody.insertRow();//insertRow表格开头插入新行
+        row.innerHTML = "<td>" + name + "</td>" +
+            "<td>" + price + "</td>" +
+            "<td align='center'>" +
+            "<input type='button' value='-' id='jian'  onclick='change(this,-1)'  />" +
+            "<input id='text' type='text' size='1' value='1' readonly='readonly' />" +
+            "<input type='button' value='+' id='add'  onclick='change(this,1)'  />" +
+            "</td>" +
+            "<td>" + price + "</td>" +
+            "<td align='center'>" +
+            "<input type='button' value='X' onclick='del(this)'/>" +
+            "</td>" +
+            "</tr>"
         total();
-        }
-        //增加减少数量，用n正负1来表示点击了加减按钮
-    function change(btn,n){
+    }
+
+    //增加减少数量，用n正负1来表示点击了加减按钮
+    function change(btn, n) {
         //获取数量的三个input对象
-        var inputs = btn.parentNode.getElementsByTagName("input");
+        let inputs = btn.parentNode.getElementsByTagName("input");
         //获取原来的数量
-        var amount = parseInt(inputs[1].value);
+        let amount = parseInt(inputs[1].value);
         //当amount=1时不能再点击"-"符号
         //用n<0来表示点击了减button
-        if(amount<=1 && n<0){
+        if (amount <= 1 && n < 0) {
             return;
         }
         //根据加减来改变数量
@@ -106,41 +108,38 @@
         //将改变后的数量值赋值给amount
         amount = inputs[1].value;
         //获取表格中的行
-        var tr = btn.parentNode.parentNode;
+        let tr = btn.parentNode.parentNode;
         //获取所有的列
-        var tds = tr.getElementsByTagName("td");
+        let tds = tr.getElementsByTagName("td");
         //获取单价
-        var price = parseFloat(tds[1].innerHTML);
+        let price = parseFloat(tds[1].innerHTML);
         //总价=单价*数量
-        var m = price * amount;
         //将总价赋值给相应的位置
-        tds[3].innerHTML = m;
+        tds[3].innerHTML = price * amount;
         //调用total方法，求总计
         total();
     }
 
 
-        function total(){
-            var tbody=document.getElementById("goods");
-            var trs=tbody.getElementsByTagName("tr");
-            var sum=0;
-            for(var i=0;i<trs.length;i++){
-                var tds=trs[i].getElementsByTagName("td");
-                var m=tds[3].innerHTML;
-                sum += parseFloat(m);
-            }
-            var total=document.getElementById("total");
-            total.innerHTML = sum;
+    function total() {
+        let tbody = document.getElementById("goods");
+        let trs = tbody.getElementsByTagName("tr");
+        let sum = 0;
+        for (let i = 0; i < trs.length; i++) {
+            let tds = trs[i].getElementsByTagName("td");
+            let m = tds[3].innerHTML;
+            sum += parseFloat(m);
         }
-        function del(i){
-            var tr=i.parentNode.parentNode;
-            tr.parentNode.removeChild(tr);
-            //tr.remove(tr);
-            total();
-        }
+        let total = document.getElementById("total");
+        total.innerHTML = sum.toString();
+    }
 
-
-
+    function del(i) {
+        let tr = i.parentNode.parentNode;
+        tr.parentNode.removeChild(tr);
+        //tr.remove(tr);
+        total();
+    }
 </script>
 <body>
 
@@ -153,16 +152,16 @@
     </div>
 </div>
 <div class="col-md-2">
-    <button class='shopping_cart' data-toggle="modal" data-target="#myModal">                   <!--跳转到购物车-->
+    <button class='shopping_cart' data-target="#myModal" data-toggle="modal">                   <!--跳转到购物车-->
         <span class="iconfont">&#xe630;</span>
         <p class="into_cart_info">click into shopping cart</p>
     </button>
     <!-- Modal  添加商品表单-->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div aria-labelledby="myModalLabel" class="modal fade" id="myModal" role="dialog" tabindex="-1">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
                             aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">add goods</h4>
                 </div>
@@ -179,11 +178,11 @@
                                     <th>delete</th>
                                 </tr>
                                 </thead>
-                                <tbody id="goods" class="modal-body">
+                                <tbody class="modal-body" id="goods">
                                 </tbody>
                                 <tfoot>
                                 <tr>
-                                    <td colspan="3" align="center">total</td>
+                                    <td colspan="3" style="text-align:center">total</td>
                                     <td id="total"></td>
                                     <td>RMB</td>
                                 </tr>
@@ -194,8 +193,8 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                    <button class="btn btn-primary" type="button">Save changes</button>
                 </div>
             </div>
         </div>
@@ -418,14 +417,14 @@
 <!-- 推荐模块 start -->
 <div class="w recom">
     <div class="recom_hd">
-        <img src="images/recom.jpg" alt="" width="205px" height="163px">
+        <img alt="" height="163px" src="images/recom.jpg" width="205px">
     </div>
     <div class="recom_bd">
         <ul>
-            <li><img src="upload/recom_03.jpg" alt="" width="205px" height="163px"></li>
-            <li><img src="upload/recom_03.jpg" alt="" width="205px" height="163px"></li>
-            <li><img src="upload/recom_03.jpg" alt="" width="205px" height="163px"></li>
-            <li><img src="upload/recom_03.jpg" alt="" width="205px" height="163px"></li>
+            <li><img alt="" height="163px" src="upload/recom_03.jpg" width="205px"></li>
+            <li><img alt="" height="163px" src="upload/recom_03.jpg" width="205px"></li>
+            <li><img alt="" height="163px" src="upload/recom_03.jpg" width="205px"></li>
+            <li><img alt="" height="163px" src="upload/recom_03.jpg" width="205px"></li>
         </ul>
     </div>
 </div>
@@ -537,16 +536,16 @@
 <!-- 楼层区域制作end -->
 <!-- 商品模块的css全部在index.css中 -->
 <div th:each="seller:${sellers}">
-    <h1 th:text="${seller.name}" align="center">xxx</h1>
-    <h2 align="center"> shop</h2>
+    <h1 style="text-align:center" th:text="${seller.name}">xxx</h1>
+    <h2 style="text-align:center"> shop</h2>
     <div th:each="kind:${seller.kinds}">
         <div class="snav w">
             <h3 th:text="${kind.name}">computer</h3>
         </div>
         <ul class="all_goods w">
             <li class="goods" th:each="item:${kind.items}">
-                <a href="#" class="item-a">
-                    <img src="favicon.png" alt="" width="194px" height="198px">
+                <a class="item-a" href="#">
+                    <img alt="" height="198px" src="favicon.png" width="194px">
                     <div class="item_title" th:text="${item.item_title}"> a good goods a good goods</div>
                     <div class="item_price"><span class="price_css" th:text="${item.price}">9999</span><span>RMB</span>
                     </div>
@@ -654,8 +653,8 @@
         <div class="mod_copyright">
             <div class="links">
                 <a href="#">About us</a> | <a href="#">Contact us</a> | Customer service | Business settlement |
-                Marketing Center | Mobile phone premium | Links | Sales alliance | Community |
-                Public welfare | English Site | Contact U
+                                         Marketing Center | Mobile phone premium | Links | Sales alliance | Community |
+                                         Public welfare | English Site | Contact U
             </div>
             <div class="copyright">
                 address：Clsyyds Office, 3rd Floor, Haitang Dormitory No.7, Xidian University postcode：1xxx96

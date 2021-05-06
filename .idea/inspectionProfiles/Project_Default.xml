@@ -4,8 +4,31 @@
     <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myValues">
         <value>
-          <list size="1">
+          <list size="5">
             <item index="0" class="java.lang.String" itemvalue="th:text" />
+            <item index="1" class="java.lang.String" itemvalue="lay-verify" />
+            <item index="2" class="java.lang.String" itemvalue="lay-reqtext" />
+            <item index="3" class="java.lang.String" itemvalue="lay-submit" />
+            <item index="4" class="java.lang.String" itemvalue="lay-filter" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
+    <inspection_tool class="HtmlUnknownTag" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myValues">
+        <value>
+          <list size="10">
+            <item index="0" class="java.lang.String" itemvalue="nobr" />
+            <item index="1" class="java.lang.String" itemvalue="noembed" />
+            <item index="2" class="java.lang.String" itemvalue="comment" />
+            <item index="3" class="java.lang.String" itemvalue="noscript" />
+            <item index="4" class="java.lang.String" itemvalue="embed" />
+            <item index="5" class="java.lang.String" itemvalue="script" />
+            <item index="6" class="java.lang.String" itemvalue="div" />
+            <item index="7" class="java.lang.String" itemvalue="thead" />
+            <item index="8" class="java.lang.String" itemvalue="tbody" />
+            <item index="9" class="java.lang.String" itemvalue="tfoot" />
           </list>
         </value>
       </option>

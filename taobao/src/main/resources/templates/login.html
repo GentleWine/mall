@@ -140,22 +140,21 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <title>Login</title>
     <!-- 引入favicon图标 -->
-    <link rel="shortcut icon" href="../favicon.png"/>
+    <link href="../favicon.png" rel="shortcut icon"/>
     <!-- 引入我们初始化的css -->
-    <link rel="stylesheet" href="../css/base.css">
+    <link href="../css/base.css" rel="stylesheet">
     <!-- 引入我们自己的注册页面的css -->
-    <link rel="stylesheet" href="../css/register.css">
+    <link href="../css/register.css" rel="stylesheet">
     <style>
         .contentbody {
             margin-top: 100px;
         }
 
         .font {
-
             font-size: 50px;
             font-style: italic;
             font-weight: bold;
@@ -170,16 +169,15 @@
         }
 
 
-
     </style>
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.1.4/dist/jquery.min.js"></script>
     <script>
-          function login() {
+        function login() {
             // if ($.trim($("#phone").val()) == "") {
             //     alert("please input phone");
             // }
-            var phone = $("#Phone").val();
-            var password = $("#password").val();
+            let phone = $("#Phone").val();
+            let password = $("#password").val();
             //发送ajax请求，判断用户名是否存在，然后判断密码是否正确
             //期望返回数据：{"status":"SUCCESS"}
             $.ajax({
@@ -191,35 +189,27 @@
                 },
                 dataType: "json",
                 success: function (data) {
-                    if (data["status"] == "SUCCESS") {
-                        if (data["usertype"] == 0) {
+                    if (data["status"] === "SUCCESS") {
+                        if (data["usertype"] === 0) {
                             window.location.href = "home";
-                        }
-                        else {
+                        } else {
                             window.location.href = "seller";
                         }
                     } else {
                         alert(data["error_description"]);
                     }
                 },
-                error:function(data){
+                error: function (data) {
                     alert("Login failed for unknown reasons");
                     console.log(data);
                 }
             });
-        };
-
+        }
 
         function reset() {
-            var phone = document.getElementById("phone").value;
-            var password = document.getElementById("Password").value;
-            phone = null;
-            password = null;
-
+            document.getElementById("phone").value = null;
+            document.getElementById("Password").value = null;
         }
-                
-
-
 
     </script>
 </head>
@@ -228,7 +218,7 @@
 <div class="w">
     <header>
         <div class="logo">
-            <a href="index"> <img src="../favicon.ico" alt=""></a>
+            <a href="index"> <img alt="" src="../favicon.ico"></a>
         </div>
     </header>
     <div class="registerarea">
@@ -238,25 +228,23 @@
         <div class="reg_form">
             <form action="">
                 <ul>
-                    <li><label for="">Phone：</label> <input type="text" name="Phone" id="Phone" class="inp">
+                    <li><label for="Phone">Phone：</label> <input class="inp" id="Phone" name="Phone" type="text">
                         <!-- 要将输入的text进行判断，看用户名是否存在，然后用jquery判断是否显示那个error相关的span标签，下面几个都是如此判断 -->
-                        <span id="error_1" class="error"> <i></i></span></li>
+                        <span class="error" id="error_1"> <i></i></span></li>
 
-                    <li><label for="">Password：</label> <input type="password" name="password" id="password"
-                                                               class="inp">
-                        <span id="error_2" class="error"> <i></i></span></li>
-
-
+                    <li><label for="password">Password：</label> <input class="inp" id="password" name="password"
+                                                                       type="password">
+                        <span class="error" id="error_2"> <i></i></span></li>
                     <!--
                                             <li class="agree"><input type="checkbox" name="" id="">
                                                 Agree to the agreement and register <a href="#">《User Agreement》</a>
 
                                             </li> -->
                     <li>
-                        <button type="button" class="btn" onclick="login()">Login</button>
+                        <button class="btn" onclick="login()" type="button">Login</button>
                     </li>
                     <li>
-                        <button type="button" class="btn" onclick="reset()">Reset</button>
+                        <button class="btn" onclick="reset()" type="button">Reset</button>
                     </li>
                 </ul>
             </form>

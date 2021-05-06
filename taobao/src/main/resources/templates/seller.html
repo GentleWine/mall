@@ -2,26 +2,25 @@
 
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <title>xdubuy</title>
     <!-- 网站说明 -->
-    <meta name="description" content="xdubuy-Focusing on building a mall of good quatity for xduer"/>
+    <meta content="xdubuy-Focusing on building a mall of good quatity for xduer" name="description"/>
     <!-- 关键字 -->
-    <meta name="keywords" content="Snacks, stationery, daily necessities"/>
+    <meta content="Snacks, stationery, daily necessities" name="keywords"/>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- 引入favicon图标 -->
-    <link rel="shortcut icon" href="favicon.ico"/>
+    <link href="favicon.ico" rel="shortcut icon"/>
     <!-- 引入我们初始化样式文件 -->
-    <link rel="stylesheet" href="css/base.css">
+    <link href="css/base.css" rel="stylesheet">
     <!-- 引入我们公共的样式文件 -->
-    <link rel="stylesheet" href="css/common.css">
+    <link href="css/common.css" rel="stylesheet">
     <!-- 引入我们index.css文件  -->
-    <link rel="stylesheet" href="css/index.css">
+    <link href="css/index.css" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.1.4/dist/jquery.min.js"></script>
     <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
@@ -30,121 +29,117 @@
     <style type="text/css">
         .add {
             margin-top: 40px;
-            color: 70f3ff;
+            color: 70 f3ff;
         }
-
-
 
 
     </style>
 
     <script>
-       $(function(){
-       $.ajax({
-                type:"get",
-                url:"/delete_getmodel",
-                async:false,
-                data:{},
+        $(function () {
+            $.ajax({
+                type: "get",
+                url: "/delete_getmodel",
+                async: false,
+                data: {},
                 dataType: 'json',
-                success: function(data) {
-                     console.log(data);
-               }
-             });
-      });
+                success: function (data) {
+                    console.log(data);
+                }
+            });
+        });
         $('#myModal').on('shown.bs.modal', function () {
             $('#myInput').focus()
         });
-        $(document).ready(function(){
-            $(".delete").click(function(){
-                $('#delcfmModel').modal();
-                  var delid = $(this).attr("id");
-                  console.log(delid);
-                  $("#delid").text(delid); 
-            });
+        $(document).ready(function () {
+                $(".delete").click(function () {
+                    $('#delcfmModel').modal();
+                    var delid = $(this).attr("id");
+                    console.log(delid);
+                    $("#delid").text(delid);
+                });
             }
         );
+
         function isNumber(val) {
             var regPos = /^\d+(\.\d+)?$/; //非负浮点数
             var regNeg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/; //负浮点数
-            if(regPos.test(val) || regNeg.test(val)) {
+            if (regPos.test(val) || regNeg.test(val)) {
                 return true;
             } else {
                 return false;
             }
         }
-        function urlSubmit(){
+
+        function urlSubmit() {
             var delid = $("#delid").text();
             console.log(delid);
-            var delData = {"comid":delid};
-            $.post("/delete_goods",delData,
-                function(data) {
-                    if(data["success"] == true){
+            var delData = {"comid": delid};
+            $.post("/delete_goods", delData,
+                function (data) {
+                    if (data["success"] == true) {
                         alert("Item deleted successfully!");
                         location.reload();
-                    }
-                    else {
+                    } else {
                         alert("Item failed to delete! Reason: " + data["error"]);
                     }
-                },"json"
-
-                );
-        //     $.ajax({
-        //                     type:"post",
-        //                     url:"/delete_goods",
-        //                     //async:false,
-        //                     data:delData,
-        //                     dataType: "json",
-        //                     success: function(data) {
-        //                         if(data["success"] == true){
-        //                             alert("delete the item successfully!");
-        //                             location.reload();
-        //                         }
-        //                         else{
-        //                             alert("due to unknown reason,delete unsuccessfully!");
-        //                         }
-        //                    }
-        //      });
+                }, "json"
+            );
+            //     $.ajax({
+            //                     type:"post",
+            //                     url:"/delete_goods",
+            //                     //async:false,
+            //                     data:delData,
+            //                     dataType: "json",
+            //                     success: function(data) {
+            //                         if(data["success"] == true){
+            //                             alert("delete the item successfully!");
+            //                             location.reload();
+            //                         }
+            //                         else{
+            //                             alert("due to unknown reason,delete unsuccessfully!");
+            //                         }
+            //                    }
+            //      });
         }
-        function mysubmit(){
+
+        function mysubmit() {
             console.log("right");
 
-            var Name=$.trim($("#Name").val());
-            var Price=$.trim($("#Price").val());
-            var Description=$.trim($("#Description").val());
-            var Kind=$.trim($("#Kind").val());
+            var Name = $.trim($("#Name").val());
+            var Price = $.trim($("#Price").val());
+            var Description = $.trim($("#Description").val());
+            var Kind = $.trim($("#Kind").val());
             console.log(isNumber(Price));
-            if(Name == ""){
+            if (Name == "") {
                 alert("please input Name");
-            }
-            else if(Price == ""){
+            } else if (Price == "") {
                 alert("please input Price");
-            }
-            else if(!isNumber(Price)){
+            } else if (!isNumber(Price)) {
                 alert("Price must be a Number!");
-            }else if(Description == ""){
+            } else if (Description == "") {
                 alert("please input Description");
-            }
-            else if(Kind == ""){
+            } else if (Kind == "") {
                 alert("please input Kind");
-            }else{
-                var data = {"name":Name,"price":Price,"kind":Kind,"description":Description};
-               // var obj = JSON.stringify(data);
+            } else {
+                var data = {"name": Name, "price": Price, "kind": Kind, "description": Description};
+                // var obj = JSON.stringify(data);
                 //添加商品 期待返回数据:{"success":true, "success":false}
-            $.post("/add_goods",data,
-            function(data) {
-                //res = JSON.parse(data)
-                if(data["success"] == true){
-                    alert("Item is successfully added!");
-                    location.reload();
-                }
-                else{
-                    alert("Item failed to add! Reason: " + data["error"]);
-                }
-            },"json"
-            );
+                $.post("/add_goods", data,
+                    function (data) {
+                        //res = JSON.parse(data)
+                        if (data["success"] == true) {
+                            alert("Item is successfully added!");
+                            location.reload();
+                        } else {
+                            alert("Item failed to add! Reason: " + data["error"]);
+                        }
+                    }, "json"
+                );
 
             }
         }
+
         // function refresh(){
         //     var id = {"first":"0","second":"1"}
         //     var obj = JSON.stringify(id);
@@ -162,18 +157,18 @@
     <div class="modal-dialog">
         <div class="modal-content message_align">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
                         aria-hidden="true">×</span></button>
                 <h4 class="modal-title">Warning</h4>
             </div>
             <div class="modal-body">
                 <p id="delcfmMsg">Are you sure to delete this item?</p>
-                <p id="delid" hidden="hidden">theid</p>
+                <p hidden="hidden" id="delid">theid</p>
             </div>
             <div class="modal-footer">
-                <input type="hidden" id="submitUrl"/>
-                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                <a onclick="urlSubmit()" class="btn btn-success" data-dismiss="modal">Yes</a>
+                <input id="submitUrl" type="hidden"/>
+                <button class="btn btn-default" data-dismiss="modal" type="button">No</button>
+                <a class="btn btn-success" data-dismiss="modal" onclick="urlSubmit()">Yes</a>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -222,16 +217,16 @@
 
         <div class="col-md-10"></div>
         <div class="col-md-2">
-            <button type="button" class="btn btn-primary btn-lg add" data-toggle="modal" data-target="#myModal">
+            <button class="btn btn-primary btn-lg add" data-target="#myModal" data-toggle="modal" type="button">
                 add goods
             </button>
 
             <!-- Modal  添加商品表单-->
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div aria-labelledby="myModalLabel" class="modal fade" id="myModal" role="dialog" tabindex="-1">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
                                     aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title" id="myModalLabel">add goods</h4>
                         </div>
@@ -239,34 +234,34 @@
                             <form id="infoTable">
                                 <div class="form-group">
                                     <label for="name">Name</label>
-                                    <input type="text" class="form-control" id="Name" aria-describedby="emailHelp">
+                                    <input aria-describedby="emailHelp" class="form-control" id="Name" type="text">
 
                                 </div>
                                 <div class="form-group">
                                     <label for="Price">Price</label>
-                                    <input type="text" class="form-control" id="Price">
+                                    <input class="form-control" id="Price" type="text">
                                 </div>
                                 <div class="form-group">
                                     <label for="description">Description</label>
-                                    <textarea class="form-control" id="Description"
-                                              aria-label="With textarea"></textarea>
+                                    <textarea aria-label="With textarea" class="form-control"
+                                              id="Description"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="Kind">Kind</label>
-                                    <textarea class="form-control" id="Kind" aria-label="With textarea"></textarea>
+                                    <textarea aria-label="With textarea" class="form-control" id="Kind"></textarea>
                                 </div>
                                 <!-- <div class="form-group">
                                     <label for="exampleInputPassword1">pictures</label>
                                     <input type="file" class="form-control custom-file-input">
                                 </div> -->
 
-                                <button type="button" class="btn btn-primary" onclick="mysubmit()">Submit</button>
+                                <button class="btn btn-primary" onclick="mysubmit()" type="button">Submit</button>
                             </form>
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                            <button class="btn btn-primary" type="button">Save changes</button>
                         </div>
                     </div>
                 </div>
@@ -284,14 +279,14 @@
     </div>
     <ul class="all_goods w">
         <li class="goods" th:each="item:${kind.items}">
-            <a href="#" class="item-a">
-                <img src="favicon.png" alt="" width="194px" height="198px">
+            <a class="item-a" href="#">
+                <img alt="" height="198px" src="favicon.png" width="194px">
                 <div class="item_title" th:text="${item.item_title}"> a good goods a good goods</div>
                 <div class="item_price"><span>RMB</span><span class="price_css" th:text="${item.price}">9999</span>
                 </div>
                 <div class="seller_info"><span th:text="${item.seller_info}">xdubuy_office</span></div>
                 <div class="item_footer">
-                    <button type="button" class="btn btn-default delete" data-toggle="modal" th:id="${item.id}">Delete
+                    <button class="btn btn-default delete" data-toggle="modal" th:id="${item.id}" type="button">Delete
                     </button>
                 </div>
             </a>
@@ -382,7 +377,7 @@
             <dl>
                 <dt>Help center</dt>
                 <dd>
-                    <img src="images/thanks.png" alt="" width="80px" height="80px">
+                    <img alt="" height="80px" src="images/thanks.png" width="80px">
                     Client
                 </dd>
             </dl>
@@ -390,8 +385,8 @@
         <div class="mod_copyright">
             <div class="links">
                 <a href="#">About us</a> | <a href="#">Contact us</a> | Customer service | Business settlement |
-                Marketing Center | Mobile phone premium | Links | Sales alliance | Community |
-                Public welfare | English Site | Contact U
+                                         Marketing Center | Mobile phone premium | Links | Sales alliance | Community |
+                                         Public welfare | English Site | Contact U
             </div>
             <div class="copyright">
                 address：Clsyyds Office, 3rd Floor, Haitang Dormitory No.7, Xidian University postcode：1xxx96

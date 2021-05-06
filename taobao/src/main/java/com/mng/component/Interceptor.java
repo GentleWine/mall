@@ -19,6 +19,7 @@ public class Interceptor implements HandlerInterceptor {
             "delete_goods",
             "changeGoodsAmount"
     };
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws ServletException, IOException {
 

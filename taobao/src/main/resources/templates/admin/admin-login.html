@@ -2,103 +2,113 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <script type="text/javascript" src="/js/layui.js"></script>
-    <link rel="stylesheet" href="/css/layui.css" type="text/css">
+    <script src="/js/layui.js" type="text/javascript"></script>
+    <link href="/css/layui.css" rel="stylesheet" type="text/css">
     <title>Admin Login</title>
     <style type="text/css">
-			html {
-  			background: url('/images/admin-login-bg.jpg') no-repeat center center fixed;
-  			-webkit-background-size: cover;
-  			-moz-background-size: cover;
-  			-o-background-size: cover;
-  			background-size: cover;
-			}
-      		.container{
-      			width: 420px;
-      			height: 320px;
-		 		 min-height: 220px;
-		 		 max-height: 220px;
-		 		 position: absolute;   
-		 		 top: 0;  
-		 		 left: 0;  
-		 		 bottom: 0;  
-		 		 right: 0;  
-		 		 margin: auto;  
-		 		 padding: 20px;  
-		 		 z-index: 130;  
-		 		 border-radius: 8px;  
-		 		 background-color: #fff;  
-		 		 box-shadow: 0 3px 18px rgba(100, 0, 0, .5); 
-		 		 font-size: 16px;
-      		}
-      		.close{
-      			background-color: white;
-      			border: none;
-      			font-size: 18px;
-      			margin-left: 410px;
-      			margin-top: -10px;
-      		}
- 
-        	.layui-input{
-        		border-radius: 5px;
-        		width: 300px;
-        		height: 40px;
-        		font-size: 15px;
-        	}
-        	.layui-form-item{
-        		margin-left: -20px;
-        	}
-			#logoid{ 
-				margin-top: -16px;
-		 		 padding-left:150px; 
-		 		 padding-bottom: 15px;
-			}
-			.layui-btn{
-				margin-left: -50px;
-				border-radius: 5px;
-        		width: 350px;
-        		height: 40px;
-        		font-size: 15px;
-			}
-			.verity{
-				width: 120px;
-			}
-			.font-set{
-				font-size: 13px;
-				text-decoration: none; 
-				margin-left: 120px;
-			}
-			a:hover{
-			 text-decoration: underline; 
-			}
- 
+        html {
+            background: url('/images/admin-login-bg.jpg') no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
 
+        .container {
+            width: 420px;
+            height: 320px;
+            min-height: 220px;
+            max-height: 220px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            margin: auto;
+            padding: 20px;
+            z-index: 130;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 3px 18px rgba(100, 0, 0, .5);
+            font-size: 16px;
+        }
 
+        .close {
+            background-color: white;
+            border: none;
+            font-size: 18px;
+            margin-left: 410px;
+            margin-top: -10px;
+        }
 
+        .layui-input {
+            border-radius: 5px;
+            width: 300px;
+            height: 40px;
+            font-size: 15px;
+        }
+
+        .layui-form-item {
+            margin-left: -20px;
+        }
+
+        #logoid {
+            margin-top: -16px;
+            padding-left: 150px;
+            padding-bottom: 15px;
+        }
+
+        .layui-btn {
+            margin-left: -50px;
+            border-radius: 5px;
+            width: 350px;
+            height: 40px;
+            font-size: 15px;
+        }
+
+        .verity {
+            width: 120px;
+        }
+
+        .font-set {
+            font-size: 13px;
+            text-decoration: none;
+            margin-left: 120px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
 
 
     </style>
 </head>
 <body>
-<form class="layui-form" action="javascript:login();" method="post">
+<form action="javascript:login();" class="layui-form" method="post">
     <div class="container">
         <div class="layui-form-mid layui-word-aux">
             <h1>Taobao Admin Panel</h1>
             <br>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">Username:</label>
+            <label class="layui-form-label" for="username">Username:</label>
             <div class="layui-input-block">
-                <input type="text" name="username" id="username" required lay-verify="required" placeholder="Username"
-                       autocomplete="off" class="layui-input">
+                <input autocomplete="off"
+                       class="layui-input"
+                       id="username"
+                       lay-verify="required"
+                       name="username"
+                       placeholder="Username"
+                       required
+                       type="text">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">Password:</label>
+            <label class="layui-form-label" for="password">Password:</label>
             <div class="layui-input-inline">
-                <input type="password" name="password" id="password" required lay-verify="required"
+                <input autocomplete="off" class="layui-input" id="password" lay-verify="required" name="password"
                        placeholder="Password"
-                       autocomplete="off" class="layui-input">
+                       required type="password">
             </div>
             <!-- <div class="layui-form-mid layui-word-aux">辅助文字</div> -->
         </div>
@@ -120,7 +130,7 @@
 
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn" lay-submit lay-filter="formDemo">Log In</button>
+                <button class="layui-btn" lay-filter="formDemo" lay-submit>Log In</button>
             </div>
         </div>
         <!--
@@ -131,84 +141,84 @@
     </div>
 </form>
 <script src="https://cdn.jsdelivr.net/npm/jquery@2.1.4/dist/jquery.min.js"></script>
-<script type="text/javascript" src="/js/layui.js"></script>
+<script src="/js/layui.js" type="text/javascript"></script>
 <script>
-            var username = null;
-            var password = null;
-            function login() {
-                username = $("#username").val();
-                password = $("#password").val();
 
-                $.ajax({
-                    type: "POST",
-                    url: "/admin/login",
-                    data: {
-                        'username': username,
-                        'password': password,
-                    },
-                    dataType: "json",
-                    success: function (data) {
-                        if(data["success"] === true) {
-                            window.location.href = "/admin/users";
-                        } else {
-                            alert("Username or password incorrect");
-                        }
-                    },
-                    error: function(data) {
-                        alert("Login Failed!");
-                        console.log(data);
-                    }
-                });
+    function login() {
+        let username = $("#username").val();
+        let password = $("#password").val();
+
+        $.ajax({
+            type: "POST",
+            url: "/admin/login",
+            data: {
+                'username': username,
+                'password': password,
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data["success"] === true) {
+                    window.location.href = "/admin/users";
+                } else {
+                    alert("Username or password incorrect");
+                }
+            },
+            error: function (data) {
+                alert("Login Failed!");
+                console.log(data);
             }
-			layui.use(['form', 'layedit', 'laydate'], function() {
-			  var form = layui.form
-			  ,layer = layui.layer
-			  ,layedit = layui.layedit
-			  ,laydate = layui.laydate;
-			  
-			  //日期
-			 /* laydate.render({
-			    elem: '#date'
-			  });
-			  laydate.render({
-			    elem: '#date1'
-			  });
+        });
+    }
 
-			  //自定义验证规则
-			  form.verify({
-			    username: function(value){
-			      if(value.length < 5){
-			        return 'Username must be at least 5 characters.';
-			      }
-			    }
-			    ,pass: [
-			      /^[\S]{6,128}$/
-			      ,'Password must be 6-128 characters without space.'
-			    ]
-			    ,content: function(value){
-			      layedit.sync(editIndex);
-			    }
-			  });
-			  
-			  //创建一个编辑器
-			  var editIndex = layedit.build('LAY_demo_editor');
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        let form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , laydate = layui.laydate;
 
-			  //监听指定开关
-			  form.on('switch(switchTest)', function(data){
-			    layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
-			      offset: '6px'
-			    });
-			    layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
-			  });*/
-			  
-			  //监听提交
-			  form.on('submit(demo1)', function(data){
-			    layer.alert(JSON.stringify(data.field), {
-			      title: '最终的提交信息'
-			    })
-			    return false;
-			  });
-			});
+        //日期
+        /* laydate.render({
+           elem: '#date'
+         });
+         laydate.render({
+           elem: '#date1'
+         });
+
+         //自定义验证规则
+         form.verify({
+           username: function(value){
+             if(value.length < 5){
+               return 'Username must be at least 5 characters.';
+             }
+           }
+           ,pass: [
+             /^[\S]{6,128}$/
+             ,'Password must be 6-128 characters without space.'
+           ]
+           ,content: function(value){
+             layedit.sync(editIndex);
+           }
+         });
+
+         //创建一个编辑器
+         var editIndex = layedit.build('LAY_demo_editor');
+
+         //监听指定开关
+         form.on('switch(switchTest)', function(data){
+           layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
+             offset: '6px'
+           });
+           layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
+         });*/
+
+        //监听提交
+        form.on('submit(demo1)', function (data) {
+            layer.alert(JSON.stringify(data.field), {
+                title: '最终的提交信息'
+            })
+            return false;
+        });
+    });
 
 </script>
 </body>

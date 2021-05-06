@@ -1,24 +1,16 @@
 package com.mng.data;
 
 public enum UserType {
-    CUSTOMER(0),
-    SELLER(1);
-
-    private final int id;
-
-    UserType(int number) {
-        this.id = number;
-    }
+    CUSTOMER,
+    SELLER,
+    ADMIN;
 
     public static UserType getFromId(int id) throws IllegalArgumentException {
-        switch (id) {
-            case 0:
-                return CUSTOMER;
-            case 1:
-                return SELLER;
-            default:
-                throw new IllegalArgumentException("Invalid User Type");
+        int size = UserType.values().length;
+        if (id > size || id < 0) {
+            throw new IllegalArgumentException("Invalid Usertype ID!");
         }
+        return UserType.values()[id];
     }
 
     public static UserType getFromIdOrNull(int id) {
@@ -34,6 +26,6 @@ public enum UserType {
     }
 
     public int getId() {
-        return id;
+        return ordinal();
     }
 }
