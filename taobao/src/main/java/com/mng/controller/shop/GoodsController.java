@@ -17,7 +17,6 @@ import java.util.List;
 public class GoodsController extends ShopControllerBase {
     @RequestMapping(value = "/add_goods", method = RequestMethod.POST)
     public String addGoods(HttpServletRequest request, @ModelAttribute("addGoods") AddGoodsBody addGoodsBody) {
-
         Integer cateid = addGoodsBody.getKind();
         Integer shopid;
         String name = addGoodsBody.getName();

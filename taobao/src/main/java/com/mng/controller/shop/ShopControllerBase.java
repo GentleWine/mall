@@ -18,13 +18,13 @@ import java.util.stream.Collectors;
 
 public class ShopControllerBase {
     @Autowired
-    CommodityRepository commodityRepository;
+    protected CommodityRepository commodityRepository;
     @Autowired
-    ShopRepository shopRepository;
+    protected ShopRepository shopRepository;
     @Autowired
-    CategoryRepository categoryRepository;
+    protected CategoryRepository categoryRepository;
     @Autowired
-    UserRepository userRepository;
+    protected UserRepository userRepository;
 
     public List<SellerDomain> getsellers(List<Shop> shops) {
         List<SellerDomain> sellers = new ArrayList<>();

@@ -14,24 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class RegisterController extends AccountControllerBase {
-    User user;
-    String phone;
-    String password;
-    String confirm;
-    String usertype;
-    String username;
-    String mail;
-    boolean agreed;
 
     @RequestMapping(value = "/user/register", method = RequestMethod.POST)
     public String register(@ModelAttribute("register") RegisterBody requestbody) {
-        phone = requestbody.getPhone();
-        password = requestbody.getPassword();
-        confirm = requestbody.getConfirm();
-        usertype = requestbody.getUsertype();
-        username = requestbody.getUsername();
-        mail = requestbody.getMail();
-        agreed = requestbody.isAgreementAgreed();
+        String phone = requestbody.getPhone();
+        String password = requestbody.getPassword();
+        String confirm = requestbody.getConfirm();
+        String usertype = requestbody.getUsertype();
+        String username = requestbody.getUsername();
+        String mail = requestbody.getMail();
+        boolean agreed = requestbody.isAgreementAgreed();
 
         try {
             if ("".equals(phone) || "".equals(password) || "".equals(confirm) ||
@@ -62,7 +54,7 @@ public class RegisterController extends AccountControllerBase {
                 if (!phone.matches(Constants.PHONE_REGEX)) {
                     throw new RegisterFailedException(Status.INVALID_PHONE);
                 }
-                user = new User();
+                User user = new User();
                 user.setPhone(phone);
                 user.setPassword(password);
                 user.setUsertype(String.valueOf(type != null ? type.ordinal() : 0));

@@ -15,18 +15,13 @@ import java.util.List;
 
 @RestController
 public class LoginController extends AccountControllerBase {
-    List<User> usersList;
-    String phone;
-    String password;
-    String usertype;
-    String username;
-    String mail;
 
     @RequestMapping(value = "/user/login", method = RequestMethod.POST)
     public String login(HttpServletRequest request, @ModelAttribute("login") LoginBody loginbody) {
-        phone = loginbody.getPhone();
-        password = loginbody.getPassword();
+        String phone = loginbody.getPhone();
+        String password = loginbody.getPassword();
         try {
+            List<User> usersList;
             if ("".equals(phone) || "".equals(password)) {
                 throw new LoginFailedException(Status.FIELD_MISSING);
             } else if ((usersList = userRepository.findByPhone(phone)).isEmpty()) {
@@ -36,9 +31,9 @@ public class LoginController extends AccountControllerBase {
             } else if (!usersList.get(0).getPassword().equals(password)) {
                 throw new LoginFailedException(Status.PASSWORD_INCORRECT);
             } else {
-                username = usersList.get(0).getUsername();
-                mail = usersList.get(0).getMail();
-                usertype = usersList.get(0).getUsertype();
+                String username = usersList.get(0).getUsername();
+                String mail = usersList.get(0).getMail();
+                String usertype = usersList.get(0).getUsertype();
                 request.getSession().setAttribute("phone", phone);
                 request.getSession().setAttribute("username", username);
                 request.getSession().setAttribute("usertype", usertype);
