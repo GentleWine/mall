@@ -7,8 +7,8 @@ import com.mng.exception.goods.GoodAddFailedException;
 import com.mng.exception.goods.GoodAlterFailedException;
 import com.mng.exception.goods.GoodDeleteFailedException;
 import com.mng.exception.goods.GoodException;
-import com.mng.util.VerificationUtil;
 import com.mng.util.JsonBuilder;
+import com.mng.util.VerificationUtil;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;

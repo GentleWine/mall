@@ -41,7 +41,8 @@ public class UserContentProvider extends AccountControllerBase {
                 .put("code", 0)
                 .put("msg", "")
                 .put("count", userRepository.count())
-                .put("data", new Gson().toJsonTree(allUser, new TypeToken<List<User>>() {}.getType()))
+                .put("data", new Gson().toJsonTree(allUser, new TypeToken<List<User>>() {
+                }.getType()))
                 .build();
     }
 }
