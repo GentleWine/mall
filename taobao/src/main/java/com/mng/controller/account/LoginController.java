@@ -4,6 +4,7 @@ import com.mng.bean.LoginBody;
 import com.mng.entity.User;
 import com.mng.exception.authentication.LoginFailedException;
 import com.mng.exception.authentication.LoginFailedException.Status;
+import com.mng.util.VerificationUtil;
 import com.mng.util.JsonBuilder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,12 +23,12 @@ public class LoginController extends AccountControllerBase {
         String password = loginbody.getPassword();
         try {
             List<User> usersList;
-            if ("".equals(phone) || "".equals(password)) {
+            if (VerificationUtil.anyIsEmpty(phone, password)) {
                 throw new LoginFailedException(Status.FIELD_MISSING);
             } else if ((usersList = userRepository.findByPhone(phone)).isEmpty()) {
                 throw new LoginFailedException(Status.ACCOUNT_NOT_FOUND);
             } else if (usersList.size() > 1) {
-                throw new LoginFailedException(Status.UNKNOWN);
+                throw new LoginFailedException(Status.DUPLICATE_USERS);
             } else if (!usersList.get(0).getPassword().equals(password)) {
                 throw new LoginFailedException(Status.PASSWORD_INCORRECT);
             } else {

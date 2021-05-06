@@ -91,16 +91,16 @@
             <br>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label" for="username">Username:</label>
+            <label class="layui-form-label" for="phone">Phone:</label>
             <div class="layui-input-block">
                 <input autocomplete="off"
                        class="layui-input"
-                       id="username"
+                       id="phone"
                        lay-verify="required"
-                       name="username"
-                       placeholder="Username"
+                       name="phone"
+                       placeholder="Phone Number"
                        required
-                       type="text">
+                       type="number">
             </div>
         </div>
         <div class="layui-form-item">
@@ -145,14 +145,14 @@
 <script>
 
     function login() {
-        let username = $("#username").val();
+        let phone = $("#phone").val();
         let password = $("#password").val();
 
         $.ajax({
             type: "POST",
             url: "/admin/login",
             data: {
-                'username': username,
+                'phone': phone,
                 'password': password,
             },
             dataType: "json",
@@ -160,7 +160,7 @@
                 if (data["success"] === true) {
                     window.location.href = "/admin/users";
                 } else {
-                    alert("Username or password incorrect");
+                    alert(data["error"]);
                 }
             },
             error: function (data) {

@@ -10,9 +10,13 @@ public class Log {
 
     private static org.slf4j.Logger logger;
 
-    public static synchronized org.slf4j.Logger getLogger() {
-        if (logger == null) {
-            logger = LoggerFactory.getLogger(TaobaoApplication.class);
+    public static org.slf4j.Logger getLogger() {
+        synchronized (Log.class) {
+            if (logger == null) {
+                synchronized (Log.class) {
+                    logger = LoggerFactory.getLogger(TaobaoApplication.class);
+                }
+            }
         }
         return logger;
     }

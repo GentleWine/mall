@@ -1,15 +1,14 @@
 package com.mng.controller.admin;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.mng.controller.account.AccountControllerBase;
 import com.mng.entity.User;
+import com.mng.util.JsonBuilder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class UserContentProvider extends AccountControllerBase {
     private int page = 1;
@@ -36,17 +35,13 @@ public class UserContentProvider extends AccountControllerBase {
         return pages.getContent();
     }
 
-    public String findUsers() {
-        try {
-            List<User> allUser = findUsersByPageAndLimit(this.getPage(), this.getLimit());
-            Map<String, Object> result = new HashMap<>();
-            result.put("code", 0);
-            result.put("msg", "");
-            result.put("count", userRepository.count());
-            result.put("data", allUser);
-            return new ObjectMapper().writeValueAsString(result);
-        } catch (JsonProcessingException e) {
-            return null;
-        }
+    public String generateUserListJson() {
+        List<User> allUser = findUsersByPageAndLimit(this.getPage(), this.getLimit());
+        return JsonBuilder.newObject()
+                .put("code", 0)
+                .put("msg", "")
+                .put("count", userRepository.count())
+                .put("data", new Gson().toJsonTree(allUser, new TypeToken<List<User>>() {}.getType()))
+                .build();
     }
 }

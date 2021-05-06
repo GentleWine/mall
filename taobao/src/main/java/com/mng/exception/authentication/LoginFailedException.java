@@ -33,6 +33,8 @@ public class LoginFailedException extends AuthenticationException {
         ACCOUNT_NOT_FOUND("This account does not exist!"),
         PASSWORD_INCORRECT("Password Incorrect!"),
         FIELD_MISSING("You must fill in all of the required fields when logging in!"),
+        NOT_ADMIN("Only administrators may log into the admin panel!"),
+        DUPLICATE_USERS("Found multiple users with the same phone number, please contact the website administrator to resolve it."),
         UNKNOWN("Unknown Error!");
 
         private final String defaultMessage;

@@ -7,7 +7,7 @@ public enum UserType {
 
     public static UserType getFromId(int id) throws IllegalArgumentException {
         int size = UserType.values().length;
-        if (id > size || id < 0) {
+        if (id >= size || id < 0) {
             throw new IllegalArgumentException("Invalid Usertype ID!");
         }
         return UserType.values()[id];

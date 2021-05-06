@@ -7,6 +7,7 @@ import com.mng.exception.goods.GoodAddFailedException;
 import com.mng.exception.goods.GoodAlterFailedException;
 import com.mng.exception.goods.GoodDeleteFailedException;
 import com.mng.exception.goods.GoodException;
+import com.mng.util.VerificationUtil;
 import com.mng.util.JsonBuilder;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +32,7 @@ public class GoodsController extends ShopControllerBase {
         shopid = shop.getShopid();
 
         try {
-            if ("".equals(name) || "".equals(detail)) {
+            if (VerificationUtil.anyIsEmpty(name, detail)) {
                 throw new GoodAddFailedException("Name or detail is empty!");
             } else if (!commodityRepository.findByShopidAndName(shopid, name).isEmpty()) {
                 throw new GoodAddFailedException("Shop does not exist!");

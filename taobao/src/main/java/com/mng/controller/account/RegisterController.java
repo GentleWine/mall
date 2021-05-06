@@ -5,6 +5,7 @@ import com.mng.data.UserType;
 import com.mng.entity.User;
 import com.mng.exception.authentication.RegisterFailedException;
 import com.mng.exception.authentication.RegisterFailedException.Status;
+import com.mng.util.VerificationUtil;
 import com.mng.util.Constants;
 import com.mng.util.JsonBuilder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,8 +27,7 @@ public class RegisterController extends AccountControllerBase {
         boolean agreed = requestbody.isAgreementAgreed();
 
         try {
-            if ("".equals(phone) || "".equals(password) || "".equals(confirm) ||
-                    "".equals(usertype) || "".equals(username) || "".equals(mail)) {
+            if (VerificationUtil.anyIsEmpty(phone, password, confirm, usertype, username, mail)) {
                 throw new RegisterFailedException(Status.FIELD_MISSING);
             } else if (!agreed) {
                 throw new RegisterFailedException(Status.AGREEMENT_NOT_AGREED);
