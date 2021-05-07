@@ -171,7 +171,57 @@
 
     </style>
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.1.4/dist/jquery.min.js"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        let phoneAttribute = /*[[${#httpServletRequest.getSession().getAttribute('phone')}]]*/ null;
+        let usertypeAttribute = /*[[${#httpServletRequest.getSession().getAttribute('usertypeId')}]]*/ null;
+        let cookies = /*[[${#httpServletRequest.getCookies()}]]*/ null;
+        /*]]>*/
+    </script>
     <script>
+        function redirect(data) {
+            if (data["status"] === "SUCCESS") {
+                if (data["usertype"] === 0 || data["usertype"] === "CUSTOMER") {
+                    window.location.href = "home";
+                } else if (data["usertype"] === 1 || data["usertype"] === "SELLER") {
+                    window.location.href = "seller";
+                } else if (data["usertype"] === 2 || data["usertype"] === "ADMIN") {
+                    window.location.href = "admin";
+                }
+            } else {
+                alert(data["error_description"]);
+            }
+        }
+
+        function redirectWithSessionCache() {
+            if (phoneAttribute != null && usertypeAttribute != null) {
+                redirect({
+                    status: "SUCCESS",
+                    usertype: usertypeAttribute
+                });
+            }
+        }
+
+        function redirectWithCookie() {
+            for (let i in cookies) {
+                if (cookies.hasOwnProperty(i)) {
+                    let cookie = cookies[i];
+                    if (cookie.hasOwnProperty('name') && cookie.name === 'usertype') {
+                        redirect({
+                            status: "SUCCESS",
+                            usertype: cookie.value
+                        });
+                        return;
+                    }
+                }
+            }
+        }
+
+        function tryLogin() {
+            redirectWithSessionCache();
+            redirectWithCookie();
+        }
+
         function login() {
             // if ($.trim($("#phone").val()) == "") {
             //     alert("please input phone");
@@ -188,17 +238,7 @@
                     'password': password,
                 },
                 dataType: "json",
-                success: function (data) {
-                    if (data["status"] === "SUCCESS") {
-                        if (data["usertype"] === 0) {
-                            window.location.href = "home";
-                        } else {
-                            window.location.href = "seller";
-                        }
-                    } else {
-                        alert(data["error_description"]);
-                    }
-                },
+                success: redirect,
                 error: function (data) {
                     alert("Login failed for unknown reasons");
                     console.log(data);
@@ -214,7 +254,7 @@
     </script>
 </head>
 
-<body>
+<body onload="tryLogin()">
 <div class="w">
     <header>
         <div class="logo">

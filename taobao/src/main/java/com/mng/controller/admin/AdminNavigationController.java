@@ -1,15 +1,21 @@
 package com.mng.controller.admin;
 
+import com.mng.annotation.LoginRequired;
+import com.mng.annotation.UserTypeOnly;
+import com.mng.data.UserType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @RequestMapping("/admin")
 @Controller
+@LoginRequired
+@UserTypeOnly(UserType.ADMIN)
 public class AdminNavigationController {
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String resolveLogin() {
-        return "admin/admin-login";
+
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public String resolveIndex() {
+        return "admin/admin-index";
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)

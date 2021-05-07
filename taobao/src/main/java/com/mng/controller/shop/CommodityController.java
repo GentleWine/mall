@@ -1,5 +1,6 @@
 package com.mng.controller.shop;
 
+import com.mng.annotation.LoginRequired;
 import com.mng.domain.SellerDomain;
 import com.mng.domain.UserDomain;
 import com.mng.entity.Shop;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
+@LoginRequired
 public class CommodityController extends ShopControllerBase {
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
@@ -26,7 +28,10 @@ public class CommodityController extends ShopControllerBase {
         Page<Shop> pages = shopRepository.findAll(pageable);
         List<Shop> shops = pages.getContent();
         UserDomain user = new UserDomain();
-        user.setName(request.getSession().getAttribute("username").toString());
+        Object username = request.getSession().getAttribute("username");
+        if (username != null) {
+            user.setName(username.toString());
+        }
 
         List<SellerDomain> sellers = getsellers(shops);
         model.addAttribute("sellers", sellers);

@@ -1,5 +1,8 @@
 package com.mng.controller.shop;
 
+import com.mng.annotation.LoginRequired;
+import com.mng.annotation.UserTypeOnly;
+import com.mng.data.UserType;
 import com.mng.domain.SellerDomain;
 import com.mng.entity.Shop;
 import com.mng.util.Log;
@@ -12,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
+@LoginRequired
+@UserTypeOnly(UserType.SELLER)
 public class SellerController extends ShopControllerBase {
 
     @RequestMapping(value = "/seller", method = RequestMethod.GET)

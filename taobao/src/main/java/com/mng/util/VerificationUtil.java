@@ -6,6 +6,7 @@ import java.util.Collection;
 
 @UtilityClass
 public final class VerificationUtil {
+
     public static boolean anyIsNull(Object... args) {
         for (Object arg : args) {
             if (arg == null) {

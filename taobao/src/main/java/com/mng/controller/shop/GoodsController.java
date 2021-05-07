@@ -1,6 +1,9 @@
 package com.mng.controller.shop;
 
+import com.mng.annotation.LoginRequired;
+import com.mng.annotation.UserTypeOnly;
 import com.mng.bean.AddGoodsBody;
+import com.mng.data.UserType;
 import com.mng.entity.Commodity;
 import com.mng.entity.Shop;
 import com.mng.exception.goods.GoodAddFailedException;
@@ -15,8 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
+@LoginRequired
+@UserTypeOnly(UserType.SELLER)
 public class GoodsController extends ShopControllerBase {
-    @RequestMapping(value = "/add_goods", method = RequestMethod.POST)
+    @RequestMapping(value = "/add-goods", method = RequestMethod.POST)
     public String addGoods(HttpServletRequest request, @ModelAttribute("addGoods") AddGoodsBody addGoodsBody) {
         Integer cateid = addGoodsBody.getKind();
         Integer shopid;
@@ -67,9 +72,9 @@ public class GoodsController extends ShopControllerBase {
         System.out.println(comid);
         try {
             if (comid == null) {
-                throw new GoodDeleteFailedException("Commodity cannot be null");
+                throw new GoodDeleteFailedException("Commodity ID cannot be null");
             } else if (commodityRepository.findByComid(comid).isEmpty()) {
-                throw new GoodDeleteFailedException("Commodity cannot be empty");
+                throw new GoodDeleteFailedException("Commodity not found with the given ID");
             } else {
                 commodityRepository.deleteByComid(comid);
                 return JsonBuilder.newObject()

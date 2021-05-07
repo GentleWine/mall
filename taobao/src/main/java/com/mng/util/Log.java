@@ -1,16 +1,20 @@
 package com.mng.util;
 
 import com.mng.TaobaoApplication;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.annotation.concurrent.ThreadSafe;
 
 /**
  * 单例模式的日志工具类，请避免使用System.out.println
  */
+@ThreadSafe
 public class Log {
 
-    private static org.slf4j.Logger logger;
+    private static volatile Logger logger;
 
-    public static org.slf4j.Logger getLogger() {
+    public static Logger getLogger() {
         synchronized (Log.class) {
             if (logger == null) {
                 synchronized (Log.class) {
