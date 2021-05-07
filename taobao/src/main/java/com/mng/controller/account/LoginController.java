@@ -47,21 +47,23 @@ public class LoginController extends AccountControllerBase {
                 request.getSession().setAttribute("username", username);
                 request.getSession().setAttribute("usertype", enumUserType);
                 request.getSession().setAttribute("usertypeId", enumUserType.getId());
-                try {
-                    Cookie phoneCookie = new Cookie("phone", phone);
-                    phoneCookie.setMaxAge(7 * 24 * 3600);
-                    phoneCookie.setPath("/");
-                    Cookie passwordCookie = new Cookie("password", CookieCipher.getInstance().encrypt(password));
-                    passwordCookie.setMaxAge(7 * 24 * 3600);
-                    passwordCookie.setPath("/");
-                    Cookie usertypeCookie = new Cookie("usertype", enumUserType.toString());
-                    usertypeCookie.setMaxAge(7 * 24 * 3600);
-                    usertypeCookie.setPath("/");
-                    response.addCookie(phoneCookie);
-                    response.addCookie(passwordCookie);
-                    response.addCookie(usertypeCookie);
-                } catch (GeneralSecurityException e) {
-                    Log.e(e);
+                if (loginbody.isRememberMe()) {
+                    try {
+                        Cookie phoneCookie = new Cookie("phone", phone);
+                        phoneCookie.setMaxAge(7 * 24 * 3600);
+                        phoneCookie.setPath("/");
+                        Cookie passwordCookie = new Cookie("password", CookieCipher.getInstance().encrypt(password));
+                        passwordCookie.setMaxAge(7 * 24 * 3600);
+                        passwordCookie.setPath("/");
+                        Cookie usertypeCookie = new Cookie("usertype", enumUserType.toString());
+                        usertypeCookie.setMaxAge(7 * 24 * 3600);
+                        usertypeCookie.setPath("/");
+                        response.addCookie(phoneCookie);
+                        response.addCookie(passwordCookie);
+                        response.addCookie(usertypeCookie);
+                    } catch (GeneralSecurityException e) {
+                        Log.e(e);
+                    }
                 }
 
                 return JsonBuilder.newObject()

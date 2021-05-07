@@ -70,7 +70,7 @@ public class LoginInterceptor implements HandlerInterceptor {
                 try {
                     String phoneNumber = phone.getValue();
                     String password = CookieCipher.getInstance().decrypt(cipheredPassword.getValue());
-                    LoginController.resolveLogin(repository, request, response, new LoginBody(phoneNumber, password));
+                    LoginController.resolveLogin(repository, request, response, new LoginBody(phoneNumber, password, false));
                     Object userTypeAttribute = request.getSession().getAttribute("usertype");
                     Object phoneAttribute = request.getSession().getAttribute("phone");
                     if (userTypeAttribute != null && phoneAttribute != null) {

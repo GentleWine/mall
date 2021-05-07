@@ -5,6 +5,7 @@ import lombok.experimental.UtilityClass;
 import java.util.Collection;
 
 @UtilityClass
+@SuppressWarnings("unused")
 public final class VerificationUtil {
 
     public static boolean anyIsNull(Object... args) {

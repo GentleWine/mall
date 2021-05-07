@@ -37,72 +37,28 @@
     <link href="/css/register.css" rel="stylesheet" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.1.4/dist/jquery.min.js"></script>
     <script>
-        //发送ajax请求。期望返回数据：{"userExsit":true,"msg":"Phone has already been registered"}；{"userExsit":false,"msg":"Phone is legal"}
-
-        //     $("#password").blur(function () {
-        //         //获取文本框的值
-        //         var password = $(this).val();
-        //         //判断密码格式是否正确
-        //         //发送ajax请求。期望返回数据：{"password_format":true,"msg":"Format is correct"}；{"password_format":false,"msg":"Format is error"}
-        //         $.get("password_format",{password:password},
-        //         function (data) {
-        //             //获取error_2元素
-        //             var s_possword = $("#error_2");
-        //             //判断userExsit值
-        //             if (data.userExsit){
-        //                 //用户名存在
-        //                 s_possword.css("color","red");
-
-        //                 s_possword.html(data.msg);
-        //             }else {
-        //                 //用户名不存在
-        //                 s_possword.css("color","green");
-        //                 s_possword.addClass("error_icon")
-        //                 s_possword.html(data.msg);
-        //             }
-        //         },"json");
-
-        // });
         $("#confirm").blur(function () {
             //获取文本框的值
-            var password_1 = $(this).value;
+            let password_1 = $(this).value;
             //获取上一个文本框中密码
-            var password_2 = $("#password").value;
+            let password_2 = $("#password").value;
             //判断两个密码是否一致
-            //发送ajax请求。期望返回数据：{"confirm":true,"msg":"correct"}；{"confirm":false,"msg":"Error! please re-enter!"}
-            // $.get("password_confirm",{password1:password_1, password2:password_2},
-            // function (data) {
-            //     //获取error_3元素
-            //     var s_possword = $("#error_3");
-            //     //判断userExsit值
-            //     if (data.userExsit){
-            //         //用户名存在
-            //         s_possword.css("color","red");
-
-            //         s_possword.html(data.msg);
-            //     }else {
-            //         //用户名不存在
-            //         s_possword.css("color","green");
-            //         s_possword.addClass("error_icon")
-            //         s_possword.html(data.msg);
-            //     }
-            // },"json");
-            if (password_1 == password_2) {
+            if (password_1 === password_2) {
                 $("#confirm").after("<span id='error_3' class='error' >Correct!<i ></i></span></li> ")
             } else {
                 //重新输入的密码不正确
-                $("#confirm").after("<span id='error_3' class='error' class='error_icon'>Error! please re-enter <i ></i></span></li> ")
+                $("#confirm").after("<span id='error_3' class='error_icon'>Error! please re-enter <i ></i></span></li> ")
             }
         });                    //注册
         function register() {
-            if ($("#user").value == "") {
+            if ($("#user").value === "") {
                 alert("please input username");
-            } else if ($("#mail").value == "") {
+            } else if ($("#mail").value === "") {
                 alert("please input email");
             } else {
                 let username = $("#username").val();
                 let mail = $("#mail").val();
-                let phone = $("input[name='Phone']").val();
+                let phone = $("input[name='phone']").val();
                 let password = $("input[name='password']").val();
                 let confirm = $("#confirm").val();
                 let usertype = $("#usertype").val();
@@ -144,12 +100,12 @@
     </header>
     <div class="registerarea">
         <h3>New User Registration
-            <span class="login">Account already exists? <a href="login">Login</a></span>
+            <span class="login">Account already exists? <a href="/">Login</a></span>
         </h3>
         <div class="reg_form">
             <form>
                 <ul>
-                    <li><label for="Phone">Phone：</label> <input class="inp" id="Phone" name="Phone" type="number">
+                    <li><label for="phone">Phone：</label> <input class="inp" id="phone" name="phone" type="number">
                         <!-- 要将输入的text进行判断，看用户名是否存在，然后用jquery判断是否显示那个error相关的span标签，下面几个都是如此判断 -->
                         <span class="error" id="error_1"> <i></i></span></li>
                     <li><label for="username">Username：</label> <input class="inp"
@@ -200,7 +156,6 @@
             </div>
             <div class="copyright">
                 Address：South Campus of Xidian University, Xi'an, Shaanxi Province Postcode：710000
-
             </div>
         </div>
     </footer>

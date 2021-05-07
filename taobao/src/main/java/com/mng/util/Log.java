@@ -10,6 +10,7 @@ import javax.annotation.concurrent.ThreadSafe;
  * 单例模式的日志工具类，请避免使用System.out.println
  */
 @ThreadSafe
+@SuppressWarnings("unused")
 public class Log {
 
     private static volatile Logger logger;

@@ -9,4 +9,5 @@ import lombok.Data;
 public class LoginBody {
     private String phone;
     private String password;
+    private boolean rememberMe;
 }
