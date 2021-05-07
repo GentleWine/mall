@@ -18,8 +18,10 @@ public class NewGoods {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public String name;
-    public String price;
-    public String kind;
-    public String description;
 
+    public String price;
+
+    public String kind;
+
+    public String description;
 }

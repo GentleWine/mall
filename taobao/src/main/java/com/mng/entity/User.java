@@ -17,10 +17,15 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userid;
+
     private String username;
+
     private String password;
+
     private String usertype;
+
     private String phone;
+
     private String mail;
 
     public UserType getEnumUserType() throws IllegalArgumentException {
