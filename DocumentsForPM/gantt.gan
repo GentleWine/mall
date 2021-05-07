@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2021-02-07" view-index="0" gantt-divider-location="352" resource-divider-location="300" version="3.0.3000" locale="zh_CN">
+    <description/>
+    <view zooming-state="default:7" id="gantt-chart">
+        <field id="tpd3" name="名称" width="161" order="0"/>
+        <field id="tpd4" name="开始日期" width="93" order="1"/>
+        <field id="tpd5" name="结束日期" width="79" order="2"/>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="名称" width="210" order="0"/>
+        <field id="1" name="默认角色" width="86" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <only-show-weekends value="false"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="12" name="release1" color="#8cb6ce" meeting="false" start="2021-03-03" duration="34" complete="0" thirdDate="2020-12-01" thirdDate-constraint="0" expand="true">
+            <task id="36" name="register" meeting="false" start="2021-03-03" duration="8" complete="0" expand="true">
+                <task id="37" name="seller register" meeting="false" start="2021-03-03" duration="8" complete="0" expand="true"/>
+                <task id="38" name="customer register" color="#8cb6ce" meeting="false" start="2021-03-03" duration="8" complete="0" thirdDate="2021-04-19" thirdDate-constraint="0" expand="true"/>
+            </task>
+            <task id="42" name="login" meeting="false" start="2021-03-15" duration="8" complete="0" expand="true">
+                <task id="43" name="seller login" color="#8cb6ce" meeting="false" start="2021-03-15" duration="7" complete="0" thirdDate="2021-03-10" thirdDate-constraint="0" expand="true"/>
+                <task id="44" name="customer login" color="#8cb6ce" meeting="false" start="2021-03-15" duration="8" complete="0" thirdDate="2021-03-24" thirdDate-constraint="0" expand="true"/>
+            </task>
+            <task id="48" name="items" meeting="false" start="2021-03-19" duration="22" complete="0" expand="true">
+                <task id="49" name="items scanning" meeting="false" start="2021-03-19" duration="22" complete="0" expand="true"/>
+                <task id="50" name="items adding" meeting="false" start="2021-03-22" duration="21" complete="0" expand="true"/>
+            </task>
+        </task>
+        <task id="20" name="release2" meeting="false" start="2021-04-20" duration="19" complete="0" expand="true">
+            <task id="52" name="administriter" meeting="false" start="2021-04-20" duration="13" complete="0" expand="true">
+                <task id="55" name="administriter login" color="#8cb6ce" meeting="false" start="2021-04-20" duration="5" complete="0" thirdDate="2020-12-01" thirdDate-constraint="0" expand="true"/>
+                <task id="56" name="management" color="#000000" meeting="false" start="2021-04-26" duration="9" complete="0" thirdDate="2020-12-01" thirdDate-constraint="0" expand="true">
+                    <task id="57" name="seller management" color="#8cb6ce" meeting="false" start="2021-04-26" duration="8" complete="0" thirdDate="2020-12-01" thirdDate-constraint="0" expand="true"/>
+                    <task id="58" name="cutomer management" color="#8cb6ce" meeting="false" start="2021-04-26" duration="9" complete="0" thirdDate="2020-12-01" thirdDate-constraint="0" expand="true"/>
+                </task>
+            </task>
+            <task id="53" name="revise information" meeting="false" start="2021-05-06" duration="5" complete="0" expand="true">
+                <task id="59" name="revise seller information" color="#8cb6ce" meeting="false" start="2021-05-06" duration="5" complete="0" thirdDate="2020-12-01" thirdDate-constraint="0" expand="true"/>
+                <task id="60" name="revise customer information" color="#8cb6ce" meeting="false" start="2021-05-06" duration="3" complete="0" thirdDate="2020-12-01" thirdDate-constraint="0" expand="true"/>
+            </task>
+            <task id="54" name="shopping cart" meeting="false" start="2021-05-12" duration="3" complete="0" expand="true">
+                <task id="61" name="adding items to shooping cart" color="#8cb6ce" meeting="false" start="2021-05-12" duration="3" complete="0" thirdDate="2020-12-01" thirdDate-constraint="0" expand="true"/>
+            </task>
+        </task>
+        <task id="21" name="release3" meeting="false" start="2021-05-14" duration="12" complete="0" expand="true">
+            <task id="62" name="shopping information" meeting="false" start="2021-05-14" duration="7" complete="0" expand="true">
+                <task id="66" name="seller's money sold" color="#8cb6ce" meeting="false" start="2021-05-14" duration="7" complete="0" thirdDate="2020-12-01" thirdDate-constraint="0" expand="true"/>
+                <task id="67" name="customer's money spend" color="#8cb6ce" meeting="false" start="2021-05-14" duration="4" complete="0" thirdDate="2020-12-01" thirdDate-constraint="0" expand="true"/>
+            </task>
+            <task id="63" name="congfirm items" meeting="false" start="2021-05-24" duration="6" complete="0" expand="true">
+                <task id="68" name="customer confirm after reciving items" color="#8cb6ce" meeting="false" start="2021-05-24" duration="6" complete="0" thirdDate="2020-12-01" thirdDate-constraint="0" expand="true"/>
+                <task id="69" name="seller confirm to inform customer" color="#8cb6ce" meeting="false" start="2021-05-24" duration="5" complete="0" thirdDate="2020-12-01" thirdDate-constraint="0" expand="true"/>
+            </task>
+        </task>
+        <task id="22" name="release4" meeting="false" start="2021-05-28" duration="15" complete="0" expand="true">
+            <task id="64" name="settlement" meeting="false" start="2021-05-28" duration="7" complete="0" expand="true">
+                <task id="70" name="customer pay for items" color="#8cb6ce" meeting="false" start="2021-05-28" duration="7" complete="0" thirdDate="2020-12-01" thirdDate-constraint="0" expand="true"/>
+                <task id="71" name="seller sum up profile" color="#8cb6ce" meeting="false" start="2021-05-28" duration="5" complete="0" thirdDate="2020-12-01" thirdDate-constraint="0" expand="true"/>
+            </task>
+            <task id="65" name="income situation" meeting="false" start="2021-06-07" duration="9" complete="0" expand="true">
+                <task id="72" name="seller income in last few day" color="#8cb6ce" meeting="false" start="2021-06-07" duration="9" complete="0" thirdDate="2020-12-01" thirdDate-constraint="0" expand="true"/>
+            </task>
+        </task>
+    </tasks>
+    <resources/>
+    <allocations/>
+    <vacations/>
+    <previous/>
+    <roles roleset-name="Default"/>
+</project>
