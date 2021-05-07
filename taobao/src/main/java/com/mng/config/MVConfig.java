@@ -31,6 +31,7 @@ public class MVConfig implements WebMvcConfigurer {
                 "/error",
                 "/user/login",
                 "/user/register",
+                "/*/*.eot",
                 "/*/*.svg",
                 "/*/*.woff2",
                 "/*/*.woff",

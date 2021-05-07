@@ -6,10 +6,8 @@
     <meta content="webkit" name="renderer">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
-    <link href="/css/layui.css" media="all" rel="stylesheet">
-    <link href="/icon/iconfont.css" media="all" rel="stylesheet">
-    <link href="/css/public.css" media="all" rel="stylesheet">
-    <link href="/js/css/modules/layer/default/layer.css" media="all" rel="stylesheet">
+    <link href="/css/layui.css" rel="stylesheet" type="text/css">
+    <link href="/css/public.css" rel="stylesheet" type="text/css">
     <script src="/js/layui.js" type="text/javascript"></script>
 </head>
 <body>
@@ -17,27 +15,34 @@
     <div class="layuimini-main">
         <script id="toolbarDemo" type="text/html">
             <div class="layui-btn-container">
-                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add">Add</button>
-                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete">Delete
+                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"><i
+                        class="layui-icon layui-icon-addition"></i>&nbsp;Add
+                </button>
+                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"><i
+                        class="layui-icon layui-icon-delete"></i>&nbsp;Delete Selected
                 </button>
             </div>
         </script>
         <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
         <script id="currentTableBar" type="text/html">
-            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">Edit</a>
-            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">Delete</a>
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit"><i
+                    class="layui-icon layui-icon-edit"></i>&nbsp;Edit</a>
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete"><i
+                    class="layui-icon layui-icon-delete"></i>&nbsp;Delete</a>
         </script>
     </div>
 </div>
 <br>
 <div>
     <a href="/logout">
-        <button class="layui-btn layui-btn-sm layui-btn-danger">Log Out</button>
+        <button class="layui-btn layui-btn-sm layui-btn-danger"><i class="layui-icon layui-icon-logout"></i>&nbsp;Log
+            Out
+        </button>
     </a>&nbsp;&nbsp;<a href="/admin">
-    <button class="layui-btn layui-btn-sm layui-btn-normal">Back</button>
+    <button class="layui-btn layui-btn-sm layui-btn-normal"><i class="layui-icon layui-icon-return"></i>&nbsp;Back
+    </button>
 </a>
 </div>
-<script src="/js/layui.js" type="text/javascript"></script>
 <script>
     layui.use(['form', 'table'], function () {
         let $ = layui.jquery,
@@ -45,7 +50,7 @@
             form = layui.form,
             table = layui.table;
 
-        table.render({
+        let mainTable = table.render({
             method: 'POST',
             elem: '#currentTableId',
             url: '/admin/users',
@@ -106,20 +111,41 @@
                     shadeClose: true,
                     area: ['100%', '100%'],
                     content: '/admin/table/add',
+                    end: function () {
+                        reloadTable(mainTable);
+                    }
                 });
                 $(window).on("resize", function () {
                     layer.full(index);
                 });
             } else if (obj.event === 'delete') {  // 监听删除操作
                 let checkStatus = table.checkStatus('currentTableId')//即为当前table id 对应的值
-                    , data = checkStatus.data;
-                layer.alert(JSON.stringify(data));
+                    , data1 = checkStatus.data;
+                $.ajax({
+                    type: "post",
+                    url: "/admin/remove-users",
+                    contentType: "application/json; charset=UTF-8",
+                    data: JSON.stringify(data1),
+                    dataType: "json",
+                    success: function (data) {
+                        let success = data['success'] === true;
+                        let msg = data['msg'];
+                        let index = layer.alert(msg, {
+                            title: success ? "Success!" : "Failed!"
+                        }, function () {
+                            // 关闭弹出层
+                            layer.close(index);
+                            let iframeIndex = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(iframeIndex);
+                            reloadTable(mainTable);
+                        });
+                    }
+                });
             }
         });
 
         //监听表格复选框选择
         table.on('checkbox(currentTableFilter)', function (obj) {
-            console.log(obj)
         });
 
         table.on('tool(currentTableFilter)', function (obj) {
@@ -134,9 +160,12 @@
                     shadeClose: true,
                     area: ['100%', '100%'],
                     content: '/admin/table/edit',
-                    success: function (layero, index) {
+                    success: function (layer, index) {
                         let iframe = window['layui-layer-iframe' + index];
                         iframe.child(data)
+                    },
+                    end: function () {
+                        reloadTable(mainTable);
                     }
                 });
                 $(window).on("resize", function () {
@@ -152,12 +181,12 @@
                         dataType: "json",
                         success: function (data) {
                             let success = data['success'] === true;
-                            let msg = "Success!";
+                            let msg = "Successly removed user.";
                             if (!success) {
                                 msg = "Remove failed!";
                             }
                             let index = layer.alert(msg, {
-                                title: 'Remove User'
+                                title: success ? "Success!" : "Failed!"
                             }, function () {
 
                                 // 关闭弹出层
@@ -175,6 +204,15 @@
         });
 
     });
+
+    function reloadTable(table) {
+        table.reload({
+            page: {
+                curr: 1 //重新从第 1 页开始
+            }
+            , where: {}
+        });
+    }
 
 </script>
 </body>
