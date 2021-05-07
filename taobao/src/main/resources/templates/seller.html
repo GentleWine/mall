@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
-    <title>xdubuy</title>
+    <title>XDUBuy</title>
     <!-- 网站说明 -->
     <meta content="xdubuy-Focusing on building a mall of good quatity for xduer" name="description"/>
     <!-- 关键字 -->
@@ -158,7 +158,7 @@
                 <h4 class="modal-title">Warning</h4>
             </div>
             <div class="modal-body">
-                <p id="delcfmMsg">Are you sure to delete this item?</p>
+                <p id="delcfmMsg">Are you sure you want to delete this item?</p>
                 <p hidden="hidden" id="delid">theid</p>
             </div>
             <div class="modal-footer">
@@ -175,7 +175,7 @@
     <div class="w">
         <div class="fl">
             <ul>
-                <li>welcome to xdubuy！&nbsp;</li>
+                <li>welcome to XDUBuy!&nbsp;&nbsp;</li>
                 <li>
                     <!-- <p class="suibian">welcome!</p>           其中class随便放在了common.css文件最后面        -->
                     <p th:text="${seller.name}"></p>
@@ -184,17 +184,17 @@
         </div>
         <div class="fr">
             <ul>
-                <li>my order</li>
+                <li>My Order</li>
                 <li></li>
-                <li class="arrow-icon">my xdubuy</li>
+                <li class="arrow-icon">My XDUBuy</li>
                 <li></li>
-                <li>xdubuy vip</li>
+                <li>XDUBuy VIP</li>
                 <li></li>
-                <li>Enterprise procurement</li>
+                <li>Enterprise Procurement</li>
                 <li></li>
-                <li class="arrow-icon">follow us</li>
+                <li class="arrow-icon">Follow Us</li>
                 <li></li>
-                <li class="arrow-icon">Customer service</li>
+                <li class="arrow-icon">Customer Service</li>
             </ul>
         </div>
     </div>
@@ -207,14 +207,14 @@
         <!-- logo模块 -->
         <div class="col-md-8 logo">
             <h1>
-                <a href="index.html" title="xdubuy">xdubuy</a>
+                <a href="index.html" title="xdubuy">XDUBuy</a>
             </h1>
         </div>
 
         <div class="col-md-10"></div>
         <div class="col-md-2">
             <button class="btn btn-primary btn-lg add" data-target="#myModal" data-toggle="modal" type="button">
-                add goods
+                Add Commodity
             </button>
 
             <!-- Modal  添加商品表单-->
@@ -224,7 +224,7 @@
                         <div class="modal-header">
                             <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
                                     aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">add goods</h4>
+                            <h4 class="modal-title" id="myModalLabel">Add Commodity</h4>
                         </div>
                         <div class="modal-body">
                             <form id="infoTable">
@@ -243,7 +243,7 @@
                                               id="Description"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="Kind">Kind</label>
+                                    <label for="Kind">Category</label>
                                     <textarea aria-label="With textarea" class="form-control" id="Kind"></textarea>
                                 </div>
                                 <!-- <div class="form-group">
@@ -257,7 +257,7 @@
 
                         <div class="modal-footer">
                             <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
-                            <button class="btn btn-primary" type="button">Save changes</button>
+                            <button class="btn btn-primary" type="button">Save Changes</button>
                         </div>
                     </div>
                 </div>
@@ -277,10 +277,10 @@
         <li class="goods" th:each="item:${kind.items}">
             <a class="item-a" href="#">
                 <img alt="" height="198px" src="favicon.png" width="194px">
-                <div class="item_title" th:text="${item.item_title}"> a good goods a good goods</div>
-                <div class="item_price"><span>RMB</span><span class="price_css" th:text="${item.price}">9999</span>
+                <div class="item_title" th:text="${item.item_title}">Loading...</div>
+                <div class="item_price"><span>RMB ￥</span><span class="price_css" th:text="${item.price}">Loading...</span>
                 </div>
-                <div class="seller_info"><span th:text="${item.seller_info}">xdubuy_office</span></div>
+                <div class="seller_info"><span th:text="${item.seller_info}">Loading...</span></div>
                 <div class="item_footer">
                     <button class="btn btn-default delete" data-toggle="modal" th:id="${item.id}" type="button">Delete
                     </button>
@@ -292,99 +292,9 @@
 <!-- 底部模块的制作 start -->
 <footer class="footer">
     <div class="w">
-        <div class="mod_service">
-            <ul>
-                <li>
-                    <h5></h5>
-                    <div class="service_txt">
-                        <h4>Products guarantee</h4>
-                        <p>Products guarantee,Invoice supply</p>
-                    </div>
-                </li>
-                <li>
-                    <h5></h5>
-                    <div class="service_txt">
-                        <h4>Products guarantee</h4>
-                        <p>Products guarantee,Invoice supply</p>
-                    </div>
-                </li>
-                <li>
-                    <h5></h5>
-                    <div class="service_txt">
-                        <h4>Products guarantee</h4>
-                        <p>Products guarantee,Invoice supply</p>
-                    </div>
-                </li>
-                <li>
-                    <h5></h5>
-                    <div class="service_txt">
-                        <h4>Products guarantee</h4>
-                        <p>Products guarantee,Invoice supply</p>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class="mod_help">
-            <dl>
-                <dt>Service Information</dt>
-                <dd><a href="#">Shopping process</a></dd>
-                <dd><a href="#">Member introduction</a></dd>
-                <dd><a href="#">Life travel / group buying</a></dd>
-                <dd><a href="#">Common problem</a></dd>
-                <dd><a href="#">Big appliances</a></dd>
-                <dd><a href="#">Customer service</a></dd>
-            </dl>
-            <dl>
-                <dt>Service Information</dt>
-                <dd><a href="#">Shopping process</a></dd>
-                <dd><a href="#">Member introduction</a></dd>
-                <dd><a href="#">Life travel / group buying</a></dd>
-                <dd><a href="#">Common problem</a></dd>
-                <dd><a href="#">Big appliances</a></dd>
-                <dd><a href="#">Customer service</a></dd>
-            </dl>
-            <dl>
-                <dt>Service Information</dt>
-                <dd><a href="#">Shopping process</a></dd>
-                <dd><a href="#">Member introduction</a></dd>
-                <dd><a href="#">Life travel / group buying</a></dd>
-                <dd><a href="#">Common problem</a></dd>
-                <dd><a href="#">Big appliances</a></dd>
-                <dd><a href="#">Customer service</a></dd>
-            </dl>
-            <dl>
-                <dt>Service Information</dt>
-                <dd><a href="#">Shopping process</a></dd>
-                <dd><a href="#">Member introduction</a></dd>
-                <dd><a href="#">Life travel / group buying</a></dd>
-                <dd><a href="#">Common problem</a></dd>
-                <dd><a href="#">Big appliances</a></dd>
-                <dd><a href="#">Customer service</a></dd>
-            </dl>
-            <dl>
-                <dt>Service Information</dt>
-                <dd><a href="#">Shopping process</a></dd>
-                <dd><a href="#">Member introduction</a></dd>
-                <dd><a href="#">Life travel / group buying</a></dd>
-                <dd><a href="#">Common problem</a></dd>
-                <dd><a href="#">Big appliances</a></dd>
-                <dd><a href="#">Customer service</a></dd>
-            </dl>
-            <dl>
-                <dt>Help center</dt>
-                <dd>
-                    <img alt="" height="80px" src="images/thanks.png" width="80px">
-                    Client
-                </dd>
-            </dl>
-        </div>
         <div class="mod_copyright">
             <div class="links">
-                <a href="/logout">Log Out</a> | <a href="#">About us</a> | <a href="#">Contact us</a> | Customer service
-                                              | Business settlement |
-                                              Marketing Center | Mobile phone premium | Links | Sales alliance |
-                                              Community |
-                                              Public welfare | English Site | Contact U
+                <a href="/logout">Log Out</a> | <a href="#">About us</a> | <a href="#">Contact us</a>
             </div>
             <div class="copyright">
                 address：Clsyyds Office, 3rd Floor, Haitang Dormitory No.7, Xidian University postcode：1xxx96

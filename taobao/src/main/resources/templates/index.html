@@ -45,6 +45,51 @@
             background-color: #fff;
         }
 
+        #snackbar-container{
+            position :  fixed;
+            bottom : 0px;
+            left : 50%;
+        }
+        .snackbar {
+            visibility: hidden;
+            min-width: 250px;
+            margin-left: -125px;
+            background-color: #333;
+            margin-bottom : 20px;
+            color: #fff;
+            text-align: center;
+            border-radius: 2px;
+            padding: 16px;
+            z-index: 1;
+            left: 50%;
+            bottom: 30px;
+            font-size: 17px;
+        }
+        .snackbar.show {
+            visibility: visible;
+            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        @-webkit-keyframes fadein {
+            from {bottom: 0; opacity: 0;}
+            to {bottom: 30px; opacity: 1;}
+        }
+
+        @keyframes fadein {
+            from {bottom: 0; opacity: 0;}
+            to {bottom: 30px; opacity: 1;}
+        }
+
+        @-webkit-keyframes fadeout {
+            from {bottom: 30px; opacity: 1;}
+            to {bottom: 0; opacity: 0;}
+        }
+
+        @keyframes fadeout {
+            from {bottom: 30px; opacity: 1;}
+            to {bottom: 0; opacity: 0;}
+        }
 
     </style>
 </head>
@@ -66,30 +111,39 @@
     });
 
     //this js中指当前对象
-    function add_shoppingcar(btn) {
-        var a = btn.parentNode.parentNode;
-        var divs = a.getElementsByTagName("div");
-        var name = divs[0].innerHTML;
-        console.log(name);
-        var spans = divs[1].getElementsByTagName("span")
-        var price = spans[0].innerHTML;
-        console.log(price);
-        var tbody = document.getElementById("goods");
-        console.log(tbody);
-        var row = tbody.insertRow();//insertRow表格开头插入新行
+    function addToShoppingCart(btn) {
+        let a = btn.parentNode.parentNode;
+        let divs = a.getElementsByTagName("div");
+        let name = divs[0].innerHTML;
+        let spans = divs[1].getElementsByTagName("span")
+        let price = spans[1].innerHTML;
+        let tbody = document.getElementById("goods");
+        let row = tbody.insertRow();//insertRow表格开头插入新行
         row.innerHTML = "<td>" + name + "</td>" +
             "<td>" + price + "</td>" +
-            "<td align='center'>" +
+            '<td style="text-align: center;">' +
             "<input type='button' value='-' id='jian'  onclick='change(this,-1)'  />" +
-            "<input id='text' type='text' size='1' value='1' readonly='readonly' />" +
+            "<input id='text' type='text' size='1' value='1' style='text-align:center;' readonly='readonly' />" +
             "<input type='button' value='+' id='add'  onclick='change(this,1)'  />" +
             "</td>" +
             "<td>" + price + "</td>" +
-            "<td align='center'>" +
-            "<input type='button' value='X' onclick='del(this)'/>" +
+            '<td style="text-align:center;">' +
+            "<input type='button' value='Delete' onclick='del(this)'/>" +
             "</td>" +
             "</tr>"
         total();
+        showSnackbar("Successfully added " + name + " ×1 to cart.");
+    }
+
+
+    function showSnackbar(str) {
+        let el = document.createElement("div");
+        el.className = "snackbar";
+        let y = document.getElementById("snackbar-container");
+        el.innerHTML = str;
+        y.append(el);
+        el.className = "snackbar show";
+        setTimeout(function(){ el.className = el.className.replace("snackbar show", "snackbar"); }, 3000);
     }
 
     //增加减少数量，用n正负1来表示点击了加减按钮
@@ -146,15 +200,14 @@
 <!-- 欢迎您界面 -->
 <div class="hello w">
     <div class="hello_user">
-        <p>welcome to xdbuy!Dear :</p>
-        <p>&nbsp;</p>
+        <p>welcome to XDUBuy! Dear :&nbsp;</p>
         <p th:text="${user.name}">username</p>
     </div>
 </div>
 <div class="col-md-2">
     <button class='shopping_cart' data-target="#myModal" data-toggle="modal">                   <!--跳转到购物车-->
         <span class="iconfont">&#xe630;</span>
-        <p class="into_cart_info">click into shopping cart</p>
+        <p class="into_cart_info">Shopping Cart</p>
     </button>
     <!-- Modal  添加商品表单-->
     <div aria-labelledby="myModalLabel" class="modal fade" id="myModal" role="dialog" tabindex="-1">
@@ -163,7 +216,7 @@
                 <div class="modal-header">
                     <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
                             aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">add goods</h4>
+                    <h4 class="modal-title" id="myModalLabel">Shopping Cart</h4>
                 </div>
                 <div class="modal-body">
                     <table class="table table-hover ">
@@ -171,20 +224,20 @@
                             <div class="modal-content">
                                 <thead class="modal-header">
                                 <tr>
-                                    <th>goods</th>
-                                    <th>price</th>
-                                    <th>number</th>
-                                    <th>sum</th>
-                                    <th>delete</th>
+                                    <th>Commodities</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total Price</th>
+                                    <th>Operation</th>
                                 </tr>
                                 </thead>
                                 <tbody class="modal-body" id="goods">
                                 </tbody>
                                 <tfoot>
                                 <tr>
+                                    <td>RMB ￥</td>
                                     <td colspan="3" style="text-align:center">total</td>
                                     <td id="total"></td>
-                                    <td>RMB</td>
                                 </tr>
                                 </tfoot>
                             </div>
@@ -194,7 +247,7 @@
 
                 <div class="modal-footer">
                     <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
-                    <button class="btn btn-primary" type="button">Save changes</button>
+                    <button class="btn btn-primary" type="button">Save Changes</button>
                 </div>
             </div>
         </div>
@@ -202,219 +255,6 @@
 
     <!-- </header> -->
 </div>
-<!--     <div  border="1" class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <table class="table table-hover ">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <thead class="modal-header">
-                <tr>
-                <th>goods</th>
-                <th >price</th>
-                <th>number</th>
-                <th>sum</th>
-                <th>delete</th>
-                </tr>
-            </thead>
-            <tbody id="goods" class="modal-body">
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="3" align="center" >total</td>
-                    <td id="total"></td>
-                    <td>RMB</td>
-                </tr>
-            </tfoot>
-                </div>
-            </div>
-    </table>
-    </div> -->
-<!-- 快捷导航模块 start -->
-<!-- <section class="shortcut"> -->
-<!-- <div class="w"> -->
-<!-- <div class="fl"> -->
-<!-- <ul> -->
-<!-- <li>welcome to xdubuy！&nbsp;</li> -->
-<!-- <li> -->
-<!-- <p class="suibian">welcome!</p>           其中class随便放在了common.css文件最后面        -->
-<!-- <a href="#">please log in!</a> &nbsp; <a href="register.html" class="style_red">Free registration</a> -->
-<!-- </li> -->
-<!-- </ul> -->
-<!-- </div> -->
-<!-- <div class="fr"> -->
-<!-- <ul> -->
-<!-- <li>my order</li> -->
-<!-- <li></li> -->
-<!-- <li class="arrow-icon">my xdubuy</li> -->
-<!-- <li></li> -->
-<!-- <li>xdubuy vip</li> -->
-<!-- <li></li> -->
-<!-- <li>Enterprise procurement</li> -->
-<!-- <li></li> -->
-<!-- <li class="arrow-icon">follow us</li> -->
-<!-- <li></li> -->
-<!-- <li class="arrow-icon">Customer service</li> -->
-<!-- </ul> -->
-<!-- </div> -->
-<!-- </div> -->
-<!-- </section> -->
-<!-- 快捷导航模块 end -->
-<!-- header头部模块制作 start -->
-<!-- <header class="header w"> -->
-<!-- logo模块 -->
-<!-- <div class="logo"> -->
-<!-- <h1> -->
-<!-- <a href="index.html" title="xdubuy">xdubuy</a> -->
-<!-- </h1> -->
-<!-- </div> -->
-<!-- search搜索模块 -->
-<!-- <div class="search"> -->
-<!-- <input type="search" name="" id="" placeholder="pen"> -->
-<!-- <button>search</button> -->
-<!-- </div> -->
-<!-- hotwords模块制作 -->
-<!-- <div class="hotwords"> -->
-<!-- <a href="#" class="style_red">sale</a> -->
-<!-- <a href="#">10% off</a> -->
-<!-- <a href="#">9.9RMB</a> -->
-<!-- <a href="#">book</a> -->
-<!-- <a href="#">office</a> -->
-<!-- <a href="#">Lays' monopoly</a> -->
-<!-- <a href="#">desktop</a> -->
-<!-- </div> -->
-<!-- 购物车模块 -->
-<!-- <div class="shopcar"> -->
-<!-- shopping cart -->
-<!-- <i class="count">0</i> -->
-<!-- </div> -->
-<!-- </header> -->
-<!-- header头部模块制作 end -->
-<!-- nav模块制作 start -->
-<!-- <nav class="nav"> -->
-<!-- <div class="w"> -->
-<!-- <div class="dropdown"> -->
-<!-- <div class="dt">Classification of all goods</div> -->
-<!-- <div class="dd"> -->
-<!-- <ul> -->
-<!-- <li><a href="#">Household appliances</a> </li> -->
-<!-- <li><a href="list.html">phone</a>、<a href="#">Digital</a> -->
-<!-- <li><a href="#">Computer、Work</a> </li> -->
-<!-- <li><a href="#">Furniture、Home decoration</a> </li> -->
-<!-- <li><a href="#">Men's、Women's underwear</a> </li> -->
-<!-- <li><a href="#">Cleaning products、pets</a> </li> -->
-<!-- <li><a href="#">Shoes、Bags、Jewelry</a> </li> -->
-<!-- <li><a href="#">Outdoor sports、Clocks</a> </li> -->
-<!-- <li><a href="#">Automobile、Car-accessory</a> </li> -->
-<!-- <li><a href="#">Mother-to-Child、Toys</a> </li> -->
-<!-- <li><a href="#">Food、Liquors、Fresh</a> </li> -->
-<!-- <li><a href="#">Medicine</a> </li> -->
-<!-- <li><a href="#">Books、Audio、E-books</a> </li> -->
-<!-- <li><a href="#">Lottery、Travel、Recharge</a> </li> -->
-<!-- <li><a href="#">Financial、Crowdfunding</a> </li> -->
-<!--  -->
-<!-- </ul> -->
-<!-- </div> -->
-<!-- </div> -->
-<!-- <div class="navitems"> -->
-<!-- <ul> -->
-<!-- <li><a href="#">Clothing</a></li> -->
-<!-- <li><a href="#">Bags</a></li> -->
-<!-- <li><a href="#">Phone</a></li> -->
-<!-- <li><a href="#">food</a></li> -->
-<!-- <li><a href="#">Exercise</a></li> -->
-<!-- <li><a href="#">Men</a></li> -->
-<!-- <li><a href="#">Women</a></li> -->
-<!-- <li><a href="#">Children</a></li> -->
-<!-- </ul> -->
-<!-- </div> -->
-<!-- </div> -->
-<!-- </nav> -->
-<!-- nav模块制作 end -->
-<!-- 首页专有的模块 main  start -->
-<!-- <div class="w"> -->
-<!-- <div class="main"> -->
-<!-- <div class="focus"> -->
-<!-- <ul> -->
-<!-- <li> -->
-<!-- <img src="upload/focus1.jpg" alt="" width="721px" height="455px"> -->
-<!-- </li> -->
-<!-- </ul> -->
-<!-- </div> -->
-<!-- <div class="newsflash"> -->
-<!-- <div class="news"> -->
-<!-- <div class="news-hd"> -->
-<!-- <h5>bulletin</h5> -->
-<!-- <a href="#" class="more">more</a> -->
-<!-- </div> -->
-<!-- <div class="news-bd"> -->
-<!-- <ul> -->
-<!-- <li><a href="#">parker for only 10 dollors！！！</a></li> -->
-<!-- <li><a href="#">Lay's for only 0.49 dollors per bag</a></li> -->
-<!-- <li><a href="#">Five bottles of Coke cost only $1</a></li> -->
-<!-- <li><a href="#">Logi Mouse starts at 49 yuan</a></li> -->
-<!-- <li><a href="#">Flash sale of Bluetooth headsets</a></li> -->
-<!-- </ul> -->
-<!-- </div> -->
-<!-- </div> -->
-<!-- <div class="lifeservice"> -->
-<!-- <ul> -->
-<!-- <li> -->
-<!-- <i class="icon1"></i> -->
-<!-- <p>Phone bill</p> -->
-<!-- </li> -->
-<!-- <li> -->
-<!-- <i class="icon2"></i> -->
-<!-- <p>travelling</p> -->
-<!-- </li> -->
-<!-- <li> -->
-<!-- <i class="icon3"></i> -->
-<!-- <p>movies</p> -->
-<!-- </li> -->
-<!-- <li> -->
-<!-- <i class="icon4"></i> -->
-<!-- <p>games</p> -->
-<!-- </li> -->
-<!-- <li> -->
-<!-- <i class="icon5"></i> -->
-<!-- <p>lottery</p> -->
-<!-- </li> -->
-<!-- <li> -->
-<!-- <i class="icon6"></i> -->
-<!-- <p>gas</p> -->
-<!-- </li> -->
-<!-- <li> -->
-<!-- <i class="icon7"></i> -->
-<!-- <p>house</p> -->
-<!-- </li> -->
-<!-- <li> -->
-<!-- <i class="icon8"></i> -->
-<!-- <p>train</p> -->
-<!-- </li> -->
-<!-- <li> -->
-<!-- <i class="icon9"></i> -->
-<!-- <p>investment</p> -->
-<!-- </li> -->
-<!-- <li> -->
-<!-- <i class="icon10"></i> -->
-<!-- <p>financial</p> -->
-<!-- </li> -->
-<!-- <li> -->
-<!-- <i class="icon11"></i> -->
-<!-- <p>credit card</p> -->
-<!-- </li> -->
-<!-- <li> -->
-<!-- <i class="icon12"></i> -->
-<!-- <p>ious</p> -->
-<!-- </li> -->
-<!-- </ul> -->
-<!-- </div> -->
-<!-- <div class="bargain"> -->
-<!-- <img src="upload/bargain.png" alt="" width="250px" height="75px"> -->
-<!-- </div> -->
-<!-- </div> -->
-<!-- </div> -->
-<!-- </div> -->
-<!-- 首页专有的模块 main  end -->
-<!-- 推荐模块 start -->
 <div class="w recom">
     <div class="recom_hd">
         <img alt="" height="163px" src="images/recom.jpg" width="205px">
@@ -428,131 +268,24 @@
         </ul>
     </div>
 </div>
-<!-- 推荐模块 end-->                             <!--一直到364行-->
-<!-- 楼层区域制作start -->
-<!-- <div class="floor"> -->
-<!-- 1楼domestic appliances 楼层 -->
-<!-- <div class="w jiadian"> -->
-<!-- <div class="box_hd"> -->
-<!-- <h3>domestic appliances </h3> -->
-<!-- <div class="tab_list"> -->
-<!-- <ul> -->
-<!-- <li> <a href="#" class="style_red">Hot</a>|</li> -->
-<!-- <li><a href="#">Big appliances</a>|</li> -->
-<!-- <li><a href="#">Household appliances</a>|</li> -->
-<!-- <li><a href="#">Kitchen appliances</a>|</li> -->
-<!-- <li><a href="#">Household appliances</a>|</li> -->
-<!-- </ul> -->
-<!-- </div> -->
-<!-- </div> -->
-<!-- <div class="box_bd"> -->
-<!-- <div class="tab_content"> -->
-<!-- <div class="tab_list_item"> -->
-<!-- <div class="col_210"> -->
-<!-- <ul> -->
-<!-- <li class="welcome_list1">welcome~</li> -->
-<!-- <li class="welcome_list2">welcome~</li> -->
-<!-- <li class="welcome_list3">welcome~</li> -->
-<!-- <li class="welcome_list4">welcome~</li> -->
-<!-- <li class="welcome_list5">welcome~</li> -->
-<!-- <li class="welcome_list6">welcome~</li> -->
-<!-- </ul> -->
-<!-- <a href="#TV"> -->
-<!-- <img src="upload/floor-1-1-111.png" alt="" > -->
-<!-- </a> -->
-<!-- </div> -->
-<!-- <div class="col_329"> -->
-<!-- <a href="#kettle"> -->
-<!-- <img src="upload/floor-1-b01.png" alt="" width="329px" height="360px"> -->
-<!-- </a> -->
-<!-- </div> -->
-<!-- <div class="col_221"> -->
-<!-- <a href="#microwave oven" class="bb"> <img src="upload/floor-1-2.png" alt="" width="219px" height="180px"></a> -->
-<!-- <a href="#TV"> <img src="upload/floor-1-3.png" alt=""></a> -->
-<!-- </div> -->
-<!-- <div class="col_221"> -->
-<!-- <a href="#TV"> <img src="upload/floor-1-4.png" alt=""></a> -->
-<!-- </div> -->
-<!-- <div class="col_219"> -->
-<!-- <a href="#refreshing summer" class="bb"> <img src="upload/floor-1-5.png" alt=""></a> -->
-<!-- <a href="#refreshing summer"> <img src="upload/floor-1-6.png" alt=""></a> -->
-<!-- </div> -->
-<!-- </div> -->
-<!-- </div> -->
-<!-- </div> -->
-<!-- </div> -->
-<!-- 2楼手机楼层 -->
-<!-- <div class="w shouji"> -->
-<!-- <div class="box_hd"> -->
-<!-- <h3>Mobile communication</h3> -->
-<!-- <div class="tab_list"> -->
-<!-- <ul> -->
-<!-- <li> <a href="#" class="style_red">Hot</a>|</li> -->
-<!-- <li><a href="#">smart phone </a>|</li> -->
-<!-- <li><a href="#">Elderly mobile phones </a>|</li> -->
-<!-- <li><a href="#">play station</a>|</li> -->
-<!-- <li><a href="#">x-box</a>|</li> -->
-<!-- </ul> -->
-<!-- </div> -->
-<!-- </div> -->
-<!-- <div class="box_bd"> -->
-<!-- <div class="tab_content"> -->
-<!-- <div class="tab_list_item"> -->
-<!-- <div class="col_210"> -->
-<!-- <ul> -->
-<!-- <li class="welcome_list1">welcome~</li> -->
-<!-- <li class="welcome_list2">welcome~</li> -->
-<!-- <li class="welcome_list3">welcome~</li> -->
-<!-- <li class="welcome_list4">welcome~</li> -->
-<!-- <li class="welcome_list5">welcome~</li> -->
-<!-- <li class="welcome_list6">welcome~</li> -->
-<!-- </ul> -->
-<!-- <a href="#TV"> -->
-<!-- <img src="upload/floor-1-1-111.png" alt=""> -->
-<!-- </a> -->
-<!-- </div> -->
-<!-- <div class="col_329"> -->
-<!-- <a href="#PCgames"> -->
-<!-- <img src="upload/floor-1-b01-1.png" alt="" width="329px" height="360px"> -->
-<!-- </a> -->
-<!-- </div> -->
-<!-- <div class="col_221"> -->
-<!-- <a href="#smartphone" class="bb"> <img src="upload/floor-1-2-1.png" alt="" width="219px" height="180px"></a> -->
-<!-- <a href="#smartphone"> <img src="upload/floor-1-3-1.png" alt="" width="219px" height="178px"></a> -->
-<!-- </div> -->
-<!-- <div class="col_221"> -->
-<!-- <a href="#camera"> <img src="upload/floor-1-4-1.png" alt="" width="220px" height="359px"></a> -->
-<!--  -->
-<!-- </div> -->
-<!-- <div class="col_219"> -->
-<!-- <a href="#PCgames" class="bb"> <img src="upload/floor-1-5-1.png" alt="" width="219px" height="181px"></a> -->
-<!-- <a href="#PCgames"> <img src="upload/floor-1-6-1.png" alt="" width="219px" height="178px"></a> -->
-<!-- </div> -->
-<!-- </div> -->
-<!-- </div> -->
-<!-- </div> -->
-<!-- </div> -->
-<!-- </div>  -->
-<!-- 楼层区域制作end -->
-<!-- 商品模块的css全部在index.css中 -->
 <div th:each="seller:${sellers}">
-    <h1 style="text-align:center" th:text="${seller.name}">xxx</h1>
-    <h2 style="text-align:center"> shop</h2>
+    <h1 style="text-align:center" th:text="${seller.name}">Loading...</h1>
     <div th:each="kind:${seller.kinds}">
         <div class="snav w">
-            <h3 th:text="${kind.name}">computer</h3>
+            <h3 th:text="${kind.name}">Loading...</h3>
         </div>
         <ul class="all_goods w">
             <li class="goods" th:each="item:${kind.items}">
-                <a class="item-a" href="#">
+                <a class="item-a">
                     <img alt="" height="198px" src="favicon.png" width="194px">
-                    <div class="item_title" th:text="${item.item_title}"> a good goods a good goods</div>
-                    <div class="item_price"><span class="price_css" th:text="${item.price}">9999</span><span>RMB</span>
+                    <div class="item_title" th:text="${item.item_title}">Loading...</div>
+                    <div class="item_price"><span>RMB ￥</span><span class="price_css"
+                                                                    th:text="${item.price}">Loading...</span>
                     </div>
-                    <div class="seller_info"><span th:text="${item.seller_info}">xdubuy_office</span></div>
+                    <div class="seller_info"><span th:text="${item.seller_info}">Loading...</span></div>
                     <div class="item_footer">
-                        <button class="cart_button" onclick="add_shoppingcar(this)"><span
-                                class="iconfont">&#xe630;</span>click add to shopping cart
+                        <button class="cart_button" onclick="addToShoppingCart(this)"><span
+                                class="iconfont">&#xe630;</span>&nbsp;Add to Shopping Cart
                         </button>
                     </div>
                 </a>
@@ -564,99 +297,10 @@
 <!-- 底部模块的制作 start -->
 <footer class="footer">
     <div class="w">
-        <!-- <div class="mod_service"> -->
-        <!-- <ul> -->
-        <!-- <li> -->
-        <!-- <h5></h5> -->
-        <!-- <div class="service_txt"> -->
-        <!-- <h4>Products guarantee</h4> -->
-        <!-- <p>Products guarantee,Invoice supply</p> -->
-        <!-- </div> -->
-        <!-- </li> -->
-        <!-- <li> -->
-        <!-- <h5></h5> -->
-        <!-- <div class="service_txt"> -->
-        <!-- <h4>Products guarantee</h4> -->
-        <!-- <p>Products guarantee,Invoice supply</p> -->
-        <!-- </div> -->
-        <!-- </li> -->
-        <!-- <li> -->
-        <!-- <h5></h5> -->
-        <!-- <div class="service_txt"> -->
-        <!-- <h4>Products guarantee</h4> -->
-        <!-- <p>Products guarantee,Invoice supply</p> -->
-        <!-- </div> -->
-        <!-- </li> -->
-        <!-- <li> -->
-        <!-- <h5></h5> -->
-        <!-- <div class="service_txt"> -->
-        <!-- <h4>Products guarantee</h4> -->
-        <!-- <p>Products guarantee,Invoice supply</p> -->
-        <!-- </div> -->
-        <!-- </li> -->
-        <!-- </ul> -->
-        <!-- </div> -->
-        <!-- <div class="mod_help"> -->
-        <!-- <dl> -->
-        <!-- <dt>Service Information</dt> -->
-        <!-- <dd><a href="#">Shopping process</a></dd> -->
-        <!-- <dd><a href="#">Member introduction</a></dd> -->
-        <!-- <dd><a href="#">Life travel / group buying</a></dd> -->
-        <!-- <dd><a href="#">Common problem</a></dd> -->
-        <!-- <dd><a href="#">Big appliances</a></dd> -->
-        <!-- <dd><a href="#">Customer service</a></dd> -->
-        <!-- </dl> -->
-        <!-- <dl> -->
-        <!-- <dt>Service Information</dt> -->
-        <!-- <dd><a href="#">Shopping process</a></dd> -->
-        <!-- <dd><a href="#">Member introduction</a></dd> -->
-        <!-- <dd><a href="#">Life travel / group buying</a></dd> -->
-        <!-- <dd><a href="#">Common problem</a></dd> -->
-        <!-- <dd><a href="#">Big appliances</a></dd> -->
-        <!-- <dd><a href="#">Customer service</a></dd> -->
-        <!-- </dl> -->
-        <!-- <dl> -->
-        <!-- <dt>Service Information</dt> -->
-        <!-- <dd><a href="#">Shopping process</a></dd> -->
-        <!-- <dd><a href="#">Member introduction</a></dd> -->
-        <!-- <dd><a href="#">Life travel / group buying</a></dd> -->
-        <!-- <dd><a href="#">Common problem</a></dd> -->
-        <!-- <dd><a href="#">Big appliances</a></dd> -->
-        <!-- <dd><a href="#">Customer service</a></dd> -->
-        <!-- </dl> -->
-        <!-- <dl> -->
-        <!-- <dt>Service Information</dt> -->
-        <!-- <dd><a href="#">Shopping process</a></dd> -->
-        <!-- <dd><a href="#">Member introduction</a></dd> -->
-        <!-- <dd><a href="#">Life travel / group buying</a></dd> -->
-        <!-- <dd><a href="#">Common problem</a></dd> -->
-        <!-- <dd><a href="#">Big appliances</a></dd> -->
-        <!-- <dd><a href="#">Customer service</a></dd> -->
-        <!-- </dl> -->
-        <!-- <dl> -->
-        <!-- <dt>Service Information</dt> -->
-        <!-- <dd><a href="#">Shopping process</a></dd> -->
-        <!-- <dd><a href="#">Member introduction</a></dd> -->
-        <!-- <dd><a href="#">Life travel / group buying</a></dd> -->
-        <!-- <dd><a href="#">Common problem</a></dd> -->
-        <!-- <dd><a href="#">Big appliances</a></dd> -->
-        <!-- <dd><a href="#">Customer service</a></dd> -->
-        <!-- </dl> -->
-        <!-- <dl> -->
-        <!-- <dt>Help center</dt> -->
-        <!-- <dd> -->
-        <!-- <img src="images/thanks.png" alt="" width="80px" height="80px"> -->
-        <!-- Client -->
-        <!-- </dd> -->
-        <!-- </dl> -->
-        <!-- </div> -->
+
         <div class="mod_copyright">
             <div class="links">
-                <a href="/logout">Log Out</a> | <a href="#">About us</a> | <a href="#">Contact us</a> | Customer service
-                                              | Business settlement |
-                                              Marketing Center | Mobile phone premium | Links | Sales alliance |
-                                              Community |
-                                              Public welfare | English Site | Contact U
+                <a href="/logout">Log Out</a> | <a href="#">About us</a> | <a href="#">Contact us</a>
             </div>
             <div class="copyright">
                 address：Clsyyds Office, 3rd Floor, Haitang Dormitory No.7, Xidian University postcode：1xxx96
@@ -665,6 +309,8 @@
         </div>
     </div>
 </footer>
+<!-- Snackbar -->
+<div id="snackbar-container" style="pointer-events:none;"></div>
 <!-- 底部模块的制作 end -->
 </body>
 
