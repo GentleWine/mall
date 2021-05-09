@@ -47,4 +47,5 @@ An available, simple, secure and efficient E-commerce system
 
 ————————————2021.4.30 22:10
 
-**陈凌灏、台海春：上传对应的报告（DDL：May 7th）**
+~~**陈凌灏、台海春：上传对应的报告（DDL：May 7th）**(已提交课代表)~~
+
