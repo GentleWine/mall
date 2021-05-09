@@ -18,6 +18,11 @@
         <module name="taobao.main" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="taobao" target="15" />
+      <module name="taobao.main" target="15" />
+      <module name="taobao.test" target="15" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

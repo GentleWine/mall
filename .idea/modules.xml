@@ -3,6 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/taobao/.mvn/.mvn.iml" filepath="$PROJECT_DIR$/taobao/.mvn/.mvn.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/taobao.iml" filepath="$PROJECT_DIR$/.idea/modules/taobao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/taobao.main.iml" filepath="$PROJECT_DIR$/.idea/modules/taobao.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/taobao.test.iml" filepath="$PROJECT_DIR$/.idea/modules/taobao.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/taobao/src/test/test.iml" filepath="$PROJECT_DIR$/taobao/src/test/test.iml" />
     </modules>
   </component>
