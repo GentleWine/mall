@@ -37,7 +37,7 @@ repositories {
 
 dependencies {
     implementation 'org.slf4j:slf4j-simple:2.0.0-alpha1'
-    implementation'org.slf4j:slf4j-api:2.0.0-alpha1'
+    implementation 'org.slf4j:slf4j-api:2.0.0-alpha1'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.4.4'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:2.4.4'
     implementation 'org.springframework.boot:spring-boot-starter-web:2.4.4'
@@ -75,12 +75,12 @@ test {
 }
 
 jar {
-    manifest{
-        attributes ('Main-Class': 'com.mng.TaobaoApplication')
+    manifest {
+        attributes('Main-Class': 'com.mng.TaobaoApplication')
     }
 
-    from{
-        configurations.runtimeClasspath.collect {it.isDirectory() ? it : zipTree(it)}
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
     archiveBaseName = "${projectName}"
     archiveVersion = "${projectVersion}"
