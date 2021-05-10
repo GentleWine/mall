@@ -11,19 +11,19 @@ import java.util.Base64;
 
 @SuppressWarnings("unused")
 @ThreadSafe
-public final class CookieCipher {
+public final class CipherProcessor {
 
     private static final byte[] cipherKey = Base64.getDecoder().decode("eUFkJH4tUGNzJDRRW01fdTx9OlF5MC5wLm1dbElndGBNTFlgPVc7Onl7cUdjSS9rTEQ8RTYgaGVzKit8W1p5bUMsMA==");
-    private static volatile CookieCipher INSTANCE;
+    private static volatile CipherProcessor INSTANCE;
     private final Cipher encryptCipher;
     private final Cipher decryptCipher;
 
-    private CookieCipher() {
+    private CipherProcessor() {
         this(cipherKey);
     }
 
     @SneakyThrows
-    private CookieCipher(byte[] key) {
+    private CipherProcessor(byte[] key) {
         Key keyObj = getKey(key);
         encryptCipher = Cipher.getInstance("AES");
         encryptCipher.init(Cipher.ENCRYPT_MODE, keyObj);
@@ -31,11 +31,11 @@ public final class CookieCipher {
         decryptCipher.init(Cipher.DECRYPT_MODE, keyObj);
     }
 
-    public static CookieCipher getInstance() {
-        synchronized (CookieCipher.class) {
+    public static CipherProcessor getInstance() {
+        synchronized (CipherProcessor.class) {
             if (INSTANCE == null) {
-                synchronized (CookieCipher.class) {
-                    INSTANCE = new CookieCipher();
+                synchronized (CipherProcessor.class) {
+                    INSTANCE = new CipherProcessor();
                 }
             }
         }

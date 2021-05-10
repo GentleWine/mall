@@ -6,7 +6,7 @@ import com.mng.entity.User;
 import com.mng.exception.authentication.LoginFailedException;
 import com.mng.exception.authentication.LoginFailedException.Status;
 import com.mng.repository.UserRepository;
-import com.mng.util.CookieCipher;
+import com.mng.util.CipherProcessor;
 import com.mng.util.JsonBuilder;
 import com.mng.util.Log;
 import com.mng.util.VerificationUtil;
@@ -52,7 +52,7 @@ public class LoginController extends AccountControllerBase {
                         Cookie phoneCookie = new Cookie("phone", phone);
                         phoneCookie.setMaxAge(7 * 24 * 3600);
                         phoneCookie.setPath("/");
-                        Cookie passwordCookie = new Cookie("password", CookieCipher.getInstance().encrypt(password));
+                        Cookie passwordCookie = new Cookie("password", CipherProcessor.getInstance().encrypt(password));
                         passwordCookie.setMaxAge(7 * 24 * 3600);
                         passwordCookie.setPath("/");
                         Cookie usertypeCookie = new Cookie("usertype", enumUserType.toString());
