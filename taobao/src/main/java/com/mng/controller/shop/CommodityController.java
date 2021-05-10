@@ -37,7 +37,7 @@ public class CommodityController extends ShopControllerBase {
                 List<Shop> shops = shopRepository.findByOwnerid(userRepository.findByPhone(request.getSession().getAttribute("phone").toString()).get(0).getUserid());
                 Shop shop = shops.get(0);
                 shopid = shop.getShopid();
-            } catch (ArrayIndexOutOfBoundsException e) {
+            } catch (IndexOutOfBoundsException e) {
                 throw new CommodityAddFailedException("No shop found for current seller!");
             }
             if (VerificationUtil.anyIsEmpty(name, detail)) {
@@ -64,7 +64,7 @@ public class CommodityController extends ShopControllerBase {
         } catch (CommodityException e) {
             return JsonBuilder.newObject()
                     .put("success", false)
-                    .put("error", e.toString())
+                    .put("error", e.getMessage())
                     .build();
         }
     }
@@ -87,7 +87,7 @@ public class CommodityController extends ShopControllerBase {
         } catch (CommodityException e) {
             return JsonBuilder.newObject()
                     .put("success", false)
-                    .put("error", e.toString())
+                    .put("error", e.getMessage())
                     .build();
         }
     }
@@ -114,7 +114,7 @@ public class CommodityController extends ShopControllerBase {
         } catch (CommodityException e) {
             return JsonBuilder.newObject()
                     .put("success", false)
-                    .put("error", e.toString())
+                    .put("error", e.getMessage())
                     .build();
         }
     }

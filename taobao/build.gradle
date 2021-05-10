@@ -36,24 +36,24 @@ repositories {
 }
 
 dependencies {
-    compile 'org.slf4j:slf4j-simple:2.0.0-alpha1'
-    compile 'org.slf4j:slf4j-api:2.0.0-alpha1'
-    compile 'org.springframework.boot:spring-boot-starter-data-jpa:2.4.4'
-    compile 'org.springframework.boot:spring-boot-starter-thymeleaf:2.4.4'
-    compile 'org.springframework.boot:spring-boot-starter-web:2.4.4'
-    compile 'org.hibernate.orm:hibernate-core:6.0.0.Alpha7'
-    compile 'mysql:mysql-connector-java:8.0.23'
-    compile 'com.alibaba:fastjson:1.2.28'
-    compile 'com.google.code.gson:gson:2.8.6'
-    compile 'com.google.code.findbugs:annotations:3.0.1'
+    implementation 'org.slf4j:slf4j-simple:2.0.0-alpha1'
+    implementation'org.slf4j:slf4j-api:2.0.0-alpha1'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.4.4'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:2.4.4'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.4.4'
+    implementation 'org.hibernate.orm:hibernate-core:6.0.0.Alpha7'
+    implementation 'mysql:mysql-connector-java:8.0.23'
+    implementation 'com.alibaba:fastjson:1.2.28'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.google.code.findbugs:annotations:3.0.1'
 
     compileOnly 'org.projectlombok:lombok:1.18.18'
     annotationProcessor 'org.projectlombok:lombok:1.18.18'
-    testCompile 'org.springframework.boot:spring-boot-starter-test:2.4.4'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.4.4'
 
     // JAXB dependencies
-    compile 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.3'
-    compile 'org.glassfish.jaxb:jaxb-runtime:2.3.3'
+    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.3'
+    implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.3'
 
     annotationProcessor 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.3'
     annotationProcessor 'org.glassfish.jaxb:jaxb-runtime:2.3.3'
