@@ -26,7 +26,7 @@ public class ShopControllerBase {
     @Autowired
     protected UserRepository userRepository;
 
-    public List<SellerDomain> getsellers(List<Shop> shops) {
+    public List<SellerDomain> getSellers(List<Shop> shops) {
         List<SellerDomain> sellers = new ArrayList<>();
         for (Shop shop : shops) {
             SellerDomain seller = new SellerDomain();

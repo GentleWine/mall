@@ -33,7 +33,7 @@ public class CustomerController extends ShopControllerBase {
             user.setName(username.toString());
         }
 
-        List<SellerDomain> sellers = getsellers(shops);
+        List<SellerDomain> sellers = getSellers(shops);
         model.addAttribute("sellers", sellers);
         model.addAttribute("user", user);
         return "index";

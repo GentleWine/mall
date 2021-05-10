@@ -64,6 +64,7 @@ public class LoginInterceptor implements HandlerInterceptor {
                 }
             }
             if (phone == null || cipheredPassword == null) {
+                LogoutController.clearCookies(response);
                 redirectLogin(request, response);
                 return false;
             } else {
@@ -77,10 +78,12 @@ public class LoginInterceptor implements HandlerInterceptor {
                         return true;
                     }
                     Log.i("Log in With Cookie Failed");
+                    LogoutController.clearCookies(response);
                     redirectLogin(request, response);
                     return false;
                 } catch (GeneralSecurityException e) {
                     Log.e(e);
+                    LogoutController.clearCookies(response);
                     redirectLogin(request, response);
                     return false;
                 }

@@ -22,7 +22,7 @@ public class SellerController extends ShopControllerBase {
     @RequestMapping(value = "/seller", method = RequestMethod.GET)
     public String seller(Model model, HttpServletRequest request) {
         List<Shop> shops = shopRepository.findByOwnerid(userRepository.findByPhone(request.getSession().getAttribute("phone").toString()).get(0).getUserid());
-        List<SellerDomain> sellers = getsellers(shops);
+        List<SellerDomain> sellers = getSellers(shops);
         //TODO: 一个卖家可有多个商店
         if (!sellers.isEmpty()) {
             model.addAttribute("seller", sellers.get(0));
