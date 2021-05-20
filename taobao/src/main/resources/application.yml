@@ -6,3 +6,6 @@ spring:
     password: 123456
     url: jdbc:mysql://49.235.25.29:3306/mall
     driver-class-name: com.mysql.cj.jdbc.Driver
+  mvc:
+    converters:
+      preferred-json-mapper: gson

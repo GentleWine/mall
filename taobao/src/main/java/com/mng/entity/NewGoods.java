@@ -24,4 +24,8 @@ public class NewGoods {
     public String kind;
 
     public String description;
+
+    public NewGoods() {
+
+    }
 }

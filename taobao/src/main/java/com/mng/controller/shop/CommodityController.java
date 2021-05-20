@@ -2,7 +2,8 @@ package com.mng.controller.shop;
 
 import com.mng.annotation.LoginRequired;
 import com.mng.annotation.UserTypeOnly;
-import com.mng.bean.AddGoodsBody;
+import com.mng.bean.request.CommodityAddRequest;
+import com.mng.bean.response.SimpleResponse;
 import com.mng.data.UserType;
 import com.mng.entity.Commodity;
 import com.mng.entity.Shop;
@@ -10,8 +11,8 @@ import com.mng.exception.goods.CommodityAddFailedException;
 import com.mng.exception.goods.CommodityAlterFailedException;
 import com.mng.exception.goods.CommodityDeleteFailedException;
 import com.mng.exception.goods.CommodityException;
-import com.mng.util.JsonBuilder;
 import com.mng.util.VerificationUtil;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,14 +22,15 @@ import java.util.List;
 @LoginRequired
 @UserTypeOnly(UserType.SELLER)
 public class CommodityController extends ShopControllerBase {
-    @RequestMapping(value = "/add-goods", method = RequestMethod.POST)
-    public String addGoods(HttpServletRequest request, @ModelAttribute("addGoods") AddGoodsBody addGoodsBody) {
-        Integer cateid = addGoodsBody.getKind();
+    @RequestMapping(value = "/add-goods", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public SimpleResponse addGoods(HttpServletRequest request, @ModelAttribute("addGoods") CommodityAddRequest commodityAddRequest) {
+        Integer cateid = commodityAddRequest.getKind();
         Integer shopid;
-        String name = addGoodsBody.getName();
+        String name = commodityAddRequest.getName();
         String mainimage = "1";
-        String detail = addGoodsBody.getDescription();
-        double price = addGoodsBody.getPrice();
+        String detail = commodityAddRequest.getDescription();
+        double price = commodityAddRequest.getPrice();
         double amount = 100;
         String status = "1";
 
@@ -56,21 +58,17 @@ public class CommodityController extends ShopControllerBase {
                 commodity.setAmount(amount);
                 commodity.setStatus(status);
                 commodityRepository.save(commodity);
-                return JsonBuilder.newObject()
-                        .put("success", true)
-                        .build();
+                return SimpleResponse.success();
 
             }
         } catch (CommodityException e) {
-            return JsonBuilder.newObject()
-                    .put("success", false)
-                    .put("error", e.getMessage())
-                    .build();
+            return SimpleResponse.fail(e);
         }
     }
 
-    @RequestMapping(value = "/delete_goods", method = RequestMethod.POST)
-    public String deleteGoods(HttpServletRequest request, @RequestParam("comid") Integer comid) {
+    @RequestMapping(value = "/delete_goods", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public SimpleResponse deleteGoods(HttpServletRequest request, @RequestParam("comid") Integer comid) {
 
         System.out.println(comid);
         try {
@@ -80,42 +78,33 @@ public class CommodityController extends ShopControllerBase {
                 throw new CommodityDeleteFailedException("Commodity not found with the given ID");
             } else {
                 commodityRepository.deleteByComid(comid);
-                return JsonBuilder.newObject()
-                        .put("success", true)
-                        .build();
+                return SimpleResponse.success();
             }
         } catch (CommodityException e) {
-            return JsonBuilder.newObject()
-                    .put("success", false)
-                    .put("error", e.getMessage())
-                    .build();
+            return SimpleResponse.fail(e);
         }
     }
 
 
-    @RequestMapping(value = "/changeGoodsAmount", method = RequestMethod.POST)
-    public String changeGoodsAmount(HttpServletRequest request, @RequestParam("comid") Integer comid, @RequestParam("delta_amount") Double delta_amount) {
+    @RequestMapping(value = "/changeGoodsAmount", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public SimpleResponse changeGoodsAmount(HttpServletRequest request, @RequestParam("comid") Integer comid, @RequestParam("delta_amount") Double deltaAmount) {
         List<Commodity> commodityList;
         System.out.println(comid);
         try {
-            if (comid == null || delta_amount == null) {
+            if (comid == null || deltaAmount == null) {
                 throw new CommodityAlterFailedException("ID or changed amount is null");
             } else if ((commodityList = commodityRepository.findByComid(comid)).isEmpty()) {
                 throw new CommodityAlterFailedException("Commodity with this id does not exist!");
-            } else if (commodityList.get(0).getAmount() + delta_amount < 0) {
+            } else if (commodityList.get(0).getAmount() + deltaAmount < 0) {
                 throw new CommodityAlterFailedException("Amount can't be changed to a negative value!");
             } else {
-                Double newAmount = commodityList.get(0).getAmount() + delta_amount;
+                Double newAmount = commodityList.get(0).getAmount() + deltaAmount;
                 commodityRepository.updateAmountByComid(newAmount, comid);
-                return JsonBuilder.newObject()
-                        .put("success", true)
-                        .build();
+                return SimpleResponse.success();
             }
         } catch (CommodityException e) {
-            return JsonBuilder.newObject()
-                    .put("success", false)
-                    .put("error", e.getMessage())
-                    .build();
+            return SimpleResponse.fail(e);
         }
     }
 }

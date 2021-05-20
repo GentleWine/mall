@@ -2,7 +2,7 @@ package com.mng.component;
 
 import com.mng.annotation.LoginRequired;
 import com.mng.annotation.UserTypeOnly;
-import com.mng.bean.LoginBody;
+import com.mng.bean.request.LoginRequest;
 import com.mng.controller.account.LoginController;
 import com.mng.controller.account.LogoutController;
 import com.mng.data.UserType;
@@ -71,7 +71,7 @@ public class LoginInterceptor implements HandlerInterceptor {
                 try {
                     String phoneNumber = phone.getValue();
                     String password = CipherProcessor.getInstance().decrypt(cipheredPassword.getValue());
-                    LoginController.resolveLogin(repository, request, response, new LoginBody(phoneNumber, password, false));
+                    LoginController.resolveLogin(repository, request, response, new LoginRequest(phoneNumber, password, false));
                     Object userTypeAttribute = request.getSession().getAttribute("usertype");
                     Object phoneAttribute = request.getSession().getAttribute("phone");
                     if (userTypeAttribute != null && phoneAttribute != null) {

@@ -1,4 +1,4 @@
-package com.mng.bean;
+package com.mng.bean.request;
 
 
 import lombok.AllArgsConstructor;
@@ -6,8 +6,8 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class LoginBody {
+public class LoginRequest {
     private String phone;
     private String password;
-    private boolean rememberMe;
+    private Boolean rememberMe;
 }

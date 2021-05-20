@@ -33,4 +33,7 @@ public class Commodity implements Serializable {
 
     private String status;
 
+    public Commodity() {
+
+    }
 }

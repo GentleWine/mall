@@ -28,6 +28,10 @@ public class User implements Serializable {
 
     private String mail;
 
+    public User() {
+
+    }
+
     public UserType getEnumUserType() throws IllegalArgumentException {
         return UserType.getFromId(Integer.parseInt(usertype));
     }

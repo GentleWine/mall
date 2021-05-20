@@ -1,9 +1,9 @@
-package com.mng.bean;
+package com.mng.bean.request;
 
 import lombok.Data;
 
 @Data
-public class UserAddBody {
+public class UserAddRequest {
     private String username;
     private String password;
     private String usertype;

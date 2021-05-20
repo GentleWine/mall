@@ -107,7 +107,7 @@
                     let success = data['success'] === true;
                     let msg = "Successfully edited user.";
                     if (!success) {
-                        msg = data['reason'];
+                        msg = data['error'];
                     }
                     let index = layer.alert(msg, {
                         title: success ? "Success!" : "Failed!"

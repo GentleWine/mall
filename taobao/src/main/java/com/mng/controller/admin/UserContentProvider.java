@@ -1,10 +1,8 @@
 package com.mng.controller.admin;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.mng.bean.response.UserListResponse;
 import com.mng.controller.account.AccountControllerBase;
 import com.mng.entity.User;
-import com.mng.util.JsonBuilder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -35,14 +33,13 @@ public class UserContentProvider extends AccountControllerBase {
         return pages.getContent();
     }
 
-    public String generateUserListJson() {
+    public UserListResponse generateUserList() {
         List<User> allUser = findUsersByPageAndLimit(this.getPage(), this.getLimit());
-        return JsonBuilder.newObject()
-                .put("code", 0)
-                .put("msg", "")
-                .put("count", userRepository.count())
-                .put("data", new Gson().toJsonTree(allUser, new TypeToken<List<User>>() {
-                }.getType()))
+        return UserListResponse.builder()
+                .code(0)
+                .msg("")
+                .count(userRepository.count())
+                .data(allUser)
                 .build();
     }
 }

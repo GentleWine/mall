@@ -1,14 +1,14 @@
-package com.mng.bean;
+package com.mng.bean.request;
 
 import lombok.Data;
 
 @Data
-public class RegisterBody {
+public class RegisterRequest {
     private String username;
     private String password;
     private String confirm;
     private String phone;
     private String mail;
     private String usertype;
-    private boolean agreementAgreed;
+    private Boolean agreementAgreed;
 }

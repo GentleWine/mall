@@ -1,19 +1,17 @@
 package com.mng.controller.account;
 
-import com.mng.bean.LoginBody;
+import com.mng.bean.request.LoginRequest;
+import com.mng.bean.response.LoginResponse;
 import com.mng.data.UserType;
 import com.mng.entity.User;
 import com.mng.exception.authentication.LoginFailedException;
 import com.mng.exception.authentication.LoginFailedException.Status;
 import com.mng.repository.UserRepository;
 import com.mng.util.CipherProcessor;
-import com.mng.util.JsonBuilder;
 import com.mng.util.Log;
 import com.mng.util.VerificationUtil;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +22,7 @@ import java.util.List;
 @RestController
 public class LoginController extends AccountControllerBase {
 
-    public static String resolveLogin(UserRepository userRepository, HttpServletRequest request, HttpServletResponse response, LoginBody loginbody) {
+    public static LoginResponse resolveLogin(UserRepository userRepository, HttpServletRequest request, HttpServletResponse response, LoginRequest loginbody) {
         String phone = loginbody.getPhone();
         String password = loginbody.getPassword();
         try {
@@ -47,7 +45,7 @@ public class LoginController extends AccountControllerBase {
                 request.getSession().setAttribute("username", username);
                 request.getSession().setAttribute("usertype", enumUserType);
                 request.getSession().setAttribute("usertypeId", enumUserType.getId());
-                if (loginbody.isRememberMe()) {
+                if (loginbody.getRememberMe()) {
                     try {
                         Cookie phoneCookie = new Cookie("phone", phone);
                         phoneCookie.setMaxAge(7 * 24 * 3600);
@@ -65,22 +63,22 @@ public class LoginController extends AccountControllerBase {
                         Log.e(e);
                     }
                 }
-
-                return JsonBuilder.newObject()
-                        .put("status", Status.SUCCESS)
-                        .put("usertype", enumUserType.getId())
+                return LoginResponse.builder()
+                        .status(Status.SUCCESS)
+                        .usertype(enumUserType.getId())
                         .build();
             }
         } catch (LoginFailedException e) {
-            return JsonBuilder.newObject()
-                    .put("status", e.getStatus())
-                    .put("error_description", e.getMessage())
+            return LoginResponse.builder()
+                    .status(e.getStatus())
+                    .errorDescription(e.getMessage())
                     .build();
         }
     }
 
-    @RequestMapping(value = "/user/login", method = RequestMethod.POST)
-    public String login(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("login") LoginBody loginbody) {
+    @RequestMapping(value = "/user/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public LoginResponse login(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("login") LoginRequest loginbody) {
         return resolveLogin(userRepository, request, response, loginbody);
     }
 }
