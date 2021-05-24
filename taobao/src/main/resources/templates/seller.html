@@ -106,6 +106,7 @@
             let Price = $.trim($("#Price").val());
             let Description = $.trim($("#Description").val());
             let Kind = $.trim($("#Kind").val());
+            //Kind有clothes,food,toy三种，分别对应0,1,2三个VALUE
             console.log(isNumber(Price));
             if (Name === "") {
                 alert("please input Name");
@@ -115,8 +116,6 @@
                 alert("Price must be a Number!");
             } else if (Description === "") {
                 alert("please input Description");
-            } else if (Kind === "") {
-                alert("please input Kind");
             } else {
                 let data = {"name": Name, "price": Price, "kind": Kind, "description": Description};
                 // var obj = JSON.stringify(data);
@@ -243,8 +242,13 @@
                                               id="Description"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="Kind">Category</label>
-                                    <textarea aria-label="With textarea" class="form-control" id="Kind"></textarea>
+                                    <label >Category</label>
+                                    <select id="Kind">
+                                        <option value ="0">Clothes</option>
+                                        <option value ="1">Food</option>
+                                        <option value="2">Toy</option>
+                                      </select>
+                                    <!-- <textarea aria-label="With textarea" class="form-control" id="Kind"></textarea> -->
                                 </div>
                                 <!-- <div class="form-group">
                                     <label for="exampleInputPassword1">pictures</label>
