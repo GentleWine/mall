@@ -10,7 +10,7 @@ import com.mng.util.Constants;
 import com.mng.util.VerificationUtil;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
+import com.mng.entity.Shop;
 @RestController
 public class RegisterController extends AccountControllerBase {
 
@@ -60,6 +60,12 @@ public class RegisterController extends AccountControllerBase {
                 user.setUsername(username);
                 user.setMail(mail);
                 userRepository.save(user);
+                if(type.equals(UserType.SELLER)){
+                    Shop shop=new Shop();
+                    shop.setOwnerid(userRepository.findByPhone(phone).get(0).getUserid());
+                    shop.setShopname(phone);
+                    shopRepository.save(shop);
+                }
                 return RegisterResponse.builder()
                         .status(RegisterFailedException.Status.SUCCESS)
                         .usertype(type != null ? type.ordinal() : 0)
