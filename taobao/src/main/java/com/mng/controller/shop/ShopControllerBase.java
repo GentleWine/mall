@@ -46,7 +46,13 @@ public class ShopControllerBase {
                     item.setPrice(commodity.getPrice());
                     item.setSeller_info(commodity.getDetail());
                     item.setId(commodity.getComid());
+                    if(commodity.getMainimage().equals("1")){
+                        item.setImgUrl("favicon.png");
+                    }else{
+                        item.setImgUrl(commodity.getMainimage());
+                    }
                     items.add(item);
+
                 }
                 kind.setItems(items);
                 kinds.add(kind);

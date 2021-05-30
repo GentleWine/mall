@@ -14,26 +14,30 @@ import com.mng.exception.goods.CommodityException;
 import com.mng.util.VerificationUtil;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @LoginRequired
 @UserTypeOnly(UserType.SELLER)
 public class CommodityController extends ShopControllerBase {
-    @RequestMapping(value = "/add-goods", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/add_goods", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public SimpleResponse addGoods(HttpServletRequest request, @ModelAttribute("addGoods") CommodityAddRequest commodityAddRequest) {
         Integer cateid = commodityAddRequest.getKind();
         Integer shopid;
         String name = commodityAddRequest.getName();
-        String mainimage = "1";
+        System.out.println(name);
+        MultipartFile image=commodityAddRequest.getImage();
         String detail = commodityAddRequest.getDescription();
         double price = commodityAddRequest.getPrice();
         double amount = 100;
         String status = "1";
-
         try {
             try {
                 List<Shop> shops = shopRepository.findByOwnerid(userRepository.findByPhone(request.getSession().getAttribute("phone").toString()).get(0).getUserid());
@@ -42,8 +46,8 @@ public class CommodityController extends ShopControllerBase {
             } catch (IndexOutOfBoundsException e) {
                 throw new CommodityAddFailedException("No shop found for current seller!");
             }
-            if (VerificationUtil.anyIsEmpty(name, detail)) {
-                throw new CommodityAddFailedException("Name or detail is empty!");
+            if (VerificationUtil.anyIsEmpty(name, detail,image)) {
+                throw new CommodityAddFailedException("Name image or detail is empty!");
             } else if (!commodityRepository.findByShopidAndName(shopid, name).isEmpty()) {
                 throw new CommodityAddFailedException("Shop does not exist!");
             } else {
@@ -52,12 +56,33 @@ public class CommodityController extends ShopControllerBase {
                 commodity.setCateid(cateid);
                 commodity.setShopid(shopid);
                 commodity.setName(name);
-                commodity.setMainimage(mainimage);
+
                 commodity.setDetail(detail);
                 commodity.setPrice(price);
                 commodity.setAmount(amount);
                 commodity.setStatus(status);
                 commodityRepository.save(commodity);
+
+                String imageName=image.getOriginalFilename();
+
+                String suffixName=imageName.substring(imageName.lastIndexOf("."));
+                //String filePath="C:/Users/LENOVO/Desktop/images/";
+                String filePath="~/mall/images/";
+                imageName= UUID.randomUUID()+suffixName;
+                File dest =new File(filePath+imageName);
+                if(!dest.getParentFile().exists()){
+                    dest.getParentFile().mkdirs();
+                }
+                try {
+                    image.transferTo(dest);
+                }catch (IOException e){
+                    throw new CommodityAddFailedException("store image failed!");
+                }
+                String mainimage="/images/"+imageName;
+
+                commodity.setMainimage(mainimage);
+                commodityRepository.save(commodity);
+
                 return SimpleResponse.success();
 
             }
