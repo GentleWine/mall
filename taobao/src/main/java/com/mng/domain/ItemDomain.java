@@ -8,4 +8,5 @@ public class ItemDomain {
     private Double price;
     private String seller_info;
     private Integer id;
+    private String  imgUrl;
 }
