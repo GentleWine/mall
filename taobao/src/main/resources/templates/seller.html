@@ -132,13 +132,14 @@
         function mysubmit() {
             console.log("right");
 
-            let Name = $.trim($("#Name").val());
-            let Price = $.trim($("#Price").val());
-            let Description = $.trim($("#Description").val());
-            let Kind = $.trim($("#Kind").val());
-            let Pic = $.trim($("#imgpic").val());
+            let Name = $("#Name").val();
+            let Price =$("#Price").val();
+            let Description =$("#Description").val();
+            let Kind = $("#Kind").val();
+            let Pic = $("#imgpic")[0].files[0];
             //Kind有clothes,food,toy三种，分别对应0,1,2三个VALUE
             console.log(isNumber(Price));
+            console.log(Pic);
             if (Name === "") {
                 alert("please input Name");
             } else if (Price === "") {
@@ -150,26 +151,30 @@
             }else if(Pic ===""){
                 alert("please choose a picture");
             } else {
-                let data = {
-                    "name": Name,
-                    "price": Price,
-                    "kind": Kind,
-                    "description": Description,
-                    "image": Pic
-                };
-                // var obj = JSON.stringify(data);
+                var formdata =new FormData();
+                formdata.append("name",Name);
+                formdata.append("price",Price);
+                formdata.append("kind",Kind);
+                formdata.append("description",Description);
+                formdata.append("image",Pic);
                 //添加商品 期待返回数据:{"success":true, "success":false}
-                $.post("/add-goods", data,
-                    function (data) {
-                        //res = JSON.parse(data)
+                $.ajax({
+                    url: "/add_goods",
+                    type: "POST",
+                    data: formdata,
+                    dataType: "json",
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                            //res = JSON.parse(data)
                         if (data["success"] === true) {
                             alert("Item is successfully added!");
                             location.reload();
-                        } else {
-                            alert("Item failed to add! Reason: " + data["error"]);
+                            } else {
+                                alert("Item failed to add! Reason: " + data["error"]);
+                            }
                         }
-                    }, "json"
-                );
+                    });
 
             }
         }
@@ -269,7 +274,7 @@
                                 <h4 class="modal-title" id="myModalLabel">Add Commodity</h4>
                             </div>
                             <div class="modal-body">
-                                <form id="infoTable">
+                                <form id="infoTable" >
                                     <div class="form-group">
                                         <label for="Name">Name</label>
                                         <input aria-describedby="emailHelp" class="form-control" id="Name" type="text">
@@ -287,18 +292,18 @@
                                     <div class="form-group">
                                         <label>Category</label>
                                         <select id="Kind">
-                                            <option value="0">Clothes</option>
-                                            <option value="1">Food</option>
-                                            <option value="2">Toy</option>
+                                            <option value="7">Clothes</option>
+                                            <option value="4">Food</option>
+                                            <option value="1">Toy</option>
                                         </select>
                                         <!-- <textarea aria-label="With textarea" class="form-control" id="Kind"></textarea> -->
                                     </div>
-                                    <div id="form-group" class="preview">
+                                    <div id="form-group" class="preview" >
                                                                        
                                         <label for="img">
                                             Picture
                                             <input type="button" id="btnpic" value="choose Picture"><span id="pathtext">choose a pic </span>
-                                            <input type="file" name="img" id="imgpic" accept="image/gif, image/jpeg, image/png, image/jpg"><br/><br />
+                                            <input type="file" name="imgpic" id="imgpic" accept="image/gif, image/jpeg, image/png, image/jpg" formenctype="multipart/form-data"><br/><br />
                                         </label>
                                     </div>
 
@@ -332,7 +337,7 @@
         <ul class="all_goods w">
             <li class="goods" th:each="item:${kind.items}">
                 <a class="item-a" href="#">
-                    <img alt="" height="198px" src="favicon.png" width="194px">
+                    <img alt="" height="198px" th:src="${item.imgUrl}" width="194px">
                     <div class="item_title" th:text="${item.item_title}">Loading...</div>
                     <div class="item_price"><span>RMB ￥</span><span class="price_css"
                             th:text="${item.price}">Loading...</span>
