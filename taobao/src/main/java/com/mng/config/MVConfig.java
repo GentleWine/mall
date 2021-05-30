@@ -43,7 +43,8 @@ public class MVConfig implements WebMvcConfigurer {
                 "/*/*.png",
                 "/*/*.jpg",
                 "/*/*.jpeg",
-                "/*/*.ico"
+                "/*/*.ico",
+                "/images/**"
         );
     }
 }
