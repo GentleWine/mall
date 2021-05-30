@@ -136,7 +136,7 @@
             let Price = $.trim($("#Price").val());
             let Description = $.trim($("#Description").val());
             let Kind = $.trim($("#Kind").val());
-            let pic = $.trim($("#imgpic").val());
+            let Pic = $.trim($("#imgpic").val());
             //Kind有clothes,food,toy三种，分别对应0,1,2三个VALUE
             console.log(isNumber(Price));
             if (Name === "") {
@@ -147,7 +147,7 @@
                 alert("Price must be a Number!");
             } else if (Description === "") {
                 alert("please input Description");
-            }else if(pic ===""){
+            }else if(Pic ===""){
                 alert("please choose a picture");
             } else {
                 let data = {
@@ -155,7 +155,7 @@
                     "price": Price,
                     "kind": Kind,
                     "description": Description,
-                    "image": pic
+                    "image": Pic
                 };
                 // var obj = JSON.stringify(data);
                 //添加商品 期待返回数据:{"success":true, "success":false}
