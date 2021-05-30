@@ -15,7 +15,7 @@ import java.io.Serializable;
 public class Shop implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer shopid;
 
     private Integer ownerid;
