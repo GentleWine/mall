@@ -21,7 +21,7 @@ public class Shop implements Serializable {
     private Integer ownerid;
 
     private String shopname;
-
+    private String address;
     public Shop() {
 
     }
