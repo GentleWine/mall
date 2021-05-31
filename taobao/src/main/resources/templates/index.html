@@ -305,7 +305,7 @@
         <ul class="all_goods w">
             <li class="goods" th:each="item:${kind.items}">
                 <a class="item-a">
-                    <img alt="" height="198px" src="favicon.png" width="194px">
+                    <img alt="" height="198px" th:src="${item.imgUrl}" width="194px">
                     <div class="item_title" th:text="${item.item_title}">Loading...</div>
                     <div class="item_price"><span>RMB ￥</span><span class="price_css"
                                                                     th:text="${#numbers.formatDecimal(item.price,0,2)}">Loading...</span>
