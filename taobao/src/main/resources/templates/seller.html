@@ -289,6 +289,11 @@
                                         <textarea aria-label="With textarea" class="form-control"
                                             id="Description"></textarea>
                                     </div>
+                                     <div class="form-group">
+                                        <label for="amount">Amount</label>
+                                        <textarea aria-label="With textarea" class="form-control"
+                                            id="Amount"></textarea>
+                                    </div>
                                     <div class="form-group">
                                         <label>Category</label>
                                         <select id="Kind">
@@ -334,15 +339,19 @@
         <div class="snav w">
             <h3 th:text="${kind.name}">computer</h3>
         </div>
-        <ul class="all_goods w">
+         <ul class="all_goods w">
             <li class="goods" th:each="item:${kind.items}">
-                <a class="item-a" href="#">
+                <a class="item-a">
                     <img alt="" height="198px" th:src="${item.imgUrl}" width="194px">
                     <div class="item_title" th:text="${item.item_title}">Loading...</div>
                     <div class="item_price"><span>RMB ￥</span><span class="price_css"
-                            th:text="${item.price}">Loading...</span>
+                                                                    th:text="${#numbers.formatDecimal(item.price,0,2)}">Loading...</span>
+                    <span>(only&nbsp; <span th:text="${item.remain}">xxx</span> left )</span>
                     </div>
-                    <div class="seller_info"><span th:text="${item.seller_info}">Loading...</span></div>
+                    <div class="seller_info">
+                        <span th:text="${item.seller_info}">Loading...</span>
+                        <span  th:text="${seller.address}">(address: <span>xxx</span>) </span>
+                    </div>
                     <div class="item_footer">
                         <button class="btn btn-default delete" data-toggle="modal" th:id="${item.id}"
                             type="button">Delete
