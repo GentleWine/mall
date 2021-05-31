@@ -31,6 +31,7 @@ public class ShopControllerBase {
         for (Shop shop : shops) {
             SellerDomain seller = new SellerDomain();
             seller.setName(shop.getShopname());
+            seller.setAddress(shop.getAddress());
             List<KindDomain> kinds = new ArrayList<>();
             List<Commodity> commodities = commodityRepository.findByShopid(shop.getShopid());
             //通过map按属性分组
@@ -46,6 +47,7 @@ public class ShopControllerBase {
                     item.setPrice(commodity.getPrice());
                     item.setSeller_info(commodity.getDetail());
                     item.setId(commodity.getComid());
+                    item.setAmount(commodity.getAmount());
                     if(commodity.getMainimage().equals("1")){
                         item.setImgUrl("favicon.png");
                     }else{

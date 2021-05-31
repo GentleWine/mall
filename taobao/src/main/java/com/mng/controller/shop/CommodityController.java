@@ -105,8 +105,8 @@ public class CommodityController extends ShopControllerBase {
                 throw new CommodityDeleteFailedException("Commodity not found with the given ID");
             } else {
                 Commodity commodity=commodityList.get(0);
-                //String filePath="C:/Users/LENOVO/Desktop";
-                String filePath="~/mall";
+                String filePath="C:/Users/LENOVO/Desktop";
+                //String filePath="~/mall";
                 String imageName= commodity.getMainimage();
                 File file =new File(filePath+imageName);
                 if(file.exists()){
@@ -120,26 +120,25 @@ public class CommodityController extends ShopControllerBase {
         }
     }
 
-
-    @RequestMapping(value = "/changeGoodsAmount", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public SimpleResponse changeGoodsAmount(HttpServletRequest request, @RequestParam("comid") Integer comid, @RequestParam("delta_amount") Double deltaAmount) {
-        List<Commodity> commodityList;
-        System.out.println(comid);
-        try {
-            if (comid == null || deltaAmount == null) {
-                throw new CommodityAlterFailedException("ID or changed amount is null");
-            } else if ((commodityList = commodityRepository.findByComid(comid)).isEmpty()) {
-                throw new CommodityAlterFailedException("Commodity with this id does not exist!");
-            } else if (commodityList.get(0).getAmount() + deltaAmount < 0) {
-                throw new CommodityAlterFailedException("Amount can't be changed to a negative value!");
-            } else {
-                Double newAmount = commodityList.get(0).getAmount() + deltaAmount;
-                commodityRepository.updateAmountByComid(newAmount, comid);
-                return SimpleResponse.success();
-            }
-        } catch (CommodityException e) {
-            return SimpleResponse.fail(e);
-        }
-    }
+//    @RequestMapping(value = "/changeGoodsAmount", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+//    @ResponseBody
+//    public SimpleResponse changeGoodsAmount(HttpServletRequest request, @RequestParam("comid") Integer comid, @RequestParam("delta_amount") Double deltaAmount) {
+//        List<Commodity> commodityList;
+//        System.out.println(comid);
+//        try {
+//            if (comid == null || deltaAmount == null) {
+//                throw new CommodityAlterFailedException("ID or changed amount is null");
+//            } else if ((commodityList = commodityRepository.findByComid(comid)).isEmpty()) {
+//                throw new CommodityAlterFailedException("Commodity with this id does not exist!");
+//            } else if (commodityList.get(0).getAmount() + deltaAmount < 0) {
+//                throw new CommodityAlterFailedException("Amount can't be changed to a negative value!");
+//            } else {
+//                Double newAmount = commodityList.get(0).getAmount() + deltaAmount;
+//                commodityRepository.updateAmountByComid(newAmount, comid);
+//                return SimpleResponse.success();
+//            }
+//        } catch (CommodityException e) {
+//            return SimpleResponse.fail(e);
+//        }
+//    }
 }
