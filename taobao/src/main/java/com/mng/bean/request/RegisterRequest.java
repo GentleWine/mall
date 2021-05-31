@@ -10,5 +10,8 @@ public class RegisterRequest {
     private String phone;
     private String mail;
     private String usertype;
-    private Boolean agreementAgreed;
+   // private Boolean agreementAgreed;
+
+    private String shopname;
+    private String address;
 }
