@@ -524,7 +524,7 @@
                     </div>
                     <div class="seller_info">
                         <span th:text="${item.seller_info}">Loading...</span>
-                        <span  th:text="${item.address}">(address: <span>xxx</span>) </span>
+                        <span  th:text="${seller.address}">(address: <span>xxx</span>) </span>
                     </div>
                     <div class="item_footer">
                         <button class="cart_button" onclick="addToShoppingCart(this)" th:id="${item.id}"><span
