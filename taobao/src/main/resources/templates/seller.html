@@ -137,6 +137,8 @@
             let Description =$("#Description").val();
             let Kind = $("#Kind").val();
             let Pic = $("#imgpic")[0].files[0];
+            let Amount=$("#Amount").val()
+            console.log(Amount);
             //Kind有clothes,food,toy三种，分别对应0,1,2三个VALUE
             console.log(isNumber(Price));
             console.log(Pic);
@@ -157,6 +159,7 @@
                 formdata.append("kind",Kind);
                 formdata.append("description",Description);
                 formdata.append("image",Pic);
+                formdata.append("amount",Amount);
                 //添加商品 期待返回数据:{"success":true, "success":false}
                 $.ajax({
                     url: "/add_goods",
