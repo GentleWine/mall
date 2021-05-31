@@ -29,13 +29,17 @@
 
     </style>
     <title>Register</title>
+    <link href="css/index.css" rel="stylesheet">
+    <link href="css/common.css" rel="stylesheet">
     <!-- 引入favicon图标 -->
-    <link href="/favicon.ico" rel="shortcut icon"/>
+    <link href="favicon.ico" rel="shortcut icon"/>
     <!-- 引入我们初始化的css -->
-    <link href="/css/base.css" rel="stylesheet" type="text/css">
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <!-- <link href="/css/base.css" rel="stylesheet" type="text/css"> -->
     <!-- 引入我们自己的注册页面的css -->
-    <link href="/css/register.css" rel="stylesheet" type="text/css">
+    <link href="css/register.css" rel="stylesheet" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.1.4/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
     <script>
         $("#confirm").blur(function () {
             //获取文本框的值
@@ -49,7 +53,13 @@
                 //重新输入的密码不正确
                 $("#confirm").after("<span id='error_3' class='error_icon'>Error! please re-enter <i ></i></span></li> ")
             }
-        });                    //注册
+        });
+        $("#usertype1").bind("change",function(){
+            alert(1);
+            var value=$("#usertype1").val();
+            console.log(value);
+        });                    
+        //注册
         function register() {
             if ($("#user").value === "") {
                 alert("please input username");
@@ -57,12 +67,25 @@
                 alert("please input email");
             } else {
                 let username = $("#username").val();
+                console.log(username);
                 let mail = $("#mail").val();
+                console.log(mail);
                 let phone = $("input[name='phone']").val();
+                console.log(phone);
                 let password = $("input[name='password']").val();
+                console.log(password);
                 let confirm = $("#confirm").val();
+                console.log(confirm);
                 let usertype = $("#usertype").val();
-                let agreement = $("#user_agreement").prop("checked");
+                console.log(usertype);
+                let Store_name=$("#Store_name").val();
+                console.log(Store_name);
+                let Address=$("#Address").val()
+                console.log(Address);
+                if(usertype=="1" && (Store_name=="" || Address=="")){
+                    alert("please input Store name and Address")
+                }
+                //let agreement = $("#user_agreement").prop("checked");
                 $.ajax({
                     type: "post",
                     url: "/user/register",
@@ -73,7 +96,9 @@
                         'password': password,
                         'confirm': confirm,
                         'mail': mail,
-                        'agreementAgreed': agreement
+                        //'agreementAgreed': agreement,
+                        "shopname":Store_name,
+                        "address":Address
                     },
                     dataType: "json",
                     success: function (data) {
@@ -95,7 +120,7 @@
 <div class="w">
     <header>
         <div class="logo">
-            <a href="index"> <img alt="" src="/images/xdu.png"></a>
+            <a href="index"> <img alt="" src="images/xdu.png"></a>
         </div>
     </header>
     <div class="registerarea">
@@ -133,14 +158,40 @@
                             <option value="2">Administrator</option>
                         </select>
                     </li>
-                    <li class="agree" style="position:relative; right:120px;"><label for="user_agreement"></label><input
-                            id="user_agreement"
-                            name=""
-                            type="checkbox">&nbsp;&nbsp;Agree to the agreement
-                        and register
-                        <a href="#"><u>User Agreement</u></a>
-
-                    </li>
+                    <li class="agree" style="position:relative; right:120px;"><label for="user_agreement"></label>
+                        If you want to register seller,please
+                    <!-- <a href="#"><u data-target="#myModal" data-toggle="modal">Click</u></a></li> -->
+                    <button data-toggle="modal" data-target="#myModal" type="button"><u>Click </u></button>
+                    <div aria-labelledby="myModalLabel" class="modal fade" id="myModal" role="dialog" tabindex="-1">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
+                                            aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Add Commodity</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="infoTable">
+                                        <div class="form-group">
+                                            <label for="Store_name">Store name</label>
+                                            <input aria-describedby="emailHelp" class="form-control" id="Store_name" type="text">
+        
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Address">Store address</label>
+                                            <input class="form-control" id="Address" type="text">
+                                        </div>
+                        
+                                    </form>
+                                </div>
+        
+                                <div class="modal-footer">
+                                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                                    <button class="btn btn-primary" type="button">Save Changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <li>
                         <button class="btn" onclick="register()" type="button" value="Register">Register</button>
                     </li>
@@ -151,10 +202,8 @@
     <footer>
         <div class="mod_copyright">
             <div class="links">
-                <a href="#">About us</a> | <a href="#">Contact us</a>
-            </div>
-            <div>
-                <a href="#">If you have any question, please send e-mail to 752016959@qq.com to contact us</a>
+                <a href="#">About us</a> | <a href="#">Contact us</a> | Contact Customer Service
+
             </div>
             <div class="copyright">
                 Address：South Campus of Xidian University, Xi'an, Shaanxi Province Postcode：710000
