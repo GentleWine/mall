@@ -23,14 +23,16 @@ public class RegisterController extends AccountControllerBase {
         String usertype = requestbody.getUsertype();
         String username = requestbody.getUsername();
         String mail = requestbody.getMail();
-        boolean agreed = requestbody.getAgreementAgreed();
-
+       //boolean agreed = requestbody.getAgreementAgreed();
+        System.out.println("/"+phone+"/"+password+"/"+confirm+"/"+usertype+"/"+username+"/"+mail);
         try {
             if (VerificationUtil.anyIsEmpty(phone, password, confirm, usertype, username, mail)) {
                 throw new RegisterFailedException(Status.FIELD_MISSING);
-            } else if (!agreed) {
-                throw new RegisterFailedException(Status.AGREEMENT_NOT_AGREED);
-            } else if (!password.equals(confirm)) {
+            }
+//            else if (!agreed) {
+//                throw new RegisterFailedException(Status.AGREEMENT_NOT_AGREED);
+//            }
+            else if (!password.equals(confirm)) {
                 throw new RegisterFailedException(Status.PASSWORD_CONFIRM_MISMATCH);
             } else if (!userRepository.findByPhone(phone).isEmpty()) {
                 throw new RegisterFailedException(Status.USER_ALREADY_EXISTS);
@@ -63,7 +65,8 @@ public class RegisterController extends AccountControllerBase {
                 if(type.equals(UserType.SELLER)){
                     Shop shop=new Shop();
                     shop.setOwnerid(userRepository.findByPhone(phone).get(0).getUserid());
-                    shop.setShopname(phone);
+                    shop.setShopname(requestbody.getShopname());
+                    shop.setAddress(requestbody.getAddress());
                     shopRepository.save(shop);
                 }
                 return RegisterResponse.builder()
