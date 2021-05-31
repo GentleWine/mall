@@ -36,7 +36,8 @@ public class CommodityController extends ShopControllerBase {
         MultipartFile image=commodityAddRequest.getImage();
         String detail = commodityAddRequest.getDescription();
         double price = commodityAddRequest.getPrice();
-        double amount = 100;
+        double amount = commodityAddRequest.getAmount();
+        System.out.println(amount);
         String status = "1";
         try {
             try {
