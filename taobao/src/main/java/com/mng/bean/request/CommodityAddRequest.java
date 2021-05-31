@@ -10,5 +10,6 @@ public class CommodityAddRequest {
     public Double price;
     public Integer kind;
     public String description;
+    public Double amount;
     public MultipartFile image;
 }
