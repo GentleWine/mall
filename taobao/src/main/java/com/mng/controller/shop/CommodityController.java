@@ -32,12 +32,12 @@ public class CommodityController extends ShopControllerBase {
         Integer cateid = commodityAddRequest.getKind();
         Integer shopid;
         String name = commodityAddRequest.getName();
-        System.out.println(name);
+        //System.out.println(name);
         MultipartFile image=commodityAddRequest.getImage();
         String detail = commodityAddRequest.getDescription();
         double price = commodityAddRequest.getPrice();
         double amount = commodityAddRequest.getAmount();
-        System.out.println(amount);
+        //System.out.println(amount);
         String status = "1";
         try {
             try {
@@ -67,8 +67,8 @@ public class CommodityController extends ShopControllerBase {
                 String imageName=image.getOriginalFilename();
 
                 String suffixName=imageName.substring(imageName.lastIndexOf("."));
-                String filePath="C:/Users/LENOVO/Desktop/images/";
-                //String filePath="~/mall/images/";
+                //String filePath="C:/Users/LENOVO/Desktop/images/";
+                String filePath="~/mall/images/";
                 imageName= UUID.randomUUID()+suffixName;
                 File dest =new File(filePath+imageName);
                 System.out.println(dest.getPath().toString());
@@ -106,8 +106,8 @@ public class CommodityController extends ShopControllerBase {
                 throw new CommodityDeleteFailedException("Commodity not found with the given ID");
             } else {
                 Commodity commodity=commodityList.get(0);
-                String filePath="C:/Users/LENOVO/Desktop";
-                //String filePath="~/mall";
+                //String filePath="C:/Users/LENOVO/Desktop";
+                String filePath="~/mall";
                 String imageName= commodity.getMainimage();
                 File file =new File(filePath+imageName);
                 if(file.exists()){
