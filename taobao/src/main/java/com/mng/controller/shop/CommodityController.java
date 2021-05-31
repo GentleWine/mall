@@ -49,7 +49,7 @@ public class CommodityController extends ShopControllerBase {
             if (VerificationUtil.anyIsEmpty(name, detail,image)) {
                 throw new CommodityAddFailedException("Name image or detail is empty!");
             } else if (!commodityRepository.findByShopidAndName(shopid, name).isEmpty()) {
-                throw new CommodityAddFailedException("Shop does not exist!");
+                throw new CommodityAddFailedException("commodity  exist!");
             } else {
 
                 Commodity commodity = new Commodity();
@@ -66,17 +66,19 @@ public class CommodityController extends ShopControllerBase {
                 String imageName=image.getOriginalFilename();
 
                 String suffixName=imageName.substring(imageName.lastIndexOf("."));
-                //String filePath="C:/Users/LENOVO/Desktop/images/";
-                String filePath="~/mall/images/";
+                String filePath="C:/Users/LENOVO/Desktop/images/";
+                //String filePath="~/mall/images/";
                 imageName= UUID.randomUUID()+suffixName;
                 File dest =new File(filePath+imageName);
+                System.out.println(dest.getPath().toString());
                 if(!dest.getParentFile().exists()){
                     dest.getParentFile().mkdirs();
                 }
                 try {
                     image.transferTo(dest);
                 }catch (IOException e){
-                    throw new CommodityAddFailedException("store image failed!");
+                    //throw new CommodityAddFailedException("store image failed!");
+                    return SimpleResponse.fail("store image failed!");
                 }
                 String mainimage="/images/"+imageName;
 
@@ -94,14 +96,22 @@ public class CommodityController extends ShopControllerBase {
     @RequestMapping(value = "/delete_goods", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public SimpleResponse deleteGoods(HttpServletRequest request, @RequestParam("comid") Integer comid) {
-
+        List<Commodity> commodityList;
         System.out.println(comid);
         try {
             if (comid == null) {
                 throw new CommodityDeleteFailedException("Commodity ID cannot be null");
-            } else if (commodityRepository.findByComid(comid).isEmpty()) {
+            } else if ((commodityList=commodityRepository.findByComid(comid)).isEmpty()) {
                 throw new CommodityDeleteFailedException("Commodity not found with the given ID");
             } else {
+                Commodity commodity=commodityList.get(0);
+                //String filePath="C:/Users/LENOVO/Desktop";
+                String filePath="~/mall";
+                String imageName= commodity.getMainimage();
+                File file =new File(filePath+imageName);
+                if(file.exists()){
+                    file.delete();
+                }
                 commodityRepository.deleteByComid(comid);
                 return SimpleResponse.success();
             }
