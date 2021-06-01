@@ -1,0 +1,16 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "2205703",
+      "name": "购物车",
+      "font_class": "shopshoppingco",
+      "unicode": "e630",
+      "unicode_decimal": 58928
+    }
+  ]
+}
