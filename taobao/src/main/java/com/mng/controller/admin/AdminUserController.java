@@ -1,4 +1,4 @@
-package com.mng.controller.admin;
+package com.mng.Controller.admin;
 
 import com.mng.annotation.LoginRequired;
 import com.mng.annotation.UserTypeOnly;

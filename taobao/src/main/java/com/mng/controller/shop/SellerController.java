@@ -1,6 +1,7 @@
-package com.mng.controller.shop;
+package com.mng.Controller.shop;
 
 import com.mng.annotation.LoginRequired;
+import com.mng.Controller.shop.ShopControllerBase;
 import com.mng.annotation.UserTypeOnly;
 import com.mng.data.UserType;
 import com.mng.domain.SellerDomain;

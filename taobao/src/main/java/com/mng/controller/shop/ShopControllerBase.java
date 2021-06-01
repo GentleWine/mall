@@ -1,4 +1,4 @@
-package com.mng.controller.shop;
+package com.mng.Controller.shop;
 
 import com.mng.domain.ItemDomain;
 import com.mng.domain.KindDomain;

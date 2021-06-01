@@ -5,19 +5,19 @@ com/mng/Repository/ShopRepository.java
 com/mng/exception/goods/CommodityAddFailedException.java
  com.mng.exception.goods.CommodityAddFailedException
 com/mng/Controller/account/AccountControllerBase.java
- com.mng.controller.account.AccountControllerBase
+ com.mng.Controller.account.AccountControllerBase
 com/mng/TaobaoApplication.java
  com.mng.TaobaoApplication
 com/mng/config/MVConfig.java
  com.mng.config.MVConfig
 com/mng/Controller/account/RegisterController.java
- com.mng.controller.account.RegisterController
+ com.mng.Controller.account.RegisterController
 com/mng/data/UserType.java
  com.mng.data.UserType
 com/mng/exception/goods/CommodityException.java
  com.mng.exception.goods.CommodityException
 com/mng/Controller/shop/ShopControllerBase.java
- com.mng.controller.shop.ShopControllerBase
+ com.mng.Controller.shop.ShopControllerBase
 com/mng/util/Constants.java
  com.mng.util.Constants
 com/mng/util/VerificationUtil.java
@@ -36,10 +36,10 @@ com/mng/entity/Category.java
 com/mng/exception/authentication/RegisterFailedException.java
  com.mng.exception.authentication.RegisterFailedException
  com.mng.exception.authentication.RegisterFailedException$Status
-com/mng/Controller/admin/AdminOrderController.java
- com.mng.controller.admin.AdminOrderController
 com/mng/Repository/CommodityRepository.java
  com.mng.repository.CommodityRepository
+com/mng/Controller/admin/AdminOrderController.java
+ com.mng.Controller.admin.AdminOrderController
 com/mng/util/Log.java
  com.mng.util.Log
 com/mng/Repository/UserRepository.java
@@ -64,7 +64,7 @@ com/mng/entity/Commodity.java
 com/mng/annotation/UserTypeOnly.java
  com.mng.annotation.UserTypeOnly
 com/mng/Controller/shop/CustomerController.java
- com.mng.controller.shop.CustomerController
+ com.mng.Controller.shop.CustomerController
 com/mng/bean/request/UserEditRequest.java
  com.mng.bean.request.UserEditRequest
 com/mng/domain/KindDomain.java
@@ -74,18 +74,18 @@ com/mng/bean/request/CommodityAddRequest.java
 com/mng/domain/UserDomain.java
  com.mng.domain.UserDomain
 com/mng/Controller/admin/UserContentProvider.java
- com.mng.controller.admin.UserContentProvider
+ com.mng.Controller.admin.UserContentProvider
 com/mng/entity/User.java
  com.mng.entity.User
 com/mng/Controller/admin/AdminNavigationController.java
- com.mng.controller.admin.AdminNavigationController
+ com.mng.Controller.admin.AdminNavigationController
 com/mng/bean/response/UserListResponse.java
  com.mng.bean.response.UserListResponse
  com.mng.bean.response.UserListResponse$UserListResponseBuilder
 com/mng/Controller/account/LoginController.java
- com.mng.controller.account.LoginController
+ com.mng.Controller.account.LoginController
 com/mng/Controller/shop/SellerController.java
- com.mng.controller.shop.SellerController
+ com.mng.Controller.shop.SellerController
 com/mng/exception/goods/CommodityAlterFailedException.java
  com.mng.exception.goods.CommodityAlterFailedException
 com/mng/bean/response/SimpleResponse.java
@@ -94,22 +94,24 @@ com/mng/bean/response/SimpleResponse.java
 com/mng/bean/response/LoginResponse.java
  com.mng.bean.response.LoginResponse
  com.mng.bean.response.LoginResponse$LoginResponseBuilder
+com/mng/Controller/account/SearchController.java
+ com.mng.Controller.shop.SearchController
 com/mng/domain/ItemDomain.java
  com.mng.domain.ItemDomain
 com/mng/exception/authentication/LoginFailedException.java
  com.mng.exception.authentication.LoginFailedException
  com.mng.exception.authentication.LoginFailedException$Status
 com/mng/Controller/shop/CommodityController.java
- com.mng.controller.shop.CommodityController
+ com.mng.Controller.shop.CommodityController
 com/mng/bean/response/RegisterResponse.java
  com.mng.bean.response.RegisterResponse
  com.mng.bean.response.RegisterResponse$RegisterResponseBuilder
 com/mng/Controller/admin/AdminUserController.java
- com.mng.controller.admin.AdminUserController
+ com.mng.Controller.admin.AdminUserController
 com/mng/component/LoginInterceptor.java
  com.mng.component.LoginInterceptor
 com/mng/Controller/account/LogoutController.java
- com.mng.controller.account.LogoutController
+ com.mng.Controller.account.LogoutController
 com/mng/bean/request/UserListRequest.java
  com.mng.bean.request.UserListRequest
 com/mng/util/CipherProcessor.java

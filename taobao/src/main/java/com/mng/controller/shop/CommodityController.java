@@ -1,4 +1,4 @@
-package com.mng.controller.shop;
+package com.mng.Controller.shop;
 
 import com.mng.annotation.LoginRequired;
 import com.mng.annotation.UserTypeOnly;
@@ -68,7 +68,7 @@ public class CommodityController extends ShopControllerBase {
 
                 String suffixName=imageName.substring(imageName.lastIndexOf("."));
                 //String filePath="C:/Users/LENOVO/Desktop/images/";
-                String filePath="~/mall/images/";
+                String filePath="/home/ubuntu/mall/resource/images/";
                 imageName= UUID.randomUUID()+suffixName;
                 File dest =new File(filePath+imageName);
                 System.out.println(dest.getPath().toString());

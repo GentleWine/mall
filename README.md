@@ -49,3 +49,6 @@ An available, simple, secure and efficient E-commerce system
 
 ~~**陈凌灏、台海春：上传对应的报告（DDL：May 7th）**(已提交课代表)~~
 
+————————————
+
+更改：index页面添加了搜索表单，search页面为新增

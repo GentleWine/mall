@@ -1,4 +1,4 @@
-package com.mng.controller.shop;
+package com.mng.Controller.shop;
 
 import com.mng.annotation.LoginRequired;
 import com.mng.domain.SellerDomain;
