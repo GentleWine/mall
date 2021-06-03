@@ -161,14 +161,30 @@
         id (string); // 商品唯一id
         name (string);
         price (int);
-        num (int)
+        num (int);
+        remain (int) //库存
+    }
+    
+    接口：/shopping_cart/add_item  （get）:
+    向购物车加入一种商品。发送数据如下：
+    {
+        id:xxx // 操作物品的唯一id
+        name:xxx
+        price:xxx
+        num:xxx
+        remain:xxx
+    }
+    要求返回：
+    {
+        state:"SUCCESS" or "Failed"
+        errorinfo: xxx // 错误信息
     }
 
     接口：/shopping_cart/change （get）
     改变购物车商品数量。发送数据如下：
     {
         id:xxx // 操作物品的唯一id
-        op: "add" or "delete" or "remove" //分别代表对应物品数量加 1 ，减 1，直接清空（id对应物品清空） 
+        op: 0 ; 1 ; 2 //分别代表对应物品数量加 1 ，减 1，直接清空（id对应物品清空）  
     }
     要求返回：
     {
@@ -199,13 +215,6 @@
     }
     function Changeitem(id,op){
         var res = 0;
-        if (op == 1){
-            theOP = "add";
-        }else if(op == 2){
-            theOP = "delete";
-        }else{
-            theOP = "remove";
-        }
         $.ajax(
             {
             type:"get",
@@ -213,7 +222,7 @@
             async: false,
             data:{
                 'id':id,
-                'op': theOP
+                'op': op
             },
             dataType: 'json',
             success: function(data){
@@ -234,8 +243,11 @@
         let name = divs[0].innerHTML;
         let spans = divs[1].getElementsByTagName("span")
         let price = Number(spans[1].innerHTML).toFixed(2);
+        let remain = parseInt(spans[2].firstElementChild.innerHTML);
+        // console.log(remain);
         let tbody = document.getElementById("goods");
         let row = tbody.insertRow();//insertRow表格开头插入新行
+        let data = {}
         row.innerHTML = 
         "<td hidden='hidden' >" + id + "</td>" +
             "<td>" + name + "</td>" +
@@ -249,10 +261,26 @@
             '<td style="text-align:center;">' +
             "<input type='button' value='Remove' onclick='del(this)'/>" +
             "</td>" +
+            "<td hidden='hidden' >" + remain + "</td>" +
             "</tr>";
         total();
         showSnackbar("Successfully added " + name + " ×1 to cart.");
-        Changeitem(id,1)
+        $.ajax({
+            type:"get",
+            url:"/shopping_cart/add_item",
+            async: false,
+            data:{
+                'id':id,
+                'name':name,
+                'price':price,
+                'num':1,
+                'remain':remain
+            },
+            dataType: 'json',
+            success: function(data){
+                console.log(data);
+            }
+        });
     }
 
 
@@ -274,17 +302,22 @@
         let inputs = btn.parentNode.getElementsByTagName("input");
         //获取原来的数量
         let amount = parseInt(inputs[1].value);
+        let tr = btn.parentNode.parentNode;
+        let remain_s = tr.lastElementChild.innerHTML;
+        let remain = parseInt(remain_s);
         //当amount=1时不能再点击"-"符号
         //用n<0来表示点击了减button
         if (amount <= 1 && n < 0) {
             return;
+        }else if(amount <= remain && n > 0){
+            return
         }
         //根据加减来改变数量
         inputs[1].value = amount + n;
         //将改变后的数量值赋值给amount
         amount = inputs[1].value;
         //获取表格中的行
-        let tr = btn.parentNode.parentNode;
+        console.log(remain);
         //获取所有的列
         let tds = tr.getElementsByTagName("td");
         //获取单价
@@ -513,6 +546,7 @@
                                         <td style="text-align:center;">
                                         <input type='button' value='Remove' onclick='del(this)'/>
                                         </td>
+                                        <td hidden="hidden" id="itemremain" th:text="${item.remain}">99</td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
