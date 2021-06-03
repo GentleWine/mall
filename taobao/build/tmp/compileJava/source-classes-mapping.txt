@@ -96,8 +96,8 @@ com/mng/repository/CommodityRepository.java
  com.mng.repository.CommodityRepository
 com/mng/repository/CategoryRepository.java
  com.mng.repository.CategoryRepository
-com/mng/repository/redis/ScRepository.java
- com.mng.repository.redis.ScRepository
+com/mng/util/Log.java
+ com.mng.util.Log
 com/mng/domain/ItemDomain.java
  com.mng.domain.ItemDomain
 com/mng/exception/authentication/LoginFailedException.java
@@ -126,7 +126,9 @@ com/mng/exception/authentication/AuthenticationException.java
  com.mng.exception.authentication.AuthenticationException
 com/mng/TaobaoApplication.java
  com.mng.TaobaoApplication
-com/mng/entity/redis/Shopingcart.java
- com.mng.entity.redis.Shopingcart
-com/mng/util/Log.java
- com.mng.util.Log
+com/mng/repository/redis/ScRepository.java
+ com.mng.repository.redis.ScRepository
+com/mng/entity/redis/Shoppingcart.java
+ com.mng.entity.redis.Shoppingcart
+com/mng/Controller/shop/Shoppingcart.java
+ com.mng.Controller.shop.Shoppingcart

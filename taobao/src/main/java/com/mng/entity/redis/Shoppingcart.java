@@ -8,8 +8,12 @@ import javax.persistence.Id;
 
 @Data
 @RedisHash("shopingcart")
-public class Shopingcart {
-    @Id int id;
-    @Indexed String phone;
-    String test_content;
+public class Shoppingcart {
+    @Id Integer index;
+    String phone;
+    String id;
+    String name;
+    Integer price;
+    Integer num;
+    Integer remain;
 }
