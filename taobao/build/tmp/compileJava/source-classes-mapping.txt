@@ -1,13 +1,11 @@
 com/mng/bean/request/LoginRequest.java
  com.mng.bean.request.LoginRequest
-com/mng/Repository/ShopRepository.java
- com.mng.repository.ShopRepository
 com/mng/exception/goods/CommodityAddFailedException.java
  com.mng.exception.goods.CommodityAddFailedException
 com/mng/Controller/account/AccountControllerBase.java
  com.mng.Controller.account.AccountControllerBase
-com/mng/TaobaoApplication.java
- com.mng.TaobaoApplication
+com/mng/config/JedisConfig.java
+ com.mng.config.JedisConfig
 com/mng/config/MVConfig.java
  com.mng.config.MVConfig
 com/mng/Controller/account/RegisterController.java
@@ -36,14 +34,10 @@ com/mng/entity/Category.java
 com/mng/exception/authentication/RegisterFailedException.java
  com.mng.exception.authentication.RegisterFailedException
  com.mng.exception.authentication.RegisterFailedException$Status
-com/mng/Repository/CommodityRepository.java
- com.mng.repository.CommodityRepository
 com/mng/Controller/admin/AdminOrderController.java
  com.mng.Controller.admin.AdminOrderController
-com/mng/util/Log.java
- com.mng.util.Log
-com/mng/Repository/UserRepository.java
- com.mng.repository.UserRepository
+com/mng/entity/NewGoods.java
+ com.mng.entity.NewGoods
 com/mng/component/package-info.java
  com.mng.component.package-info
 com/mng/bean/response/MessageResponse.java
@@ -57,10 +51,10 @@ com/mng/entity/Shop.java
  com.mng.entity.Shop
 com/mng/config/ResourceMap.java
  com.mng.config.ResourceMap
-com/mng/Repository/CategoryRepository.java
- com.mng.repository.CategoryRepository
 com/mng/entity/Commodity.java
  com.mng.entity.Commodity
+com/mng/domain/SellerDomain.java
+ com.mng.domain.SellerDomain
 com/mng/annotation/UserTypeOnly.java
  com.mng.annotation.UserTypeOnly
 com/mng/Controller/shop/CustomerController.java
@@ -91,11 +85,19 @@ com/mng/exception/goods/CommodityAlterFailedException.java
 com/mng/bean/response/SimpleResponse.java
  com.mng.bean.response.SimpleResponse
  com.mng.bean.response.SimpleResponse$SimpleResponseBuilder
+com/mng/repository/UserRepository.java
+ com.mng.repository.UserRepository
 com/mng/bean/response/LoginResponse.java
  com.mng.bean.response.LoginResponse
  com.mng.bean.response.LoginResponse$LoginResponseBuilder
 com/mng/Controller/account/SearchController.java
  com.mng.Controller.shop.SearchController
+com/mng/repository/CommodityRepository.java
+ com.mng.repository.CommodityRepository
+com/mng/repository/CategoryRepository.java
+ com.mng.repository.CategoryRepository
+com/mng/repository/redis/ScRepository.java
+ com.mng.repository.redis.ScRepository
 com/mng/domain/ItemDomain.java
  com.mng.domain.ItemDomain
 com/mng/exception/authentication/LoginFailedException.java
@@ -112,6 +114,8 @@ com/mng/component/LoginInterceptor.java
  com.mng.component.LoginInterceptor
 com/mng/Controller/account/LogoutController.java
  com.mng.Controller.account.LogoutController
+com/mng/repository/ShopRepository.java
+ com.mng.repository.ShopRepository
 com/mng/bean/request/UserListRequest.java
  com.mng.bean.request.UserListRequest
 com/mng/util/CipherProcessor.java
@@ -120,7 +124,9 @@ com/mng/bean/request/RegisterRequest.java
  com.mng.bean.request.RegisterRequest
 com/mng/exception/authentication/AuthenticationException.java
  com.mng.exception.authentication.AuthenticationException
-com/mng/entity/NewGoods.java
- com.mng.entity.NewGoods
-com/mng/domain/SellerDomain.java
- com.mng.domain.SellerDomain
+com/mng/TaobaoApplication.java
+ com.mng.TaobaoApplication
+com/mng/entity/redis/Shopingcart.java
+ com.mng.entity.redis.Shopingcart
+com/mng/util/Log.java
+ com.mng.util.Log
