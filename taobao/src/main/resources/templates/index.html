@@ -191,9 +191,15 @@
         state:"SUCCESS" or "Failed"
         errorinfo: xxx // 错误信息
     }
-
+    接口：/shopping_cart/clear （get）
+    发送当前用户cookie，此时购物车应当清空
+    要求返回：
+    {
+        state:"SUCCESS" or "Failed"
+        errorinfo: xxx // 错误信息
+    }
     接口：/shopping_cart/buy （get）
-    发送当前用户cookie，此时购物车应当清空，并根据address产生订单，然后给对应用户增加使用费用
+    发送当前用户cookie，根据address产生订单，然后给对应用户增加使用费用
     发送：
     {
         address:xx //用户地址
@@ -215,6 +221,7 @@
     }
     function Changeitem(id,op){
         var res = 0;
+        id = parseInt(id);
         $.ajax(
             {
             type:"get",
@@ -265,6 +272,7 @@
             "</tr>";
         total();
         showSnackbar("Successfully added " + name + " ×1 to cart.");
+        id = parseInt(id);
         $.ajax({
             type:"get",
             url:"/shopping_cart/add_item",
@@ -368,6 +376,22 @@
         $.ajax(
             {
             type:"get",
+            url:"/shopping_cart/clear",
+            async: false,
+            data:{},
+            dataType: 'json',
+            success: function(data){
+                if (data['state'] == "SUCCESS"){
+                    cleanShoppingCart();
+                }else{
+                    alert("buy Failed");
+                    console.log(data['errorinfo']);
+                }
+            }
+        });
+        $.ajax(
+            {
+            type:"get",
             url:"/shopping_cart/buy",
             async: false,
             data:{
@@ -377,7 +401,6 @@
             success: function(data){
                 if (data['state'] == "SUCCESS"){
                     alert("you have successfully bought all the goods!And you've spent " + money + " RMB" );
-                    cleanShoppingCart();
                 }else{
                     alert("buy Failed");
                     console.log(data['errorinfo']);
