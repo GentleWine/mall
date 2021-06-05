@@ -32,6 +32,8 @@ public class Orders implements Serializable {
 
     private Date paymenttime;
 
+    private Integer shopid;
+
     public Orders() {
 
     }
