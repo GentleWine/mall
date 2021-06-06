@@ -25,7 +25,6 @@ public class RegisterController extends AccountControllerBase {
         String username = requestbody.getUsername();
         String mail = requestbody.getMail();
         //boolean agreed = requestbody.getAgreementAgreed();
-        System.out.println("/" + phone + "/" + password + "/" + confirm + "/" + usertype + "/" + username + "/" + mail);
         try {
             if (VerificationUtil.anyIsEmpty(phone, password, confirm, usertype, username, mail)) {
                 throw new RegisterFailedException(Status.FIELD_MISSING);
@@ -63,7 +62,7 @@ public class RegisterController extends AccountControllerBase {
                 user.setUsername(username);
                 user.setMail(mail);
                 userRepository.save(user);
-                if (type.equals(UserType.SELLER)) {
+                if (UserType.SELLER.equals(type)) {
                     Shop shop = new Shop();
                     shop.setOwnerid(userRepository.findByPhone(phone).get(0).getUserid());
                     shop.setShopname(requestbody.getShopname());

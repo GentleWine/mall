@@ -2,9 +2,9 @@ package com.mng.controller.admin;
 
 import com.mng.annotation.LoginRequired;
 import com.mng.annotation.UserTypeOnly;
+import com.mng.bean.request.EntityListRequest;
 import com.mng.bean.request.UserAddRequest;
 import com.mng.bean.request.UserEditRequest;
-import com.mng.bean.request.UserListRequest;
 import com.mng.bean.request.UserRemoveRequest;
 import com.mng.bean.response.MessageResponse;
 import com.mng.bean.response.SimpleResponse;
@@ -29,7 +29,7 @@ import java.util.Optional;
 public class AdminUserController extends UserContentProvider {
     @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public UserListResponse generateUserTable(HttpServletRequest request, UserListRequest body) {
+    public UserListResponse generateUserTable(HttpServletRequest request, EntityListRequest body) {
         setLimit(body.getLimit());
         setPage(body.getPage());
         return generateUserList();

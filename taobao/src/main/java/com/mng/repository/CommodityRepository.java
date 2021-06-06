@@ -23,7 +23,7 @@ public interface CommodityRepository extends JpaRepository<Commodity, Integer> {
 
     @Modifying
     @Transactional
-    @Query(value = "update commodity  set amount =:newamount where comid =:comid", nativeQuery = true)
+    @Query(value = "update commodity set amount =:newamount where comid =:comid", nativeQuery = true)
     int updateAmountByComid(@Param("newamount") Double newamount, @Param("comid") Integer comid);
 
 }

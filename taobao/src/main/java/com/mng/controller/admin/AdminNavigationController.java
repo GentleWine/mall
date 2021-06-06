@@ -24,13 +24,27 @@ public class AdminNavigationController {
     }
 
     @RequestMapping(value = "/users/table/add", method = RequestMethod.GET)
-    public String resolveTableAdd() {
+    public String resolveUserTableAdd() {
         return "admin/users/table/add";
     }
 
     @RequestMapping(value = "/users/table/edit", method = RequestMethod.GET)
-    public String resolveTableEdit() {
+    public String resolveUserTableEdit() {
         return "admin/users/table/edit";
     }
 
+    @RequestMapping(value = "/orders", method = RequestMethod.GET)
+    public String resolveOrders() {
+        return "admin/orders/order-table";
+    }
+
+    @RequestMapping(value = "/orders/table/add", method = RequestMethod.GET)
+    public String resolveOrderTableAdd() {
+        return "admin/orders/table/add";
+    }
+
+    @RequestMapping(value = "/orders/table/edit", method = RequestMethod.GET)
+    public String resolveOrderTableEdit() {
+        return "admin/orders/table/edit";
+    }
 }

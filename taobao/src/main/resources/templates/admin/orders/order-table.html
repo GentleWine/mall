@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>User List</title>
+    <title>Order List</title>
     <meta content="webkit" name="renderer">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
@@ -25,10 +25,8 @@
         </script>
         <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
         <script id="currentTableBar" type="text/html">
-            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit"><i
-                    class="layui-icon layui-icon-edit"></i>&nbsp;Edit</a>
-            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete"><i
-                    class="layui-icon layui-icon-delete"></i>&nbsp;Remove</a>
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">Edit</a>
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">Remove</a>
         </script>
     </div>
 </div>
@@ -51,7 +49,7 @@
         let mainTable = table.render({
             method: 'POST',
             elem: '#currentTableId',
-            url: '/admin/users',
+            url: '/admin/orders',
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: 'Hint',
@@ -61,12 +59,15 @@
             cols: [
                 [
                     {type: "checkbox", width: 50},
-                    {field: 'userid', width: 180, title: 'ID', sort: true},
-                    {field: 'username', width: 180, title: 'Username'},
-                    {field: 'password', width: 180, title: 'Password'},
-                    {field: 'usertype', width: 180, title: 'User Type'},
-                    {field: 'phone', width: 180, title: 'Phone Number'},
-                    {field: 'mail', width: 180, title: 'Email'},
+                    {field: 'orderid', width: 180, title: 'ID', sort: true},
+                    {field: 'userid', width: 180, title: 'User ID'},
+                    {field: 'comid', width: 180, title: 'Commodity ID'},
+                    {field: 'number', width: 180, title: 'Number'},
+                    {field: 'payment', width: 180, title: 'Payment'},
+                    {field: 'paymenttype', width: 180, title: 'Payment Type'},
+                    {field: 'status', width: 180, title: 'Status'},
+                    {field: 'paymenttime', width: 180, title: 'Payment Time'},
+                    {field: 'shopid', width: 180, title: 'Shop ID'},
                     {title: 'Operation', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
                 ]
             ],
@@ -102,13 +103,13 @@
         table.on('toolbar(currentTableFilter)', function (obj) {
             if (obj.event === 'add') {  // 监听添加操作
                 let index = layer.open({
-                    title: 'Add User',
+                    title: 'Add Order',
                     type: 2,
                     shade: 0.2,
                     maxmin: true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '/admin/users/table/add',
+                    content: '/admin/orders/table/add',
                     end: function () {
                         reloadTable(mainTable);
                     }
@@ -121,7 +122,7 @@
                     , data1 = checkStatus.data;
                 $.ajax({
                     type: "post",
-                    url: "/admin/users/remove-users",
+                    url: "/admin/orders/remove-orders",
                     contentType: "application/json; charset=UTF-8",
                     data: JSON.stringify(data1),
                     dataType: "json",
@@ -151,13 +152,13 @@
             if (obj.event === 'edit') {
 
                 let index = layer.open({
-                    title: 'Edit User',
+                    title: 'Edit Order',
                     type: 2,
                     shade: 0.2,
                     maxmin: true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '/admin/users/table/edit',
+                    content: '/admin/orders/table/edit',
                     success: function (layer, index) {
                         let iframe = window['layui-layer-iframe' + index];
                         iframe.child(data)
@@ -174,12 +175,12 @@
                 layer.confirm('Do you really want to delete this row?', function (index) {
                     $.ajax({
                         type: "post",
-                        url: "/admin/users/remove-user",
-                        data: {userId: obj.data.userid},
+                        url: "/admin/orders/remove-order",
+                        data: {orderId: obj.data.orderid},
                         dataType: "json",
                         success: function (data) {
                             let success = data['success'] === true;
-                            let msg = "Successly removed user.";
+                            let msg = "Successly removed order.";
                             if (!success) {
                                 msg = "Remove failed!";
                             }

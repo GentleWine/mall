@@ -1,5 +1,6 @@
 package com.mng.controller.shop;
 
+import com.mng.annotation.LoginRequired;
 import com.mng.repository.CommodityRepository;
 import com.mng.repository.redis.ScRepository;
 import com.mng.util.JsonBuilder;
@@ -15,8 +16,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+@LoginRequired
 @Controller("/shopping_cart")
-public class Shoppingcart {
+public class ShoppingCartController {
     @Autowired
     ScRepository scRepository;
     @Autowired

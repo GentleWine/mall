@@ -4,7 +4,7 @@ import com.mng.repository.ShopRepository;
 import com.mng.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class AccountControllerBase {
+public abstract class AccountControllerBase {
     @Autowired
     protected UserRepository userRepository;
     @Autowired

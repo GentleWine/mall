@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class MVConfig implements WebMvcConfigurer {
+public class MvcConfig implements WebMvcConfigurer {
     /*
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
@@ -19,7 +19,7 @@ public class MVConfig implements WebMvcConfigurer {
     private final LoginInterceptor loginInterceptor;
 
     @Autowired
-    public MVConfig(LoginInterceptor loginInterceptor) {
+    public MvcConfig(LoginInterceptor loginInterceptor) {
         this.loginInterceptor = loginInterceptor;
     }
 

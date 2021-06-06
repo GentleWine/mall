@@ -9,13 +9,14 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @RestController
 public class LogoutController extends AccountControllerBase {
 
     public static void clearCookies(HttpServletResponse response) {
-        final String[] cookies = new String[]{"phone", "usertype", "password"};
+        final String[] cookies = new String[]{"phone", "usertype", "password" };
         for (String cookieString : cookies) {
             Cookie cookie = new Cookie(cookieString, null);
             cookie.setMaxAge(0);
@@ -26,12 +27,13 @@ public class LogoutController extends AccountControllerBase {
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public void logout(HttpServletRequest request, HttpServletResponse response) {
-        request.getSession().removeAttribute("phone");
-        request.getSession().removeAttribute("username");
-        request.getSession().removeAttribute("mail");
-        request.getSession().removeAttribute("usertype");
-        request.getSession().removeAttribute("usertypeId");
-        request.getSession().removeAttribute("mail");
+        HttpSession session = request.getSession();
+        session.removeAttribute("phone");
+        session.removeAttribute("username");
+        session.removeAttribute("mail");
+        session.removeAttribute("usertype");
+        session.removeAttribute("usertypeId");
+        session.removeAttribute("mail");
         clearCookies(response);
         try {
             LoginInterceptor.redirectLogin(request, response);

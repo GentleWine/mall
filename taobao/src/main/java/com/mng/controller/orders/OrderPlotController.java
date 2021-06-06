@@ -2,7 +2,7 @@ package com.mng.controller.orders;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.mng.entity.Orders;
+import com.mng.entity.Order;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,11 +16,11 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-public class orderPlotController extends OrderBase {
+public class OrderPlotController extends OrderControllerBase {
     @RequestMapping(value = "/barVO", method = RequestMethod.POST)
     public JSONObject plotname(Model model, HttpServletRequest request, @RequestParam("sign") Integer sign, @RequestParam("shopid") Integer shopid) {
 
-        List<Orders> ordersList = orderRepository.findByShopid(shopid);
+        List<Order> ordersList = orderRepository.findByShopid(shopid);
         Date nowDate = new Date(System.currentTimeMillis());
         Calendar now = Calendar.getInstance();
         now.setTime(nowDate);
@@ -28,7 +28,7 @@ public class orderPlotController extends OrderBase {
         if (sign == 0) {
             List<Integer> name = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
             List<Double> value = Arrays.asList(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-            for (Orders orders : ordersList) {
+            for (Order orders : ordersList) {
                 Date paymenttime = orders.getPaymenttime();
                 long diff = nowDate.getTime() - paymenttime.getTime();
                 Long x = diff / (1000 * 60 * 60 * 24 * 7);
@@ -44,7 +44,7 @@ public class orderPlotController extends OrderBase {
         } else {
             List<Integer> name = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
             List<Double> value = Arrays.asList(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-            for (Orders orders : ordersList) {
+            for (Order orders : ordersList) {
                 Date paymenttime = orders.getPaymenttime();
                 Calendar bef = Calendar.getInstance();
                 bef.setTime(paymenttime);

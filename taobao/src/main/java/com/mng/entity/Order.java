@@ -13,7 +13,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "orders")
-public class Orders implements Serializable {
+public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer orderid;
@@ -34,7 +34,7 @@ public class Orders implements Serializable {
 
     private Integer shopid;
 
-    public Orders() {
+    public Order() {
 
     }
 }
