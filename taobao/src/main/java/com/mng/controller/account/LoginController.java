@@ -1,4 +1,4 @@
-package com.mng.Controller.account;
+package com.mng.controller.account;
 
 import com.mng.bean.request.LoginRequest;
 import com.mng.bean.response.LoginResponse;

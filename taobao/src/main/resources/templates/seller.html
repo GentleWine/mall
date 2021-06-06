@@ -8,13 +8,13 @@
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <title>XDUBuy</title>
     <!-- 网站说明 -->
-    <meta content="xdubuy-Focusing on building a mall of good quatity for xduer" name="description" />
+    <meta content="xdubuy-Focusing on building a mall of good quatity for xduer" name="description"/>
     <!-- 关键字 -->
-    <meta content="Snacks, stationery, daily necessities" name="keywords" />
+    <meta content="Snacks, stationery, daily necessities" name="keywords"/>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- 引入favicon图标 -->
-    <link href="favicon.ico" rel="shortcut icon" />
+    <link href="favicon.ico" rel="shortcut icon"/>
     <!-- 引入我们初始化样式文件 -->
     <link href="css/base.css" rel="stylesheet">
     <!-- 引入我们公共的样式文件 -->
@@ -23,11 +23,10 @@
     <link href="css/index.css" rel="stylesheet">
 
 
-
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.1.4/dist/jquery.min.js"></script>
     <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
- 
+
     <script src="js/jquery.form.js" type="text/javascript"></script>
 
     <style>
@@ -35,30 +34,34 @@
             margin-top: 40px;
             color: #70f3ff;
         }
-        label{
-        position: relative;
+
+        label {
+            position: relative;
         }
-        #imgpic{
+
+        #imgpic {
             position: absolute;
             left: 0;
             top: 0;
             opacity: 0;
-            }
-        #pathtext{
+        }
+
+        #pathtext {
             color: black;
         }
-        #btnpic{
-        margin-right: 5px;
-        padding: 5px 10px;
-        background: #00b0f0;
-        color: #FFF;
-        border: none;
-        border-radius: 5px;
+
+        #btnpic {
+            margin-right: 5px;
+            padding: 5px 10px;
+            background: #00b0f0;
+            color: #FFF;
+            border: none;
+            border-radius: 5px;
         }
     </style>
 
     <script>
-        
+
         $(function () {
             $.ajax({
                 type: "get",
@@ -82,10 +85,10 @@
                 $("#delid").text(delid);
             });
             $("#imgpic").change(function () {
-            var filePath = $("#imgpic").val();
-            var arr=filePath.split('\\');
-            var fileName = arr[arr.length-1];
-            $("#pathtext").html(fileName);
+                var filePath = $("#imgpic").val();
+                var arr = filePath.split('\\');
+                var fileName = arr[arr.length - 1];
+                $("#pathtext").html(fileName);
             });
         });
 
@@ -133,11 +136,11 @@
             console.log("right");
 
             let Name = $("#Name").val();
-            let Price =$("#Price").val();
-            let Description =$("#Description").val();
+            let Price = $("#Price").val();
+            let Description = $("#Description").val();
             let Kind = $("#Kind").val();
             let Pic = $("#imgpic")[0].files[0];
-            let Amount=$("#Amount").val()
+            let Amount = $("#Amount").val()
             console.log(Amount);
             //Kind有clothes,food,toy三种，分别对应0,1,2三个VALUE
             console.log(isNumber(Price));
@@ -150,16 +153,16 @@
                 alert("Price must be a Number!");
             } else if (Description === "") {
                 alert("please input Description");
-            }else if(Pic ===""){
+            } else if (Pic === "") {
                 alert("please choose a picture");
             } else {
-                var formdata =new FormData();
-                formdata.append("name",Name);
-                formdata.append("price",Price);
-                formdata.append("kind",Kind);
-                formdata.append("description",Description);
-                formdata.append("image",Pic);
-                formdata.append("amount",Amount);
+                var formdata = new FormData();
+                formdata.append("name", Name);
+                formdata.append("price", Price);
+                formdata.append("kind", Kind);
+                formdata.append("description", Description);
+                formdata.append("image", Pic);
+                formdata.append("amount", Amount);
                 //添加商品 期待返回数据:{"success":true, "success":false}
                 $.ajax({
                     url: "/add_goods",
@@ -169,15 +172,15 @@
                     processData: false,
                     contentType: false,
                     success: function (data) {
-                            //res = JSON.parse(data)
+                        //res = JSON.parse(data)
                         if (data["success"] === true) {
                             alert("Item is successfully added!");
                             location.reload();
-                            } else {
-                                alert("Item failed to add! Reason: " + data["error"]);
-                            }
+                        } else {
+                            alert("Item failed to add! Reason: " + data["error"]);
                         }
-                    });
+                    }
+                });
 
             }
         }
@@ -189,8 +192,8 @@
         // }
 
         // 文件上传框
-            
-    
+
+
     </script>
 
 
@@ -198,190 +201,192 @@
 <!-- <button onclick="refresh()">test</button> -->
 
 <body>
-    <!-- 快捷导航模块 start -->
-    <div class="modal fade" id="delcfmModel">
-        <div class="modal-dialog">
-            <div class="modal-content message_align">
-                <div class="modal-header">
-                    <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
-                            aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">Warning</h4>
-                </div>
-                <div class="modal-body">
-                    <p id="delcfmMsg">Are you sure you want to delete this item?</p>
-                    <p hidden="hidden" id="delid">theid</p>
-                </div>
-                <div class="modal-footer">
-                    <input id="submitUrl" type="hidden" />
-                    <button class="btn btn-default" data-dismiss="modal" type="button">No</button>
-                    <a class="btn btn-success" data-dismiss="modal" onclick="urlSubmit()">Yes</a>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+<!-- 快捷导航模块 start -->
+<div class="modal fade" id="delcfmModel">
+    <div class="modal-dialog">
+        <div class="modal-content message_align">
+            <div class="modal-header">
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
+                        aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Warning</h4>
+            </div>
+            <div class="modal-body">
+                <p id="delcfmMsg">Are you sure you want to delete this item?</p>
+                <p hidden="hidden" id="delid">theid</p>
+            </div>
+            <div class="modal-footer">
+                <input id="submitUrl" type="hidden"/>
+                <button class="btn btn-default" data-dismiss="modal" type="button">No</button>
+                <a class="btn btn-success" data-dismiss="modal" onclick="urlSubmit()">Yes</a>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 
-    <section class="shortcut">
-        <div class="w">
-            <div class="fl">
-                <ul>
-                    <li>welcome to XDUBuy!&nbsp;&nbsp;</li>
-                    <li>
-                        <!-- <p class="suibian">welcome!</p>           其中class随便放在了common.css文件最后面        -->
-                        <p th:text="${seller.name}"></p>
-                    </li>
-                </ul>
-            </div>
-            <div class="fr">
-                <ul>
-                    <li>My Order</li>
-                    <li></li>
-                    <li class="arrow-icon">My XDUBuy</li>
-                    <li></li>
-                    <li>XDUBuy VIP</li>
-                    <li></li>
-                    <li>Enterprise Procurement</li>
-                    <li></li>
-                    <li class="arrow-icon">Follow Us</li>
-                    <li></li>
-                    <li class="arrow-icon">Customer Service</li>
-                </ul>
-            </div>
+<section class="shortcut">
+    <div class="w">
+        <div class="fl">
+            <ul>
+                <li>welcome to XDUBuy!&nbsp;&nbsp;</li>
+                <li>
+                    <!-- <p class="suibian">welcome!</p>           其中class随便放在了common.css文件最后面        -->
+                    <p th:text="${seller.name}"></p>
+                </li>
+            </ul>
         </div>
-    </section>
-    <!-- 快捷导航模块 end -->
-    <!-- header头部模块制作 start -->
-    <div class="container">
-        <div class="row">
-            <!-- <header class="header w "> -->
-            <!-- logo模块 -->
-            <div class="col-md-8 logo">
-                <h1>
-                    <a href="/" title="xdubuy">XDUBuy</a>
-                </h1>
-            </div>
+        <div class="fr">
+            <ul>
+                <li>My Order</li>
+                <li></li>
+                <li class="arrow-icon">My XDUBuy</li>
+                <li></li>
+                <li>XDUBuy VIP</li>
+                <li></li>
+                <li>Enterprise Procurement</li>
+                <li></li>
+                <li class="arrow-icon">Follow Us</li>
+                <li></li>
+                <li class="arrow-icon">Customer Service</li>
+            </ul>
+        </div>
+    </div>
+</section>
+<!-- 快捷导航模块 end -->
+<!-- header头部模块制作 start -->
+<div class="container">
+    <div class="row">
+        <!-- <header class="header w "> -->
+        <!-- logo模块 -->
+        <div class="col-md-8 logo">
+            <h1>
+                <a href="/" title="xdubuy">XDUBuy</a>
+            </h1>
+        </div>
 
-            <div class="col-md-10"></div>
-            <div class="col-md-2">
-                <button class="btn btn-primary btn-lg add" data-target="#myModal" data-toggle="modal" type="button">
-                    Add Commodity
-                </button>
+        <div class="col-md-10"></div>
+        <div class="col-md-2">
+            <button class="btn btn-primary btn-lg add" data-target="#myModal" data-toggle="modal" type="button">
+                Add Commodity
+            </button>
 
-                <!-- Modal  添加商品表单-->
-                <div aria-labelledby="myModalLabel" class="modal fade" id="myModal" role="dialog" tabindex="-1">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
-                                        aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Add Commodity</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form id="infoTable" >
-                                    <div class="form-group">
-                                        <label for="Name">Name</label>
-                                        <input aria-describedby="emailHelp" class="form-control" id="Name" type="text">
+            <!-- Modal  添加商品表单-->
+            <div aria-labelledby="myModalLabel" class="modal fade" id="myModal" role="dialog" tabindex="-1">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Add Commodity</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="infoTable">
+                                <div class="form-group">
+                                    <label for="Name">Name</label>
+                                    <input aria-describedby="emailHelp" class="form-control" id="Name" type="text">
 
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="Price">Price</label>
-                                        <input class="form-control" id="Price" type="text">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="description">Description</label>
-                                        <textarea aria-label="With textarea" class="form-control"
-                                            id="Description"></textarea>
-                                    </div>
-                                     <div class="form-group">
-                                        <label for="amount">Amount</label>
-                                        <textarea aria-label="With textarea" class="form-control"
-                                            id="Amount"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Category</label>
-                                        <select id="Kind">
-                                            <option value="7">Clothes</option>
-                                            <option value="4">Food</option>
-                                            <option value="1">Toy</option>
-                                        </select>
-                                        <!-- <textarea aria-label="With textarea" class="form-control" id="Kind"></textarea> -->
-                                    </div>
-                                    <div id="form-group" class="preview" >
-                                                                       
-                                        <label for="img">
-                                            Picture
-                                            <input type="button" id="btnpic" value="choose Picture"><span id="pathtext">choose a pic </span>
-                                            <input type="file" name="imgpic" id="imgpic" accept="image/gif, image/jpeg, image/png, image/jpg" formenctype="multipart/form-data"><br/><br />
-                                        </label>
-                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Price">Price</label>
+                                    <input class="form-control" id="Price" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label for="description">Description</label>
+                                    <textarea aria-label="With textarea" class="form-control"
+                                              id="Description"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="amount">Amount</label>
+                                    <textarea aria-label="With textarea" class="form-control"
+                                              id="Amount"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Category</label>
+                                    <select id="Kind">
+                                        <option value="7">Clothes</option>
+                                        <option value="4">Food</option>
+                                        <option value="1">Toy</option>
+                                    </select>
+                                    <!-- <textarea aria-label="With textarea" class="form-control" id="Kind"></textarea> -->
+                                </div>
+                                <div class="preview" id="form-group">
 
-                                    <!-- <div class="form-group">
-                                    <label for="exampleInputPassword1">pictures</label>
-                                    <input type="file" class="form-control custom-file-input">
-                                </div> -->
+                                    <label for="img">
+                                        Picture
+                                        <input id="btnpic" type="button" value="choose Picture"><span id="pathtext">choose a pic </span>
+                                        <input accept="image/gif, image/jpeg, image/png, image/jpg" formenctype="multipart/form-data" id="imgpic"
+                                               name="imgpic"
+                                               type="file"><br/><br/>
+                                    </label>
+                                </div>
 
-                                    <button class="btn btn-primary" onclick="mysubmit()" type="button">Submit</button>
-                                </form>
-                            </div>
+                                <!-- <div class="form-group">
+                                <label for="exampleInputPassword1">pictures</label>
+                                <input type="file" class="form-control custom-file-input">
+                            </div> -->
 
-                            <div class="modal-footer">
-                                <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
-                                <button class="btn btn-primary" type="button">Save Changes</button>
-                            </div>
+                                <button class="btn btn-primary" onclick="mysubmit()" type="button">Submit</button>
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                            <button class="btn btn-primary" type="button">Save Changes</button>
                         </div>
                     </div>
                 </div>
-
-                <!-- </header> -->
             </div>
+
+            <!-- </header> -->
         </div>
-
-
     </div>
-    <div th:each="kind:${seller.kinds}">
-        <div class="snav w">
-            <h3 th:text="${kind.name}">computer</h3>
-        </div>
-         <ul class="all_goods w">
-            <li class="goods" th:each="item:${kind.items}">
-                <a class="item-a">
-                    <img alt="" height="198px" th:src="${item.imgUrl}" width="194px">
-                    <div class="item_title" th:text="${item.item_title}">Loading...</div>
-                    <div class="item_price"><span>RMB ￥</span><span class="price_css"
-                                                                    th:text="${#numbers.formatDecimal(item.price,0,2)}">Loading...</span>
+
+
+</div>
+<div th:each="kind:${seller.kinds}">
+    <div class="snav w">
+        <h3 th:text="${kind.name}">computer</h3>
+    </div>
+    <ul class="all_goods w">
+        <li class="goods" th:each="item:${kind.items}">
+            <a class="item-a">
+                <img alt="" height="198px" th:src="${item.imgUrl}" width="194px">
+                <div class="item_title" th:text="${item.item_title}">Loading...</div>
+                <div class="item_price"><span>RMB ￥</span><span class="price_css"
+                                                                th:text="${#numbers.formatDecimal(item.price,0,2)}">Loading...</span>
                     <span>(only&nbsp; <span th:text="${item.amount}">xxx</span> left )</span>
-                    </div>
-                    <div class="seller_info">
-                        <span th:text="${item.seller_info}">Loading...</span>
-                        <span  th:text="${seller.address}">(address: <span>xxx</span>) </span>
-                    </div>
-                    <div class="item_footer">
-                        <button class="btn btn-default delete" data-toggle="modal" th:id="${item.id}"
+                </div>
+                <div class="seller_info">
+                    <span th:text="${item.seller_info}">Loading...</span>
+                    <span th:text="${seller.address}">(address: <span>xxx</span>) </span>
+                </div>
+                <div class="item_footer">
+                    <button class="btn btn-default delete" data-toggle="modal" th:id="${item.id}"
                             type="button">Delete
-                        </button>
-                    </div>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <!-- 底部模块的制作 start -->
-    <footer class="footer">
-        <div class="w">
-            <div class="mod_copyright">
-                <div class="links">
-                    <a href="/logout">Log Out</a> | <a href="#">About us</a>
+                    </button>
                 </div>
-                <div>
-                    <a href="#">If you have any question, please send e-mail to 752016959@qq.com to contact us</a>
-                </div>
-                <div class="copyright">
-                    address：Clsyyds Office, 3rd Floor, Haitang Dormitory No.7, Xidian University postcode：1xxx96
-                    phone：4xx-6xx-4xxx fax：010-xxxx5100 email: clsyyds@gmai.com <br>
-                </div>
+            </a>
+        </li>
+    </ul>
+</div>
+<!-- 底部模块的制作 start -->
+<footer class="footer">
+    <div class="w">
+        <div class="mod_copyright">
+            <div class="links">
+                <a href="/logout">Log Out</a> | <a href="#">About us</a>
+            </div>
+            <div>
+                <a href="#">If you have any question, please send e-mail to 752016959@qq.com to contact us</a>
+            </div>
+            <div class="copyright">
+                address：Clsyyds Office, 3rd Floor, Haitang Dormitory No.7, Xidian University postcode：1xxx96
+                phone：4xx-6xx-4xxx fax：010-xxxx5100 email: clsyyds@gmai.com <br>
             </div>
         </div>
-    </footer>
-    <!-- 底部模块的制作 end -->
+    </div>
+</footer>
+<!-- 底部模块的制作 end -->
 </body>
 
 </html>

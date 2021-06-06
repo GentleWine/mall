@@ -94,11 +94,11 @@
     padding-left: 10px;
 }
 
-.search>button {
+.search > button {
     /* float: left; */
     position: relative;
     top: -35px;
-    left:228px;
+    left: 228px;
     width: 81px;
     height: 35px;
     background-color: #b1191a;
@@ -106,7 +106,7 @@
     color: #fff;
 }
 
-.search_small_button{ 
+.search_small_button {
     float: left;
     margin-left: 24%;
     margin-top: 10px;
@@ -116,7 +116,7 @@
     font-size: small;
     color: #666;
     text-align: center;
-    margin:0 5px 0 0;
+    margin: 0 5px 0 0;
     width: 60px;
     height: 20px;
 }
@@ -324,7 +324,7 @@
     display: inline-block;
 }
 
-.hello>.Order_history {
+.hello > .Order_history {
     text-align: center;
     width: 120px;
     height: 100px;
@@ -334,7 +334,7 @@
     margin: auto;
 }
 
-.hello>.Order_history button {
+.hello > .Order_history button {
     margin: auto;
     margin-bottom: 8px;
     margin-top: 20px;

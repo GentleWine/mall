@@ -1,7 +1,7 @@
-package com.mng.Controller.admin;
+package com.mng.controller.admin;
 
 import com.mng.bean.response.UserListResponse;
-import com.mng.Controller.account.AccountControllerBase;
+import com.mng.controller.account.AccountControllerBase;
 import com.mng.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

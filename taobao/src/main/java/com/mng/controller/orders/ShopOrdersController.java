@@ -1,10 +1,7 @@
-package com.mng.Controller.orders;
+package com.mng.controller.orders;
 
 
-import com.alibaba.fastjson.JSONObject;
 import com.mng.entity.Orders;
-import com.mng.repository.OrderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,12 +14,12 @@ import java.util.List;
 @Controller
 public class ShopOrdersController extends OrderBase {
     @RequestMapping(value = "/seller/orders", method = RequestMethod.GET)
-    public String seller(Model model, HttpServletRequest request, @RequestParam("shopid")Integer shopid) {
+    public String seller(Model model, HttpServletRequest request, @RequestParam("shopid") Integer shopid) {
         //Integer
         //Integer shopid=Integer.parseInt(request.getSession().getAttribute("shopid").toString());
         List<Orders> ordersList = orderRepository.findByShopid(shopid);
-        model.addAttribute("allProducts",ordersList);
-        model.addAttribute("shopid",shopid);
+        model.addAttribute("allProducts", ordersList);
+        model.addAttribute("shopid", shopid);
         return "orders";
     }
 }

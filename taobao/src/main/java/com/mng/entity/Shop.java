@@ -22,6 +22,7 @@ public class Shop implements Serializable {
 
     private String shopname;
     private String address;
+
     public Shop() {
 
     }

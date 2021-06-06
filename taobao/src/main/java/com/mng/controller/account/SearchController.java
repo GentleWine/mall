@@ -1,10 +1,10 @@
-package com.mng.Controller.shop;
+package com.mng.controller.account;
 
 import com.mng.annotation.LoginRequired;
+import com.mng.controller.shop.ShopControllerBase;
 import com.mng.domain.KindDomain;
 import com.mng.domain.SellerDomain;
 import com.mng.domain.UserDomain;
-import com.mng.domain.ItemDomain;
 import com.mng.entity.Shop;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,7 +25,7 @@ import java.util.Objects;
 public class SearchController extends ShopControllerBase {
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public String search(@RequestParam("content") String content,Model model, HttpServletRequest request) {
+    public String search(@RequestParam("content") String content, Model model, HttpServletRequest request) {
 
         Pageable pageable = PageRequest.of(0, 30, Sort.Direction.DESC, "shopid");
         Page<Shop> pages = shopRepository.findAll(pageable);
@@ -40,11 +40,11 @@ public class SearchController extends ShopControllerBase {
 
         //删除name不是content的元素
         for (SellerDomain i : sellers) {
-            List<KindDomain> kinds=i.getKinds();
+            List<KindDomain> kinds = i.getKinds();
             System.out.println(kinds.toString());
-            for (int j=0; j<kinds.size();j++) {
+            for (int j = 0; j < kinds.size(); j++) {
                 System.out.println(kinds.get(j));
-                if (!Objects.equals(kinds.get(j).getName(), content)){
+                if (!Objects.equals(kinds.get(j).getName(), content)) {
                     kinds.remove(j);
                     j--;
                 }
@@ -54,7 +54,7 @@ public class SearchController extends ShopControllerBase {
 
         model.addAttribute("sellers", sellers);
         model.addAttribute("user", user);
-        System.out.println(sellers.toString());
+        System.out.println(sellers);
         return "search";
     }
 }

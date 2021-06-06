@@ -230,8 +230,8 @@
     <div class="hello_user">
         <p>welcome to XDUBuy! Dear :&nbsp;</p>
         <p th:text="${user.name}">username</p>
-        <form action="/search" target="_blank" method="get">
-            <input type="text" name="content" style="width: 300px" required="required">
+        <form action="/search" method="get" target="_blank">
+            <input name="content" required="required" style="width: 300px" type="text">
             <input type="submit" value="search">
         </form>
     </div>

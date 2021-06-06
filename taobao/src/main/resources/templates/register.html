@@ -54,11 +54,12 @@
                 $("#confirm").after("<span id='error_3' class='error_icon'>Error! please re-enter <i ></i></span></li> ")
             }
         });
-        $("#usertype1").bind("change",function(){
+        $("#usertype1").bind("change", function () {
             alert(1);
-            var value=$("#usertype1").val();
+            var value = $("#usertype1").val();
             console.log(value);
-        });                    
+        });
+
         //注册
         function register() {
             if ($("#user").value === "") {
@@ -78,11 +79,11 @@
                 console.log(confirm);
                 let usertype = $("#usertype").val();
                 console.log(usertype);
-                let Store_name=$("#Store_name").val();
+                let Store_name = $("#Store_name").val();
                 console.log(Store_name);
-                let Address=$("#Address").val()
+                let Address = $("#Address").val()
                 console.log(Address);
-                if(usertype=="1" && (Store_name=="" || Address=="")){
+                if (usertype == "1" && (Store_name == "" || Address == "")) {
                     alert("please input Store name and Address")
                 }
                 //let agreement = $("#user_agreement").prop("checked");
@@ -97,8 +98,8 @@
                         'confirm': confirm,
                         'mail': mail,
                         //'agreementAgreed': agreement,
-                        "shopname":Store_name,
-                        "address":Address
+                        "shopname": Store_name,
+                        "address": Address
                     },
                     dataType: "json",
                     success: function (data) {
@@ -160,38 +161,41 @@
                     </li>
                     <li class="agree" style="position:relative; right:120px;"><label for="user_agreement"></label>
                         If you want to register seller,please
-                    <!-- <a href="#"><u data-target="#myModal" data-toggle="modal">Click</u></a></li> -->
-                    <button data-toggle="modal" data-target="#myModal" type="button"><u>Click </u></button>
-                    <div aria-labelledby="myModalLabel" class="modal fade" id="myModal" role="dialog" tabindex="-1">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
-                                            aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="myModalLabel">Add Commodity</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <form id="infoTable">
-                                        <div class="form-group">
-                                            <label for="Store_name">Store name</label>
-                                            <input aria-describedby="emailHelp" class="form-control" id="Store_name" type="text">
-        
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="Address">Store address</label>
-                                            <input class="form-control" id="Address" type="text">
-                                        </div>
-                        
-                                    </form>
-                                </div>
-        
-                                <div class="modal-footer">
-                                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
-                                    <button class="btn btn-primary" type="button">Save Changes</button>
+                        <!-- <a href="#"><u data-target="#myModal" data-toggle="modal">Click</u></a></li> -->
+                        <button data-target="#myModal" data-toggle="modal" type="button"><u>Click </u></button>
+                        <div aria-labelledby="myModalLabel" class="modal fade" id="myModal" role="dialog" tabindex="-1">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button aria-label="Close" class="close" data-dismiss="modal"
+                                                type="button"><span
+                                                aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">Add Commodity</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="infoTable">
+                                            <div class="form-group">
+                                                <label for="Store_name">Store name</label>
+                                                <input aria-describedby="emailHelp" class="form-control" id="Store_name"
+                                                       type="text">
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="Address">Store address</label>
+                                                <input class="form-control" id="Address" type="text">
+                                            </div>
+
+                                        </form>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button class="btn btn-default" data-dismiss="modal" type="button">Close
+                                        </button>
+                                        <button class="btn btn-primary" type="button">Save Changes</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     <li>
                         <button class="btn" onclick="register()" type="button" value="Register">Register</button>
                     </li>

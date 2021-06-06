@@ -1,4 +1,4 @@
-package com.mng.Controller.shop;
+package com.mng.controller.shop;
 
 import com.mng.domain.ItemDomain;
 import com.mng.domain.KindDomain;
@@ -48,9 +48,9 @@ public class ShopControllerBase {
                     item.setSeller_info(commodity.getDetail());
                     item.setId(commodity.getComid());
                     item.setAmount(commodity.getAmount());
-                    if(commodity.getMainimage().equals("1")){
+                    if (commodity.getMainimage().equals("1")) {
                         item.setImgUrl("favicon.png");
-                    }else{
+                    } else {
                         item.setImgUrl(commodity.getMainimage());
                     }
                     items.add(item);

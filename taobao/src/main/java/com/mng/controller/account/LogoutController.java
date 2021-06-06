@@ -1,4 +1,4 @@
-package com.mng.Controller.account;
+package com.mng.controller.account;
 
 import com.mng.component.LoginInterceptor;
 import com.mng.util.Log;

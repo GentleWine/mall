@@ -1,10 +1,10 @@
 package com.mng.component;
 
-import com.mng.Controller.account.LoginController;
-import com.mng.Controller.account.LogoutController;
 import com.mng.annotation.LoginRequired;
 import com.mng.annotation.UserTypeOnly;
 import com.mng.bean.request.LoginRequest;
+import com.mng.controller.account.LoginController;
+import com.mng.controller.account.LogoutController;
 import com.mng.data.UserType;
 import com.mng.repository.UserRepository;
 import com.mng.util.CipherProcessor;

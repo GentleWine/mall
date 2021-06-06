@@ -26,8 +26,6 @@
     <link href="index.css" rel="stylesheet">
 
 
-
-
     <style>
         @font-face {
             font-family: 'iconfont';
@@ -124,9 +122,8 @@
     </style>
 
 
-
 </head>
-<script type="text/javascript" th:inline="javascript">
+<script th:inline="javascript" type="text/javascript">
     $(function () {
         $.ajax({
             type: "get",
@@ -140,12 +137,12 @@
         });
 
         $.ajax({
-            type:"get",
-            url:"/shopping_cart",
+            type: "get",
+            url: "/shopping_cart",
             async: false,
-            data:{},
+            data: {},
             dataType: 'json',
-            success: function(data){
+            success: function (data) {
                 console.log(data);
             }
         });
@@ -210,38 +207,41 @@
         errorinfo: xxx // 错误信息
     }
      */
-    
+
 
     $('#myModal').on('shown.bs.modal', function () {
         $('#myInput').focus()
     });
-    function cleanShoppingCart(){
+
+    function cleanShoppingCart() {
         let tbody = document.getElementById("goods");
         tbody.innerHTML = "";
     }
-    function Changeitem(id,op){
+
+    function Changeitem(id, op) {
         var res = 0;
         id = parseInt(id);
         $.ajax(
             {
-            type:"get",
-            url:"/shopping_cart/change",
-            async: false,
-            data:{
-                'id':id,
-                'op': op
-            },
-            dataType: 'json',
-            success: function(data){
-                if (data['state'] == "SUCCESS"){
-                    res = 1;
-                }else{
-                    console.log(data['errorinfo']);
+                type: "get",
+                url: "/shopping_cart/change",
+                async: false,
+                data: {
+                    'id': id,
+                    'op': op
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data['state'] == "SUCCESS") {
+                        res = 1;
+                    } else {
+                        console.log(data['errorinfo']);
+                    }
                 }
-            }
-        });
+            });
         return res;
     }
+
     //this js中指当前对象
     function addToShoppingCart(btn) {
         let a = btn.parentNode.parentNode;
@@ -255,8 +255,8 @@
         let tbody = document.getElementById("goods");
         let row = tbody.insertRow();//insertRow表格开头插入新行
         let data = {}
-        row.innerHTML = 
-        "<td hidden='hidden' >" + id + "</td>" +
+        row.innerHTML =
+            "<td hidden='hidden' >" + id + "</td>" +
             "<td>" + name + "</td>" +
             "<td>" + price + "</td>" +
             '<td style="text-align: center;">' +
@@ -274,18 +274,18 @@
         showSnackbar("Successfully added " + name + " ×1 to cart.");
         id = parseInt(id);
         $.ajax({
-            type:"get",
-            url:"/shopping_cart/add_item",
+            type: "get",
+            url: "/shopping_cart/add_item",
             async: false,
-            data:{
-                'id':id,
-                'name':name,
-                'price':price,
-                'num':1,
-                'remain':remain
+            data: {
+                'id': id,
+                'name': name,
+                'price': price,
+                'num': 1,
+                'remain': remain
             },
             dataType: 'json',
-            success: function(data){
+            success: function (data) {
                 console.log(data);
             }
         });
@@ -317,7 +317,7 @@
         //用n<0来表示点击了减button
         if (amount <= 1 && n < 0) {
             return;
-        }else if(amount <= remain && n > 0){
+        } else if (amount <= remain && n > 0) {
             return
         }
         //根据加减来改变数量
@@ -336,10 +336,10 @@
         tds[4].innerHTML = (price * amount).toFixed(2);
         //调用total方法，求总计
         total();
-        if(n == 1){
-            Changeitem(id,1);
-        }else{
-            Changeitem(id,2);
+        if (n == 1) {
+            Changeitem(id, 1);
+        } else {
+            Changeitem(id, 2);
         }
     }
 
@@ -365,51 +365,51 @@
         tr.parentNode.removeChild(tr);
         //tr.remove(tr);
         total();
-        Changeitem(id,0);
+        Changeitem(id, 0);
     }
 
-    function buy_buy_buy(){
+    function buy_buy_buy() {
         let money = $.trim($("#spent_money").text());
         let address = $.trim($("#Address").val());
         console.log(money);
         console.log(address);
         $.ajax(
             {
-            type:"get",
-            url:"/shopping_cart/clear",
-            async: false,
-            data:{},
-            dataType: 'json',
-            success: function(data){
-                if (data['state'] == "SUCCESS"){
-                    cleanShoppingCart();
-                }else{
-                    alert("buy Failed");
-                    console.log(data['errorinfo']);
+                type: "get",
+                url: "/shopping_cart/clear",
+                async: false,
+                data: {},
+                dataType: 'json',
+                success: function (data) {
+                    if (data['state'] == "SUCCESS") {
+                        cleanShoppingCart();
+                    } else {
+                        alert("buy Failed");
+                        console.log(data['errorinfo']);
+                    }
                 }
-            }
-        });
+            });
         $.ajax(
             {
-            type:"get",
-            url:"/shopping_cart/buy",
-            async: false,
-            data:{
-                'address':address
-            },
-            dataType: 'json',
-            success: function(data){
-                if (data['state'] == "SUCCESS"){
-                    alert("you have successfully bought all the goods!And you've spent " + money + " RMB" );
-                }else{
-                    alert("buy Failed");
-                    console.log(data['errorinfo']);
+                type: "get",
+                url: "/shopping_cart/buy",
+                async: false,
+                data: {
+                    'address': address
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data['state'] == "SUCCESS") {
+                        alert("you have successfully bought all the goods!And you've spent " + money + " RMB");
+                    } else {
+                        alert("buy Failed");
+                        console.log(data['errorinfo']);
+                    }
                 }
-            }
-        });
+            });
     }
 
-    function LogOut(){
+    function LogOut() {
         $.ajax({
             type: "get",
             url: "/user/logout",
@@ -422,65 +422,71 @@
         });
     }
 
-    function InputLabel(btn){
+    function InputLabel(btn) {
         let line = document.getElementById("search_line");
         line.innerHTML = btn.innerHTML;
     }
-    function AddSearchRes(data){
+
+    function AddSearchRes(data) {
         let theli = "<li class='goods'>";
         var img = data["imgUrl"];
         var name = data["name"];
         var price = data["price"].toString();
         var remain = data["remain"].toString();
         var info = data["info"];
-        var address = data["address"];+ price.toString()
+        var address = data["address"];
+        +price.toString()
         var id = data["id"];
-        theli = theli +  "<a class='item-a'>" + 
-                    "<img alt='' height='198px' src='" + img + "' width='194p'>" +
-                    "<div class='item_title'>" + name + "</div>" + 
-                    "<div class='item_price'><span>RMB ￥</span><span class='price_css'>" + price + "</span>" + 
-                    "<span>(only&nbsp; <span>" + remain + "</span> left )</span> </div>" + 
-                    "<div class='seller_info'>" + 
-                        "<span>" + info + "</span>" + 
-                       "<span>(address: <span>" + address +"</span>) </span>" +
-                    "</div>" +
-                    "<div class='item_footer'>" + 
-                        "<button class='cart_button' onclick='addToShoppingCart(this)' id='" + id + "'><span" + 
-                                "class='iconfont'>&#xe630;</span>&nbsp;Add to Shopping Cart" + 
-                        "</button>" + 
-                    "</div>" + 
-                "</a>" + 
+        theli = theli + "<a class='item-a'>" +
+            "<img alt='' height='198px' src='" + img + "' width='194p'>" +
+            "<div class='item_title'>" + name + "</div>" +
+            "<div class='item_price'><span>RMB ￥</span><span class='price_css'>" + price + "</span>" +
+            "<span>(only&nbsp; <span>" + remain + "</span> left )</span> </div>" +
+            "<div class='seller_info'>" +
+            "<span>" + info + "</span>" +
+            "<span>(address: <span>" + address + "</span>) </span>" +
+            "</div>" +
+            "<div class='item_footer'>" +
+            "<button class='cart_button' onclick='addToShoppingCart(this)' id='" + id + "'><span" +
+            "class='iconfont'>&#xe630;</span>&nbsp;Add to Shopping Cart" +
+            "</button>" +
+            "</div>" +
+            "</a>" +
             "</li>";
         alert(theli);
         $("#search_res").append(theli);
     }
-    function Search_item(){
+
+    function Search_item() {
         let line = document.getElementById("search_line");
         let info = line.innerHTML;
-        if(info == null){return;}
+        if (info == null) {
+            return;
+        }
         $.ajax({
-            type:"get",
-            url:"/search",
+            type: "get",
+            url: "/search",
             async: false,
-            data:{
-                'label':info
+            data: {
+                'label': info
             },
             dataType: 'json',
-            success: function(data){
-                if(data["state"]=="SUCCESS"){
+            success: function (data) {
+                if (data["state"] == "SUCCESS") {
                     goods_index = document.getElementById("all_items");
                     goods_index.innerHTML = "<ul class='all_goods w' id='search_res'></ul>"
                     QueryList = data["QueryList"];
-                    for(var i = 0;i < QueryList.length;i++){
+                    for (var i = 0; i < QueryList.length; i++) {
                         AddSearchRes(QueryList[i]);
                     }
-                }else{
+                } else {
                     alert("Due to unknown reason,search Failed!");
                 }
                 console.log(data);
             }
         });
     }
+
     // function test(){
     //     let goods_index = document.getElementById("all_items");
     //     goods_index.innerHTML = "<ul class='all_goods w' id='search_res'></ul>";
@@ -500,35 +506,37 @@
 
 <!-- 欢迎您界面 -->
 <div class="hello w">
-<!--     <button type="button" onclick="test()">test</button> -->
+    <!--     <button type="button" onclick="test()">test</button> -->
     <div class="Order_history">
-        <button><img src="dingdan.png" alt="" ></button>
-        <span onclick="function(){window.location.href = "order";}">Click to query historical order</span>
+        <button><img alt="" src="dingdan.png"></button>
+        <span onclick="function(){window.location.href = " order";}">Click to query historical order</span>
     </div>
     <div class="hello_user">
         <p>welcome to XDUBuy! Dear :&nbsp;</p>
         <p th:text="${user.name}">username</p>
         <p>&nbsp;&nbsp;This month you'v spent </p>
-        <p id="spent_money" th:text="${user.spent_money}">999</p><p>RMB in total.</p> 
+        <p id="spent_money" th:text="${user.spent_money}">999</p>
+        <p>RMB in total.</p>
     </div>
     <div class="search">
-        <p id="search_line" hidden="hidden"></p>
-        <input type="search" name="" id="" placeholder="pen">
-        <button class="search_button" type="button" onclick="Search_item()">search</button>
+        <p hidden="hidden" id="search_line"></p>
+        <input id="" name="" placeholder="pen" type="search">
+        <button class="search_button" onclick="Search_item()" type="button">search</button>
     </div>
     <div class="search_small_button ">
-        <button type="button" onclick="InputLabel(this)">pen</button>
-        <button type="button" onclick="InputLabel(this)">computer</button>
-        <button type="button" onclick="InputLabel(this)">phone</button>
-        <button type="button" onclick="InputLabel(this)">food</button>
-        <button type="button" onclick="InputLabel(this)">1</button>
-        <button type="button" onclick="InputLabel(this)">2</button>
-        <button type="button" onclick="InputLabel(this)">3</button>
-        <button type="button" onclick="InputLabel(this)">4</button>
+        <button onclick="InputLabel(this)" type="button">pen</button>
+        <button onclick="InputLabel(this)" type="button">computer</button>
+        <button onclick="InputLabel(this)" type="button">phone</button>
+        <button onclick="InputLabel(this)" type="button">food</button>
+        <button onclick="InputLabel(this)" type="button">1</button>
+        <button onclick="InputLabel(this)" type="button">2</button>
+        <button onclick="InputLabel(this)" type="button">3</button>
+        <button onclick="InputLabel(this)" type="button">4</button>
     </div>
 </div>
 <div class="col-md-2">
-    <button type='button' class='shopping_cart' data-target="#myModal" data-toggle="modal" onclick="">                   <!--跳转到购物车-->
+    <button class='shopping_cart' data-target="#myModal" data-toggle="modal" onclick="" type='button'>
+        <!--跳转到购物车-->
         <span class="iconfont">&#xe630;</span>
         <p class="into_cart_info">Shopping Cart</p>
     </button>
@@ -555,22 +563,23 @@
                                 </tr>
                                 </thead>
                                 <tbody class="modal-body" id="goods">
-                                
-                                    <tr th:each="${item:Shopping_cart}">
-                                        <td hidden="hidden" id="itemid" th:text="${item.id}">test</td>
-                                        <td th:text = "${item.name}">  name </td> 
-                                        <td th:text = "${#numbers.formatDecimal(item.price,0,2)}"> price </td>
-                                        <td style="text-align: center;">
-                                        <input type='button' value='-' id='jian'  onclick='change(this,-1)'  />
-                                        <input id='text' type='text' size='1' th:value='${item.num}' style='text-align:center;' readonly='readonly' />
-                                        <input type='button' value='+' id='add'  onclick='change(this,1)'  />
-                                        </td>
-                                        <td th:text = "${#numbers.formatDecimal(item.price,0,2)} * ${item.num}"> price </td>
-                                        <td style="text-align:center;">
-                                        <input type='button' value='Remove' onclick='del(this)'/>
-                                        </td>
-                                        <td hidden="hidden" id="itemremain" th:text="${item.remain}">99</td>
-                                    </tr>
+
+                                <tr th:each="${item:Shopping_cart}">
+                                    <td hidden="hidden" id="itemid" th:text="${item.id}">test</td>
+                                    <td th:text="${item.name}"> name</td>
+                                    <td th:text="${#numbers.formatDecimal(item.price,0,2)}"> price</td>
+                                    <td style="text-align: center;">
+                                        <input id='jian' onclick='change(this,-1)' type='button' value='-'/>
+                                        <input id='text' readonly='readonly' size='1' style='text-align:center;'
+                                               th:value='${item.num}' type='text'/>
+                                        <input id='add' onclick='change(this,1)' type='button' value='+'/>
+                                    </td>
+                                    <td th:text="${#numbers.formatDecimal(item.price,0,2)} * ${item.num}"> price</td>
+                                    <td style="text-align:center;">
+                                        <input onclick='del(this)' type='button' value='Remove'/>
+                                    </td>
+                                    <td hidden="hidden" id="itemremain" th:text="${item.remain}">99</td>
+                                </tr>
                                 </tbody>
                                 <tfoot>
                                 <tr>
@@ -588,7 +597,9 @@
 
                 <div class="modal-footer">
                     <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
-                    <button class="btn btn-primary" data-dismiss="modal" type="button" id="buy_goods_from_cart" onclick="buy_buy_buy(this)">go to buy</button>
+                    <button class="btn btn-primary" data-dismiss="modal" id="buy_goods_from_cart" onclick="buy_buy_buy(this)"
+                            type="button">go to buy
+                    </button>
                 </div>
             </div>
         </div>
@@ -611,33 +622,33 @@
 </div>
 <div id="all_items">
     <div th:each="seller:${sellers}">
-    <h1 style="text-align:center" th:text="${seller.name}">Loading...</h1>
-    <div th:each="kind:${seller.kinds}">
-        <div class="snav w">
-            <h3 th:text="${kind.name}">Loading...</h3>
+        <h1 style="text-align:center" th:text="${seller.name}">Loading...</h1>
+        <div th:each="kind:${seller.kinds}">
+            <div class="snav w">
+                <h3 th:text="${kind.name}">Loading...</h3>
+            </div>
+            <ul class="all_goods w">
+                <li class="goods" th:each="item:${kind.items}">
+                    <a class="item-a">
+                        <img alt="" height="198px" th:src="${item.imgUrl}" width="194px">
+                        <div class="item_title" th:text="${item.item_title}">Loading...</div>
+                        <div class="item_price"><span>RMB ￥</span><span class="price_css"
+                                                                        th:text="${#numbers.formatDecimal(item.price,0,2)}">Loading...</span>
+                            <span>(only&nbsp; <span th:text="${item.remain}">xxx</span> left )</span>
+                        </div>
+                        <div class="seller_info">
+                            <span th:text="${item.seller_info}">Loading...</span>
+                            <span th:text="${item.address}">(address: <span>xxx</span>) </span>
+                        </div>
+                        <div class="item_footer">
+                            <button class="cart_button" onclick="addToShoppingCart(this)" th:id="${item.id}"><span
+                                    class="iconfont">&#xe630;</span>&nbsp;Add to Shopping Cart
+                            </button>
+                        </div>
+                    </a>
+                </li>
+            </ul>
         </div>
-        <ul class="all_goods w">
-            <li class="goods" th:each="item:${kind.items}">
-                <a class="item-a">
-                    <img alt="" height="198px" th:src="${item.imgUrl}" width="194px">
-                    <div class="item_title" th:text="${item.item_title}">Loading...</div>
-                    <div class="item_price"><span>RMB ￥</span><span class="price_css"
-                                                                    th:text="${#numbers.formatDecimal(item.price,0,2)}">Loading...</span>
-                    <span>(only&nbsp; <span th:text="${item.remain}">xxx</span> left )</span>
-                    </div>
-                    <div class="seller_info">
-                        <span th:text="${item.seller_info}">Loading...</span>
-                        <span  th:text="${item.address}">(address: <span>xxx</span>) </span>
-                    </div>
-                    <div class="item_footer">
-                        <button class="cart_button" onclick="addToShoppingCart(this)" th:id="${item.id}"><span
-                                class="iconfont">&#xe630;</span>&nbsp;Add to Shopping Cart
-                        </button>
-                    </div>
-                </a>
-            </li>
-        </ul>
-    </div>
     </div>
 </div>
 

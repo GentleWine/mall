@@ -9,5 +9,5 @@ public class ItemDomain {
     private String seller_info;
     private Integer id;
     private Double amount;
-    private String  imgUrl;
+    private String imgUrl;
 }

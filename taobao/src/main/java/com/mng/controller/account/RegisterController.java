@@ -1,8 +1,9 @@
-package com.mng.Controller.account;
+package com.mng.controller.account;
 
 import com.mng.bean.request.RegisterRequest;
 import com.mng.bean.response.RegisterResponse;
 import com.mng.data.UserType;
+import com.mng.entity.Shop;
 import com.mng.entity.User;
 import com.mng.exception.authentication.RegisterFailedException;
 import com.mng.exception.authentication.RegisterFailedException.Status;
@@ -10,7 +11,7 @@ import com.mng.util.Constants;
 import com.mng.util.VerificationUtil;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import com.mng.entity.Shop;
+
 @RestController
 public class RegisterController extends AccountControllerBase {
 
@@ -23,8 +24,8 @@ public class RegisterController extends AccountControllerBase {
         String usertype = requestbody.getUsertype();
         String username = requestbody.getUsername();
         String mail = requestbody.getMail();
-       //boolean agreed = requestbody.getAgreementAgreed();
-        System.out.println("/"+phone+"/"+password+"/"+confirm+"/"+usertype+"/"+username+"/"+mail);
+        //boolean agreed = requestbody.getAgreementAgreed();
+        System.out.println("/" + phone + "/" + password + "/" + confirm + "/" + usertype + "/" + username + "/" + mail);
         try {
             if (VerificationUtil.anyIsEmpty(phone, password, confirm, usertype, username, mail)) {
                 throw new RegisterFailedException(Status.FIELD_MISSING);
@@ -62,8 +63,8 @@ public class RegisterController extends AccountControllerBase {
                 user.setUsername(username);
                 user.setMail(mail);
                 userRepository.save(user);
-                if(type.equals(UserType.SELLER)){
-                    Shop shop=new Shop();
+                if (type.equals(UserType.SELLER)) {
+                    Shop shop = new Shop();
                     shop.setOwnerid(userRepository.findByPhone(phone).get(0).getUserid());
                     shop.setShopname(requestbody.getShopname());
                     shop.setAddress(requestbody.getAddress());
