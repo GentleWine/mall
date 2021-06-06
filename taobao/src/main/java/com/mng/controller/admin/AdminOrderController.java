@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author TCreopargh
  */
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/admin/orders")
 @LoginRequired
 @UserTypeOnly(UserType.ADMIN)
 public class AdminOrderController extends UserContentProvider {

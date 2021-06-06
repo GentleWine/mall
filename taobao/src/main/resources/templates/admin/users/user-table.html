@@ -108,7 +108,7 @@
                     maxmin: true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '/admin/table/add',
+                    content: '/admin/users/table/add',
                     end: function () {
                         reloadTable(mainTable);
                     }
@@ -157,7 +157,7 @@
                     maxmin: true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '/admin/table/edit',
+                    content: '/admin/users/table/edit',
                     success: function (layer, index) {
                         let iframe = window['layui-layer-iframe' + index];
                         iframe.child(data)
@@ -174,7 +174,7 @@
                 layer.confirm('Do you really want to delete this row?', function (index) {
                     $.ajax({
                         type: "post",
-                        url: "/admin/remove-user",
+                        url: "/admin/users/remove-user",
                         data: {userId: obj.data.userid},
                         dataType: "json",
                         success: function (data) {

@@ -23,11 +23,11 @@ import java.util.Optional;
  * @author TCreopargh
  */
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/admin/users")
 @LoginRequired
 @UserTypeOnly(UserType.ADMIN)
 public class AdminUserController extends UserContentProvider {
-    @RequestMapping(value = "/users", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public UserListResponse generateUserTable(HttpServletRequest request, UserListRequest body) {
         setLimit(body.getLimit());

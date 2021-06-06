@@ -20,17 +20,17 @@ public class AdminNavigationController {
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public String resolveUsers() {
-        return "admin/user-table";
+        return "admin/users/user-table";
     }
 
-    @RequestMapping(value = "/table/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/users/table/add", method = RequestMethod.GET)
     public String resolveTableAdd() {
-        return "admin/table/add";
+        return "admin/users/table/add";
     }
 
-    @RequestMapping(value = "/table/edit", method = RequestMethod.GET)
+    @RequestMapping(value = "/users/table/edit", method = RequestMethod.GET)
     public String resolveTableEdit() {
-        return "admin/table/edit";
+        return "admin/users/table/edit";
     }
 
 }
