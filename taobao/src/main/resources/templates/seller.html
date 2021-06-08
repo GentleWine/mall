@@ -60,7 +60,7 @@
         }
     </style>
 
-    <script>
+    <script th:inline="javascript">
 
         $(function () {
             $.ajax({
@@ -98,12 +98,9 @@
             return regPos.test(val) || regNeg.test(val);
         }
         function post_shopid(){
-           var shopid=$("#shopid").val()
-           $.ajax({
-               url:"/seller/order",
-               data:{shopid:"shopid"},
-               dataType: "json",
-           });
+           var shopid = [[${seller.shopid}]];
+           window.location.href = "/seller/orders?shopid="+shopid;
+           console.log(shopid);
         }
 
         function urlSubmit() {
@@ -240,13 +237,12 @@
                 <li>
                     <!-- <p class="suibian">welcome!</p>           其中class随便放在了common.css文件最后面        -->
                     <p th:text="${seller.name}"></p>
-                    <p th:text="${seller.shopid}" id="shopid"></p>
                 </li>
             </ul>
         </div>
         <div class="fr">
             <ul> 
-                <li> <a href="orders.html" onclick="post_shopid()"> My order</a> </li>
+                <li> <a onclick="post_shopid()"> My order</a> </li>
                 <li></li>
                 <li class="arrow-icon">My XDUBuy</li>
                 <li></li>
