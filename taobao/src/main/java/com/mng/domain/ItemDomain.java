@@ -10,4 +10,5 @@ public class ItemDomain {
     private Integer id;
     private Double amount;
     private String imgUrl;
+    private String address;
 }
