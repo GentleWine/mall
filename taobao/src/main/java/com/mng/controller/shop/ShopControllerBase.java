@@ -49,6 +49,7 @@ public abstract class ShopControllerBase {
                     item.setSeller_info(commodity.getDetail());
                     item.setId(commodity.getComid());
                     item.setAmount(commodity.getAmount());
+                    item.setAddress("ShangHai");
                     if (commodity.getMainimage().equals("1")) {
                         item.setImgUrl("favicon.png");
                     } else {
