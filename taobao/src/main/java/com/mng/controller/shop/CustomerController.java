@@ -20,6 +20,8 @@ import java.util.List;
 @LoginRequired
 public class CustomerController extends ShopControllerBase {
 
+    @Autowired
+    protected UserRepository userRepository;
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String home(Model model, HttpServletRequest request) {
         //TODO: 作为请求参数amount
@@ -32,6 +34,9 @@ public class CustomerController extends ShopControllerBase {
         if (username != null) {
             user.setName(username.toString());
         }
+        List<User> u = userRepository.findByUsername(user.getName());
+        Double spentmoney=u.get(0).getSpentmoney();
+        user.setSpent_money(spentmoney);
 
         List<SellerDomain> sellers = getSellers(shops);
         model.addAttribute("sellers", sellers);
