@@ -32,6 +32,7 @@ public abstract class ShopControllerBase {
             SellerDomain seller = new SellerDomain();
             seller.setName(shop.getShopname());
             seller.setAddress(shop.getAddress());
+            seller.setShopid(shop.getShopid());
             List<KindDomain> kinds = new ArrayList<>();
             List<Commodity> commodities = commodityRepository.findByShopid(shop.getShopid());
             //通过map按属性分组
