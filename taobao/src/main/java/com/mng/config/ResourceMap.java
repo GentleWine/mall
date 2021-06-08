@@ -18,7 +18,7 @@ public class ResourceMap implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
         //registry.addResourceHandler("/images/**").addResourceLocations("file:C:/Users/LENOVO/Desktop/images/");
-        registry.addResourceHandler("/images/**").addResourceLocations("file:~/mall/images/");
+        registry.addResourceHandler("/images/**").addResourceLocations("file:/home/ubuntu/mall/resource/images/");
     }
 
 }
