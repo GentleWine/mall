@@ -4,6 +4,7 @@ import com.mng.annotation.LoginRequired;
 import com.mng.domain.SellerDomain;
 import com.mng.domain.UserDomain;
 import com.mng.entity.Shop;
+import com.mng.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,8 +21,6 @@ import java.util.List;
 @LoginRequired
 public class CustomerController extends ShopControllerBase {
 
-    @Autowired
-    protected UserRepository userRepository;
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String home(Model model, HttpServletRequest request) {
         //TODO: 作为请求参数amount
