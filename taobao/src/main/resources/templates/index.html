@@ -564,7 +564,7 @@
                                 </thead>
                                 <tbody class="modal-body" id="goods">
 
-                                <tr th:each="${item:Shopping_cart}">
+                                <tr th:each="item:${Shopping_cart}">
                                     <td hidden="hidden" id="itemid" th:text="${item.id}">test</td>
                                     <td th:text="${item.name}"> name</td>
                                     <td th:text="${#numbers.formatDecimal(item.price,0,2)}"> price</td>
