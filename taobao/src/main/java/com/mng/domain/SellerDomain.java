@@ -9,4 +9,5 @@ public class SellerDomain {
     private String name;
     private List<KindDomain> kinds;
     private String address;
+    private Integer shopid;
 }
