@@ -359,29 +359,52 @@
         Changeitem(id, 2);
     }
 
-    function buy_buy_buy() {
-        let money = $.trim($("#spent_money").text());
-        let address = $.trim($("#Address").val());
-        console.log(money);
-        console.log(address);
+        function make_order(address){
+        let goods = document.getElementById("goods");
+        let childtr = goods.getElementsByTagName('tr');
+        var nowNode = null;
+        var nowjson = null;
+        var nowtds = null;
+        var data = []
+        for(var i = 0;i < childtr.length;i++){
+            nowNode = childtr[i];
+            nowtds = nowNode.getElementsByTagName('td');
+            id = nowtds[0].innerHTML;
+            totalprice = parseFloat(nowtds[4].innerHTML);
+            quantity = parseInt(nowtds[3].getElementsByTagName("input")[1].innerHTML);
+            nowjson = {
+                'id':id,
+                'totalprice':totalprice,
+                'quantity':quantity
+            }
+            data.push(nowjson);
+        }
         $.ajax(
             {
                 type: "get",
                 url: "/shopping_cart/buy",
                 async: false,
                 data: {
-                    'address': address
+                    'address': address,
+                    'data':JSON.stringify(data)
                 },
                 dataType: 'json',
                 success: function (data) {
-                    if (data['state'] === "SUCCESS") {
-                        alert("Order placed successfully! You've spent " + money + " RMB in total.");
+                    if (data['state'] == "SUCCESS") {
+                        alert("you have successfully bought all the goods!And you've spent " + money + " RMB");
                     } else {
-                        alert("Failed to place order");
+                        alert("buy Failed");
                         console.log(data['errorinfo']);
                     }
                 }
             });
+    }
+    function buy_buy_buy() {
+        let money = $.trim($("#spent_money").text());
+        let address = $.trim($("#Address").val());
+        console.log(money);
+        console.log(address);
+        make_order();
         $.ajax(
             {
                 type: "get",
@@ -390,7 +413,7 @@
                 data: {},
                 dataType: 'json',
                 success: function (data) {
-                    if (data['state'] === "SUCCESS") {
+                    if (data['state'] == "SUCCESS") {
                         cleanShoppingCart();
                     } else {
                         alert("buy Failed");
