@@ -91,7 +91,7 @@
                 console.log(Store_name);
                 let Address = $("#Address").val()
                 console.log(Address);
-                if (usertype == "1" && (Store_name == "" || Address == "")) {
+                if (usertype.toString() === "1" && (Store_name.isEmpty() || Address.isEmpty())) {
                     alert("please input Store name and Address")
                 }
                 //let agreement = $("#user_agreement").prop("checked");
@@ -200,7 +200,7 @@
                                     <div class="modal-footer">
                                         <div style="display: flex; width: 100%; align-items: center; justify-content: space-between;">
                                             <button class="btn btn-default" data-dismiss="modal" type="button"
-                                                    style="margin-left: 0px">Close
+                                                    style="margin-left: 0">Close
                                             </button>
                                             <button class="btn btn-primary" type="button">Save</button>
                                         </div>
