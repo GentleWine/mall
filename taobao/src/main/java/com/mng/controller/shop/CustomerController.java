@@ -34,7 +34,7 @@ public class CustomerController extends ShopControllerBase {
             user.setName(username.toString());
         }
         List<User> u = userRepository.findByUsername(user.getName());
-        Double spentmoney=u.get(0).getSpentmoney();
+        Double spentmoney = u.get(0).getSpentmoney();
         user.setSpent_money(spentmoney);
 
         List<SellerDomain> sellers = getSellers(shops);

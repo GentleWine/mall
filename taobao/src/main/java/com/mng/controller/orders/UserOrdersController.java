@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import org.stringtemplate.v4.ST;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -20,8 +18,8 @@ public class UserOrdersController extends OrderControllerBase {
     public String seller(Model model, HttpServletRequest request, @RequestParam("username") String name) {
         //Integer
         //Integer shopid=Integer.parseInt(request.getSession().getAttribute("shopid").toString());
-        List<User> users=userRepository.findByUsername(name);
-        User user=users.get(0);
+        List<User> users = userRepository.findByUsername(name);
+        User user = users.get(0);
         List<Order> ordersList = orderRepository.findByUserid(user.getUserid());
 
         model.addAttribute("allProducts", ordersList);

@@ -206,14 +206,14 @@
         tbody.innerHTML = "";
     }
 
-    function Changeitem(id, op,data=null) {
+    function Changeitem(id, op, data = null) {
         var res = 0;
         id = parseInt(id);
-        let name=null;
-        let price=null;
-        let num=null;
-        let remain=null;
-        if(data != null){
+        let name = null;
+        let price = null;
+        let num = null;
+        let remain = null;
+        if (data != null) {
             name = data['name'];
             price = data['price'];
             num = data['num'];
@@ -227,10 +227,10 @@
                 data: {
                     'id': id,
                     'op': op,
-                    'name':name,
-                    'price':price,
-                    'num':num,
-                    'remain':remain
+                    'name': name,
+                    'price': price,
+                    'num': num,
+                    'remain': remain
                 },
                 dataType: 'json',
                 success: function (data) {
@@ -245,7 +245,7 @@
     }
 
     //this js中指当前对象
-      function addToShoppingCart(btn) {
+    function addToShoppingCart(btn) {
         let a = btn.parentNode.parentNode;
         let id = btn.getAttribute('id');
         let divs = a.getElementsByTagName("div");
@@ -256,8 +256,8 @@
         // console.log(remain);
         let tbody = document.getElementById("goods");
         let row = tbody.insertRow();//insertRow表格开头插入新行
-        row.innerHTML = 
-        "<td hidden='hidden' >" + id + "</td>" +
+        row.innerHTML =
+            "<td hidden='hidden' >" + id + "</td>" +
             "<td>" + name + "</td>" +
             "<td>" + price + "</td>" +
             '<td style="text-align: center;">' +
@@ -274,14 +274,14 @@
         total();
         showSnackbar("Successfully added " + name + " ×1 to cart.");
         let data = {
-                'id':id,
-                'name':name,
-                'price':price,
-                'num':1,
-                'remain':remain
-            };
-        Changeitem(id,0,data);
-         }
+            'id': id,
+            'name': name,
+            'price': price,
+            'num': 1,
+            'remain': remain
+        };
+        Changeitem(id, 0, data);
+    }
 
     function showSnackbar(str) {
         let el = document.createElement("div");
@@ -308,7 +308,7 @@
         //用n<0来表示点击了减button
         if (amount <= 1 && n < 0) {
             return;
-        } else if (amount == remain - 1  && n > 0) {
+        } else if (amount == remain - 1 && n > 0) {
             return
         }
         //根据加减来改变数量
@@ -399,6 +399,7 @@
                 }
             });
     }
+
     function InputLabel(btn) {
         let line = document.getElementById("search_line");
         line.innerHTML = btn.innerHTML;
@@ -463,11 +464,13 @@
             }
         });
     }
-    function post_username(){
-           var username = [[${user.name}]];
-           window.location.href = "/user/orders?username="+username;
-           console.log(username);
-        }
+
+    function post_username() {
+        var username = [[${user.name}]];
+        window.location.href = "/user/orders?username=" + username;
+        console.log(username);
+    }
+
     // function test(){
     //     let goods_index = document.getElementById("all_items");
     //     goods_index.innerHTML = "<ul class='all_goods w' id='search_res'></ul>";

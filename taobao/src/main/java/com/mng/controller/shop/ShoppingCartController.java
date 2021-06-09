@@ -7,7 +7,6 @@ import com.mng.repository.redis.ScRepository;
 import com.mng.util.JsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -15,9 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Enumeration;
 import java.util.List;
-import java.util.logging.Logger;
 
 @LoginRequired
 @Controller
@@ -98,8 +95,8 @@ public class ShoppingCartController {
         JsonBuilder json = JsonBuilder.newObject();
         String phone = request.getSession().getAttribute("phone").toString();
         PrintWriter writer;
-        List<Shoppingcart> shoppingcarts =scRepository.findByPhone(phone);
-        for(Shoppingcart item : shoppingcarts)
+        List<Shoppingcart> shoppingcarts = scRepository.findByPhone(phone);
+        for (Shoppingcart item : shoppingcarts)
             scRepository.delete(item);
         try {
             writer = response.getWriter();

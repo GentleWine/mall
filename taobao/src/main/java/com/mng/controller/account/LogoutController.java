@@ -16,7 +16,7 @@ import java.io.IOException;
 public class LogoutController extends AccountControllerBase {
 
     public static void clearCookies(HttpServletResponse response) {
-        final String[] cookies = new String[]{"phone", "usertype", "password" };
+        final String[] cookies = new String[]{"phone", "usertype", "password"};
         for (String cookieString : cookies) {
             Cookie cookie = new Cookie(cookieString, null);
             cookie.setMaxAge(0);

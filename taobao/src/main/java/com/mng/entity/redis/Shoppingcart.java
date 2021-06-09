@@ -8,7 +8,7 @@ import javax.persistence.Id;
 
 @Data
 //expired time is set to 1 day
-@RedisHash(value = "shoppingcart", timeToLive = 24*3600)
+@RedisHash(value = "shoppingcart", timeToLive = 24 * 3600)
 public class Shoppingcart {
     @Id
     Integer index;

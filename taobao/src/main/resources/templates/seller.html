@@ -97,10 +97,11 @@
             let regNeg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/; //负浮点数
             return regPos.test(val) || regNeg.test(val);
         }
-        function post_shopid(){
-           var shopid = [[${seller.shopid}]];
-           window.location.href = "/seller/orders?shopid="+shopid;
-           console.log(shopid);
+
+        function post_shopid() {
+            var shopid = [[${seller.shopid}]];
+            window.location.href = "/seller/orders?shopid=" + shopid;
+            console.log(shopid);
         }
 
         function urlSubmit() {
@@ -241,8 +242,8 @@
             </ul>
         </div>
         <div class="fr">
-            <ul> 
-                <li> <a onclick="post_shopid()"> My order</a> </li>
+            <ul>
+                <li><a onclick="post_shopid()"> My order</a></li>
                 <li></li>
                 <li class="arrow-icon">My XDUBuy</li>
                 <li></li>
@@ -271,7 +272,7 @@
 
         <div class="col-md-10"></div>
         <div class="pull-right">
-<!--        <div class="col-md-2 pull-right">-->
+            <!--        <div class="col-md-2 pull-right">-->
             <button class="btn btn-primary btn-lg add" data-target="#myModal" data-toggle="modal" type="button">
                 Add Commodity
             </button>
@@ -361,7 +362,8 @@
                 <div class="item_title" th:text="${item.item_title}">Loading...</div>
                 <div class="item_price"><span>RMB ￥</span><span class="price_css"
                                                                 th:text="${#numbers.formatDecimal(item.price,0,2)}">Loading...</span>
-                    <span>(only&nbsp; <span th:text="${#numbers.formatDecimal(item.amount,0,0)}">xxx</span> left )</span>
+                    <span>(only&nbsp; <span
+                            th:text="${#numbers.formatDecimal(item.amount,0,0)}">xxx</span> left )</span>
                 </div>
                 <div class="seller_info">
                     <span th:text="${item.seller_info}">Loading...</span>

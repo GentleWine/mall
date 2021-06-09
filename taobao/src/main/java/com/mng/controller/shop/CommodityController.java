@@ -51,12 +51,11 @@ public class CommodityController extends ShopControllerBase {
                 throw new CommodityAddFailedException("Name image or detail is empty!");
             } else if (!commodityRepository.findByShopidAndName(shopid, name).isEmpty()) {
                 throw new CommodityAddFailedException("commodity  exist!");
-            }else if(amount<=0){
+            } else if (amount <= 0) {
                 throw new CommodityAddFailedException("error amount!");
-            }else if(price<=0){
+            } else if (price <= 0) {
                 throw new CommodityAddFailedException("error price!");
-            }
-            else {
+            } else {
 
                 Commodity commodity = new Commodity();
                 commodity.setCateid(cateid);
@@ -112,7 +111,7 @@ public class CommodityController extends ShopControllerBase {
             } else {
                 Commodity commodity = commodityList.get(0);
                 //String filePath="C:/Users/LENOVO/Desktop";
-                String filePath ="/home/ubuntu/mall/resource";
+                String filePath = "/home/ubuntu/mall/resource";
                 String imageName = commodity.getMainimage();
                 File file = new File(filePath + imageName);
                 if (file.exists()) {
