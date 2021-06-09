@@ -1,38 +1,56 @@
 package com.mng.controller.shop;
 
+import com.alibaba.fastjson.JSONObject;
 import com.mng.annotation.LoginRequired;
-import com.mng.controller.orders.OrderControllerBase;
+import com.mng.entity.Commodity;
 import com.mng.entity.Order;
 import com.mng.entity.User;
-import org.springframework.stereotype.Controller;
+import com.mng.repository.CommodityRepository;
+import com.mng.repository.OrderRepository;
+import com.mng.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
-@Controller
+@RestController
 @LoginRequired
-public class BuyController extends OrderControllerBase {
-
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public String a(Model model, HttpServletRequest request) {
-        List<Order> orders = getAllOrders();
-        System.out.println(orders.toString());
-        model.addAttribute("orders", orders);
-        return "a";
+public class BuyController {
+    static class Log{
+        String state;
+        String errorinfo;
     }
+    @Autowired
+    protected OrderRepository orderRepository;
 
-    // TODO: 这是干啥的
-    @RequestMapping(value = "/test-buy", method = RequestMethod.POST)
-    public String test(Model model, HttpServletRequest request, @RequestParam(value = "comid") Integer comid,
-                       @RequestParam(value = "shopid") Integer shopid, @RequestParam(value = "number") Integer number,
-                       @RequestParam(value = "pay") String pay) {
+    @Autowired
+    protected UserRepository userRepository;
+
+    @Autowired
+    protected CommodityRepository commodityRepository;
+
+    @RequestMapping(value = "/shopping_cart/buy",method = RequestMethod.POST)
+    public Log a(HttpServletRequest request,@RequestParam("data")String data){
+            //@RequestParam("address") String address,@RequestParam("data")String data){
+
+
+        String[] temp=data.split(",");
+        System.out.println(temp.length);
+        for (String i :temp){
+            System.out.println(i);
+        }
+        System.out.println(temp[1]);
+        String id=temp[0].substring(7);
+        System.out.println(id);
+        int comid=Integer.parseInt(id.substring(1,id.length()-1));
+        String payment=temp[1].substring(13);
+        int price=Integer.parseInt(payment);
+        System.out.println(comid);
+
         Order order = new Order();
-        //set time的时候用 new Date() 类似于这样从前端导入数据
         order.setOrderid(0);
         order.setStatus(1);
         order.setPaymenttime(new Date());
@@ -42,26 +60,53 @@ public class BuyController extends OrderControllerBase {
         User user = users.get(0);
         order.setUserid(user.getUserid());
 
-        order.setNumber(number);
+        order.setNumber(1);
         order.setComid(comid);
-        order.setShopid(shopid);
-        order.setPayment(Double.parseDouble(pay));
-        System.out.println(order);
-        try {
-            buy(order, user);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        List<Commodity> shops=commodityRepository.findByComid(comid);
+        order.setShopid(shops.get(0).getShopid());
+        order.setPayment((double) price);
+        buy(order, user);
 
-        return "a";
+        Log log= new Log();
+        log.state="SUCCESS";
+        log.errorinfo="None";
+        return log;
     }
+
+
 
     //生成订单方法,要求传入订单i和user，然后保存，然后购买的用户增加spentmoney
     public void buy(Order i, User user) {
         Double temp = user.getSpentmoney();
         temp += i.getPayment();
         user.setSpentmoney(temp);
+        List<Commodity> items = commodityRepository.findByComid(i.getComid());
+        items.get(0).setAmount(items.get(0).getAmount()-1);
         userRepository.save(user);
         orderRepository.save(i);
+    }
+
+    //从数据库获取所有的订单数据，返回一个List
+    public List<Order> getAllOrders() {
+        List<Order> orders = orderRepository.findAll();
+        return orders;
+    }
+
+    //管理员用的 获取该商品的所有订单
+    public List<Order> getOrdersByComid(int comid) {
+        List<Order> orders = orderRepository.findByComid(comid);
+        return orders;
+    }
+
+    //顾客用，获取顾客名下所有订单
+    public List<Order> getOrdersByUserid(int userid) {
+        List<Order> orders = orderRepository.findByUserid(userid);
+        return orders;
+    }
+
+    //seller用，获取seller名下所有订单
+    public List<Order> getOrdersByShopid(int shopid) {
+        List<Order> orders = orderRepository.findByShopid(shopid);
+        return orders;
     }
 }
