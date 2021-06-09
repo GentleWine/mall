@@ -391,7 +391,7 @@
                 dataType: 'json',
                 success: function (data) {
                     if (data['state'] === "SUCCESS") {
-                        alert("you have successfully bought all the goods!And you've spent " + money + " RMB");
+                        window.location.reload();
                     } else {
                         alert("buy Failed");
                         console.log(data['errorinfo']);
@@ -405,7 +405,7 @@
         let address = $.trim($("#Address").val());
         console.log(money);
         console.log(address);
-        make_order();
+        make_order(address);
         $.ajax(
             {
                 type: "get",
