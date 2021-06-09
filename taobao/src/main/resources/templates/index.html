@@ -49,7 +49,7 @@
 
         #snackbar-container {
             position: fixed;
-            bottom: 0;
+            bottom: 0px;
             left: 50%;
         }
 
@@ -359,23 +359,23 @@
         Changeitem(id, 2);
     }
 
-    function make_order(address) {
+        function make_order(address){
         let goods = document.getElementById("goods");
         let childtr = goods.getElementsByTagName('tr');
-        let nowNode = null;
-        let nowjson = null;
-        let nowtds = null;
-        let data = [];
-        for (let i = 0; i < childtr.length; i++) {
+        var nowNode = null;
+        var nowjson = null;
+        var nowtds = null;
+        var data = []
+        for(var i = 0;i < childtr.length;i++){
             nowNode = childtr[i];
             nowtds = nowNode.getElementsByTagName('td');
-            let id = nowtds[0].innerHTML;
+            let id = parseInt(nowtds[0].innerHTML);
             let totalprice = parseFloat(nowtds[4].innerHTML);
             let quantity = parseInt(nowtds[3].getElementsByTagName("input")[1].innerHTML);
             nowjson = {
-                'id': id,
-                'totalprice': totalprice,
-                'quantity': quantity
+                'id':id,
+                'totalprice':totalprice,
+                'quantity':quantity
             }
             data.push(nowjson);
         }
@@ -386,11 +386,11 @@
                 async: false,
                 data: {
                     'address': address,
-                    'data': JSON.stringify(data)
+                    'data':JSON.stringify(data)
                 },
                 dataType: 'json',
                 success: function (data) {
-                    if (data['state'] === "SUCCESS") {
+                    if (data['state'] == "SUCCESS") {
                         alert("you have successfully bought all the goods!And you've spent " + money + " RMB");
                     } else {
                         alert("buy Failed");
@@ -399,7 +399,6 @@
                 }
             });
     }
-
     function buy_buy_buy() {
         let money = $.trim($("#spent_money").text());
         let address = $.trim($("#Address").val());
@@ -414,7 +413,7 @@
                 data: {},
                 dataType: 'json',
                 success: function (data) {
-                    if (data['state'] === "SUCCESS") {
+                    if (data['state'] == "SUCCESS") {
                         cleanShoppingCart();
                     } else {
                         alert("buy Failed");
@@ -459,7 +458,7 @@
         $("#search_res").append(theli);
     }
 
-    function searchItem() {
+    function Search_item() {
         let line = document.getElementById("search_line");
         let info = line.innerHTML;
         if (info == null) {
@@ -475,10 +474,10 @@
             dataType: 'json',
             success: function (data) {
                 if (data["state"] === "SUCCESS") {
-                    let goods_index = document.getElementById("all_items");
+                    goods_index = document.getElementById("all_items");
                     goods_index.innerHTML = "<ul class='all_goods w' id='search_res'></ul>"
-                    let QueryList = data["QueryList"];
-                    for (let i = 0; i < QueryList.length; i++) {
+                    QueryList = data["QueryList"];
+                    for (var i = 0; i < QueryList.length; i++) {
                         AddSearchRes(QueryList[i]);
                     }
                 } else {
@@ -489,7 +488,7 @@
         });
     }
 
-    function postUsername() {
+    function post_username() {
         let username = [[${user.name}]];
         window.location.href = "/user/orders?username=" + username;
         console.log(username);
@@ -515,7 +514,7 @@
 <!-- 欢迎您界面 -->
 <div class="hello w">
     <!--     <button type="button" onclick="test()">test</button> -->
-    <div class="Order_history" onclick="postUsername()">
+    <div class="Order_history" onclick="post_username()">
         <button><img alt="" src="dingdan.png"></button>
         <span>Historical order</span>
     </div>
@@ -652,8 +651,7 @@
                         <div class="item_title" th:text="${item.item_title}">Loading...</div>
                         <div class="item_price"><span>RMB ￥</span><span class="price_css"
                                                                         th:text="${#numbers.formatDecimal(item.price,0,2)}">Loading...</span>
-                            <span>(<span
-                                    th:text="${#numbers.formatDecimal(item.amount, 0, 0)}">xxx</span> in stock)</span>
+                            <span>(<span th:text="${#numbers.formatDecimal(item.amount, 0, 0)}">xxx</span> in stock)</span>
                         </div>
                         <div class="seller_info">
                             <span th:text="${item.seller_info}">Loading...</span>
