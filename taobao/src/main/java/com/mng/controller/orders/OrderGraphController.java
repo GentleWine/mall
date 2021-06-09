@@ -30,7 +30,6 @@ public class OrderGraphController extends OrderControllerBase {
         Date nowDate = new Date();
         Calendar now = Calendar.getInstance();
         now.setTime(nowDate);
-        JSONObject p = new JSONObject();
         // Names of the X-axis (maybe?)
         List<Integer> names;
         List<Double> values;
