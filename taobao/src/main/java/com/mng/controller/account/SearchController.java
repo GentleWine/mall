@@ -41,9 +41,9 @@ public class SearchController extends ShopControllerBase {
         //删除name不是content的元素
         for (SellerDomain i : sellers) {
             List<KindDomain> kinds = i.getKinds();
-            System.out.println(kinds.toString());
+            //System.out.println(kinds.toString());
             for (int j = 0; j < kinds.size(); j++) {
-                System.out.println(kinds.get(j));
+                //System.out.println(kinds.get(j));
                 if (!Objects.equals(kinds.get(j).getName(), content)) {
                     kinds.remove(j);
                     j--;
@@ -54,7 +54,7 @@ public class SearchController extends ShopControllerBase {
 
         model.addAttribute("sellers", sellers);
         model.addAttribute("user", user);
-        System.out.println(sellers);
-        return "search";
+        //System.out.println(sellers);
+        return "index";
     }
 }
