@@ -36,8 +36,8 @@ public class CommodityController extends ShopControllerBase {
         String detail = commodityAddRequest.getDescription();
         Double price = commodityAddRequest.getPrice();
         Double amount = commodityAddRequest.getAmount();
-        System.out.println(commodityAddRequest.getAmount());
-        System.out.println(amount);
+//         System.out.println(commodityAddRequest.getAmount());
+//         System.out.println(amount);
         String status = "1";
         try {
             try {
