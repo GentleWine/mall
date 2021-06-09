@@ -46,6 +46,12 @@ public class OrderGraphController extends OrderControllerBase {
                     values.set(k, values.get(k) + orders.getPayment());
                 }
             }
+            for(Integer i:name){
+                i=i-1;
+                if(i>0){
+                    value.set(i, value.get(i) + value.get(i-1));
+                }
+            }
             // by month
         } else {
             names = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
