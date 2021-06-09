@@ -108,8 +108,8 @@
     function child(obj) {
         let d = new Date(obj.paymenttime);
         let dformat = [
-                (d.getFullYear() + 1).padLeft(),
-                d.getMonth().padLeft(),
+                d.getFullYear().padLeft(),
+                (d.getMonth() + 1).padLeft(),
                 d.getDate().padLeft()].join('-') + ' ' +
             [
                 d.getHours().padLeft(),
