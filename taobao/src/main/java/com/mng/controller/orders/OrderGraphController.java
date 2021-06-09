@@ -1,6 +1,5 @@
 package com.mng.controller.orders;
 
-import com.alibaba.fastjson.JSONObject;
 import com.mng.bean.response.OrderGraphResponse;
 import com.mng.entity.Order;
 import org.springframework.http.MediaType;
@@ -46,10 +45,10 @@ public class OrderGraphController extends OrderControllerBase {
                     values.set(k, values.get(k) + orders.getPayment());
                 }
             }
-            for(Integer i:name){
-                i=i-1;
-                if(i>0){
-                    value.set(i, value.get(i) + value.get(i-1));
+            for (int i : names) {
+                i--;
+                if (i > 0) {
+                    values.set(i, values.get(i) + values.get(i - 1));
                 }
             }
             // by month
