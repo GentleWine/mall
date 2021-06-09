@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-public class OrderPlotController extends OrderControllerBase {
+public class OrderGraphController extends OrderControllerBase {
 
     @PostMapping(
             value = "/barVO",
@@ -41,8 +41,7 @@ public class OrderPlotController extends OrderControllerBase {
             for (Order orders : ordersList) {
                 Date paymentTime = orders.getPaymenttime();
                 long diff = nowDate.getTime() - paymentTime.getTime();
-                long x = diff / (1000 * 60 * 60 * 24 * 7);
-                int xWeek = (int) x;
+                int xWeek = (int) (diff / (1000 * 60 * 60 * 24 * 7));
                 if (xWeek <= 14 && xWeek >= 0) {
                     int k = names.indexOf(xWeek + 1);
                     values.set(k, values.get(k) + orders.getPayment());
@@ -53,13 +52,13 @@ public class OrderPlotController extends OrderControllerBase {
             names = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
             values = Arrays.asList(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
             for (Order orders : ordersList) {
-                Date paymenttime = orders.getPaymenttime();
-                Calendar bef = Calendar.getInstance();
-                bef.setTime(paymenttime);
-                if(bef.get(Calendar.YEAR)==now.get(Calendar.YEAR)){
-                    Integer xMonth=bef.get(Calendar.MONTH);
-                    Integer k=name.indexOf(xMonth+1);
-                    value.set(k, value.get(k) + orders.getPayment());
+                Date paymentTime = orders.getPaymenttime();
+                Calendar timeCalendar = Calendar.getInstance();
+                timeCalendar.setTime(paymentTime);
+                if (timeCalendar.get(Calendar.YEAR) == now.get(Calendar.YEAR)) {
+                    int xMonth = timeCalendar.get(Calendar.MONTH);
+                    int k = names.indexOf(xMonth + 1);
+                    values.set(k, values.get(k) + orders.getPayment());
                 }
             }
         }
