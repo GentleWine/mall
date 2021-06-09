@@ -34,9 +34,10 @@ public class CommodityController extends ShopControllerBase {
         //System.out.println(name);
         MultipartFile image = commodityAddRequest.getImage();
         String detail = commodityAddRequest.getDescription();
-        double price = commodityAddRequest.getPrice();
-        double amount = commodityAddRequest.getAmount();
-        //System.out.println(amount);
+        Double price = commodityAddRequest.getPrice();
+        Double amount = commodityAddRequest.getAmount();
+//         System.out.println(commodityAddRequest.getAmount());
+//         System.out.println(amount);
         String status = "1";
         try {
             try {
@@ -50,7 +51,12 @@ public class CommodityController extends ShopControllerBase {
                 throw new CommodityAddFailedException("Name image or detail is empty!");
             } else if (!commodityRepository.findByShopidAndName(shopid, name).isEmpty()) {
                 throw new CommodityAddFailedException("commodity  exist!");
-            } else {
+            }else if(amount<=0){
+                throw new CommodityAddFailedException("error amount!");
+            }else if(price<=0){
+                throw new CommodityAddFailedException("error price!");
+            }
+            else {
 
                 Commodity commodity = new Commodity();
                 commodity.setCateid(cateid);
