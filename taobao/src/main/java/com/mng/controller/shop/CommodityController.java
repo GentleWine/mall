@@ -66,8 +66,8 @@ public class CommodityController extends ShopControllerBase {
                 String imageName = image.getOriginalFilename();
 
                 String suffixName = imageName.substring(imageName.lastIndexOf("."));
-                //String filePath="C:/Users/LENOVO/Desktop/images/";
-                String filePath = "/home/ubuntu/mall/resource/images/";
+                //String filePath="C:/Users/LENOVO/Desktop/imagess/";
+                String filePath = "/home/ubuntu/mall/resource/imagess/";
                 imageName = UUID.randomUUID() + suffixName;
                 File dest = new File(filePath + imageName);
                 System.out.println(dest.getPath());
@@ -80,7 +80,7 @@ public class CommodityController extends ShopControllerBase {
                     //throw new CommodityAddFailedException("store image failed!");
                     return SimpleResponse.fail("store image failed!");
                 }
-                String mainimage = "/images/" + imageName;
+                String mainimage = "/imagess/" + imageName;
 
                 commodity.setMainimage(mainimage);
                 commodityRepository.save(commodity);
@@ -106,7 +106,7 @@ public class CommodityController extends ShopControllerBase {
             } else {
                 Commodity commodity = commodityList.get(0);
                 //String filePath="C:/Users/LENOVO/Desktop";
-                String filePath = "~/mall";
+                String filePath ="/home/ubuntu/mall/resource";
                 String imageName = commodity.getMainimage();
                 File file = new File(filePath + imageName);
                 if (file.exists()) {
