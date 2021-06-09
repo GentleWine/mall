@@ -1,4 +1,214 @@
-function Changeitem(id, op,data=null) {
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>xdubuy</title>
+    <!-- 网站说明 -->
+    <meta content="xdubuy-Focusing on building a mall of good quatity for xduer"
+          name="description"/>
+    <!-- 关键字 -->
+    <meta content="Snacks, stationery, daily necessities" name="keywords"/>
+
+    <!-- 引入favicon图标 -->
+    <link href="favicon.ico" rel="shortcut icon"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@2.1.4/dist/jquery.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+    <!-- 引入我们初始化样式文件 -->
+    <link href="css/base.css" rel="stylesheet">
+    <!-- 引入我们公共的样式文件 -->
+    <link href="css/common.css" rel="stylesheet">
+    <!-- 引入我们index.css文件  -->
+    <link href="css/index.css" rel="stylesheet">
+
+
+    <style>
+        @font-face {
+            font-family: 'iconfont';
+            src: url('icon/iconfont.eot');
+            src: url('icon/iconfont.eot?#iefix') format('embedded-opentype'),
+            url('icon/iconfont.woff2') format('woff2'),
+            url('icon/iconfont.woff') format('woff'),
+            url('icon/iconfont.ttf') format('truetype'),
+            url('icon/iconfont.svg#iconfont') format('svg');
+        }
+
+        .iconfont {
+            margin-left: 5px;
+            font-family: "iconfont", sans-serif !important;
+            font-size: 30px;
+            font-style: normal;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: #fff;
+        }
+
+        #snackbar-container {
+            position: fixed;
+            bottom: 0px;
+            left: 50%;
+        }
+
+        .snackbar {
+            visibility: hidden;
+            min-width: 250px;
+            margin-left: -125px;
+            background-color: #333;
+            margin-bottom: 20px;
+            color: #fff;
+            text-align: center;
+            border-radius: 2px;
+            padding: 16px;
+            z-index: 1;
+            left: 50%;
+            bottom: 30px;
+            font-size: 17px;
+        }
+
+        .snackbar.show {
+            visibility: visible;
+            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        @-webkit-keyframes fadein {
+            from {
+                bottom: 0;
+                opacity: 0;
+            }
+            to {
+                bottom: 30px;
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadein {
+            from {
+                bottom: 0;
+                opacity: 0;
+            }
+            to {
+                bottom: 30px;
+                opacity: 1;
+            }
+        }
+
+        @-webkit-keyframes fadeout {
+            from {
+                bottom: 30px;
+                opacity: 1;
+            }
+            to {
+                bottom: 0;
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeout {
+            from {
+                bottom: 30px;
+                opacity: 1;
+            }
+            to {
+                bottom: 0;
+                opacity: 0;
+            }
+        }
+
+    </style>
+
+
+</head>
+<script th:inline="javascript" type="text/javascript">
+    $(function () {
+        $.ajax({
+            type: "get",
+            url: "/home",
+            async: false,
+            data: {},
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+            }
+        });
+    });
+    /*
+    接口：/shopping_cart (get)
+    返回保存在缓存内的物品数据model，用于加载页面时渲染
+    要求返回数据：(model)
+    Shopping_cart:{
+        items;
+    }
+    items:{
+        id (string); // 商品唯一id
+        name (string);
+        price (int);
+        num (int);
+        remain (int) //库存
+    }
+    
+    接口：/shopping_cart/add_item  （get）:
+    向购物车加入一种商品。发送数据如下：
+    {
+        id:xxx // 操作物品的唯一id
+        name:xxx
+        price:xxx
+        num:xxx
+        remain:xxx
+    }
+    要求返回：
+    {
+        state:"SUCCESS" or "Failed"
+        errorinfo: xxx // 错误信息
+    }
+
+    接口：/shopping_cart/change （get）
+    改变购物车商品数量。发送数据如下：
+    {
+        id:xxx // 操作物品的唯一id
+        op: 0 ; 1 ; 2 ; 3 //分别代表对应物品数量加 1 ；减 1；直接清空（id对应物品清空） ； 代表向购物车发送一件新商品，此情况下会发送商品的所有信息  
+        data: json对象的序列化字符串
+    }
+    要求返回：
+    {
+        state:"SUCCESS" or "Failed"
+        errorinfo: xxx // 错误信息
+    }
+    接口：/shopping_cart/clear （get）
+    发送当前用户cookie，此时购物车应当清空
+    要求返回：
+    {
+        state:"SUCCESS" or "Failed"
+        errorinfo: xxx // 错误信息
+    }
+    接口：/shopping_cart/buy （get）
+    发送当前用户cookie，根据address产生订单，然后给对应用户增加使用费用
+    发送：
+    {
+        address:xx //用户地址
+    }
+    要求返回：
+    {
+        state:"SUCCESS" or "Failed"
+        errorinfo: xxx // 错误信息
+    }
+     */
+
+
+    $('#myModal').on('shown.bs.modal', function () {
+        $('#myInput').focus()
+    });
+
+    function cleanShoppingCart() {
+        let tbody = document.getElementById("goods");
+        tbody.innerHTML = "";
+    }
+
+    function Changeitem(id, op,data=null) {
         var res = 0;
         id = parseInt(id);
         let name=null;
@@ -35,3 +245,428 @@ function Changeitem(id, op,data=null) {
             });
         return res;
     }
+
+    //this js中指当前对象
+      function addToShoppingCart(btn) {
+        let a = btn.parentNode.parentNode;
+        let id = btn.getAttribute('id');
+        let divs = a.getElementsByTagName("div");
+        let name = divs[0].innerHTML;
+        let spans = divs[1].getElementsByTagName("span")
+        let price = Number(spans[1].innerHTML).toFixed(2);
+        let remain = parseInt(spans[2].firstElementChild.innerHTML);
+        // console.log(remain);
+        let tbody = document.getElementById("goods");
+        let row = tbody.insertRow();//insertRow表格开头插入新行
+        row.innerHTML = 
+        "<td hidden='hidden' >" + id + "</td>" +
+            "<td>" + name + "</td>" +
+            "<td>" + price + "</td>" +
+            '<td style="text-align: center;">' +
+            "<input type='button' value='-' id='jian'  onclick='change(this,-1)'  />" +
+            "<input id='text' type='text' size='1' value='1' style='text-align:center;' readonly='readonly' />" +
+            "<input type='button' value='+' id='add'  onclick='change(this,1)'  />" +
+            "</td>" +
+            "<td>" + price + "</td>" +
+            '<td style="text-align:center;">' +
+            "<input type='button' value='Remove' onclick='del(this)'/>" +
+            "</td>" +
+            "<td hidden='hidden' >" + remain + "</td>" +
+            "</tr>";
+        total();
+        showSnackbar("Successfully added " + name + " ×1 to cart.");
+        let data = {
+                'id':id,
+                'name':name,
+                'price':price,
+                'num':1,
+                'remain':remain
+            };
+        Changeitem(id,0,data);
+         }
+
+    function showSnackbar(str) {
+        let el = document.createElement("div");
+        el.className = "snackbar";
+        let y = document.getElementById("snackbar-container");
+        el.innerHTML = str;
+        y.append(el);
+        el.className = "snackbar show";
+        setTimeout(function () {
+            el.className = el.className.replace("snackbar show", "snackbar");
+        }, 3000);
+    }
+
+    //增加减少数量，用n正负1来表示点击了加减按钮
+    function change(btn, n) {
+        //获取数量的三个input对象
+        let inputs = btn.parentNode.getElementsByTagName("input");
+        //获取原来的数量
+        let amount = parseInt(inputs[1].value);
+        let tr = btn.parentNode.parentNode;
+        let remain_s = tr.lastElementChild.innerHTML;
+        let remain = parseInt(remain_s);
+        //当amount=1时不能再点击"-"符号
+        //用n<0来表示点击了减button
+        if (amount <= 1 && n < 0) {
+            return;
+        } else if (amount <= remain && n > 0) {
+            return
+        }
+        //根据加减来改变数量
+        inputs[1].value = amount + n;
+        //将改变后的数量值赋值给amount
+        amount = inputs[1].value;
+        //获取表格中的行
+        console.log(remain);
+        //获取所有的列
+        let tds = tr.getElementsByTagName("td");
+        //获取单价
+        let price = parseFloat(tds[2].innerHTML);
+        let id = tds[0].innerHTML;
+        //总价=单价*数量
+        //将总价赋值给相应的位置
+        tds[4].innerHTML = (price * amount).toFixed(2);
+        //调用total方法，求总计
+        total();
+        if (n == 1) {
+            Changeitem(id, 0);
+        } else {
+            Changeitem(id, 1);
+        }
+    }
+
+
+    function total() {
+        let tbody = document.getElementById("goods");
+        let trs = tbody.getElementsByTagName("tr");
+        let sum = 0;
+        for (let i = 0; i < trs.length; i++) {
+            let tds = trs[i].getElementsByTagName("td");
+            let m = tds[3].innerHTML;
+            sum += parseFloat(m);
+        }
+        let total = document.getElementById("total");
+        total.innerHTML = sum.toFixed(2);
+    }
+
+    function del(i) {
+        let tr = i.parentNode.parentNode;
+        let tds = tr.getElementsByTagName("td");
+        let id = tds[0].innerHTML;
+        console.log(id);
+        tr.parentNode.removeChild(tr);
+        //tr.remove(tr);
+        total();
+        Changeitem(id, 2);
+    }
+
+    function buy_buy_buy() {
+        let money = $.trim($("#spent_money").text());
+        let address = $.trim($("#Address").val());
+        console.log(money);
+        console.log(address);
+        $.ajax(
+            {
+                type: "get",
+                url: "/shopping_cart/clear",
+                async: false,
+                data: {},
+                dataType: 'json',
+                success: function (data) {
+                    if (data['state'] == "SUCCESS") {
+                        cleanShoppingCart();
+                    } else {
+                        alert("buy Failed");
+                        console.log(data['errorinfo']);
+                    }
+                }
+            });
+        $.ajax(
+            {
+                type: "get",
+                url: "/shopping_cart/buy",
+                async: false,
+                data: {
+                    'address': address
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data['state'] == "SUCCESS") {
+                        alert("you have successfully bought all the goods!And you've spent " + money + " RMB");
+                    } else {
+                        alert("buy Failed");
+                        console.log(data['errorinfo']);
+                    }
+                }
+            });
+    }
+
+    function LogOut() {
+        $.ajax({
+            type: "get",
+            url: "/user/logout",
+            async: false,
+            data: {},
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+            }
+        });
+    }
+
+    function InputLabel(btn) {
+        let line = document.getElementById("search_line");
+        line.innerHTML = btn.innerHTML;
+    }
+
+    function AddSearchRes(data) {
+        let theli = "<li class='goods'>";
+        var img = data["imgUrl"];
+        var name = data["name"];
+        var price = data["price"].toString();
+        var remain = data["remain"].toString();
+        var info = data["info"];
+        var address = data["address"];
+        +price.toString()
+        var id = data["id"];
+        theli = theli + "<a class='item-a'>" +
+            "<img alt='' height='198px' src='" + img + "' width='194p'>" +
+            "<div class='item_title'>" + name + "</div>" +
+            "<div class='item_price'><span>RMB ￥</span><span class='price_css'>" + price + "</span>" +
+            "<span>(only&nbsp; <span>" + remain + "</span> left )</span> </div>" +
+            "<div class='seller_info'>" +
+            "<span>" + info + "</span>" +
+            "<span>(address: <span>" + address + "</span>) </span>" +
+            "</div>" +
+            "<div class='item_footer'>" +
+            "<button class='cart_button' onclick='addToShoppingCart(this)' id='" + id + "'><span" +
+            "class='iconfont'>&#xe630;</span>&nbsp;Add to Shopping Cart" +
+            "</button>" +
+            "</div>" +
+            "</a>" +
+            "</li>";
+        alert(theli);
+        $("#search_res").append(theli);
+    }
+
+    function Search_item() {
+        let line = document.getElementById("search_line");
+        let info = line.innerHTML;
+        if (info == null) {
+            return;
+        }
+        $.ajax({
+            type: "get",
+            url: "/search",
+            async: false,
+            data: {
+                'label': info
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data["state"] == "SUCCESS") {
+                    goods_index = document.getElementById("all_items");
+                    goods_index.innerHTML = "<ul class='all_goods w' id='search_res'></ul>"
+                    QueryList = data["QueryList"];
+                    for (var i = 0; i < QueryList.length; i++) {
+                        AddSearchRes(QueryList[i]);
+                    }
+                } else {
+                    alert("Due to unknown reason,search Failed!");
+                }
+                console.log(data);
+            }
+        });
+    }
+
+    // function test(){
+    //     let goods_index = document.getElementById("all_items");
+    //     goods_index.innerHTML = "<ul class='all_goods w' id='search_res'></ul>";
+    //     let data = {
+    //         "imgUrl" :"https://www.baidu.com/img/flexible/logo/pc/result.png",
+    //         "name" : "test",
+    //         "address" : "test",
+    //         "remain" : 99,
+    //         "price" : 1,
+    //         "info" : "test",
+    //         "id" : "tset"
+    //     };
+    //     AddSearchRes(data);
+    // }
+</script>
+<body>
+
+<!-- 欢迎您界面 -->
+<div class="hello w">
+    <!--     <button type="button" onclick="test()">test</button> -->
+    <div class="Order_history">
+        <button><img alt="" src="dingdan.png"></button>
+        <span onclick="function(){window.location.href = " order";}">Click to query historical order</span>
+    </div>
+    <div class="hello_user">
+        <p>welcome to XDUBuy! Dear :&nbsp;</p>
+        <p th:text="${user.name}">username</p>
+        <p>&nbsp;&nbsp;This month you'v spent </p>
+        <p id="spent_money" th:text="${user.spent_money}">999</p>
+        <p>RMB in total.</p>
+    </div>
+    <div class="search">
+        <p hidden="hidden" id="search_line"></p>
+        <input id="" name="" placeholder="pen" type="search">
+        <button class="search_button" onclick="Search_item()" type="button">search</button>
+    </div>
+    <div class="search_small_button ">
+        <button onclick="InputLabel(this)" type="button">pen</button>
+        <button onclick="InputLabel(this)" type="button">computer</button>
+        <button onclick="InputLabel(this)" type="button">phone</button>
+        <button onclick="InputLabel(this)" type="button">food</button>
+        <button onclick="InputLabel(this)" type="button">1</button>
+        <button onclick="InputLabel(this)" type="button">2</button>
+        <button onclick="InputLabel(this)" type="button">3</button>
+        <button onclick="InputLabel(this)" type="button">4</button>
+    </div>
+</div>
+<div class="col-md-2">
+    <button class='shopping_cart' data-target="#myModal" data-toggle="modal" onclick="" type='button'>
+        <!--跳转到购物车-->
+        <span class="iconfont">&#xe630;</span>
+        <p class="into_cart_info">Shopping Cart</p>
+    </button>
+    <!-- Modal  添加商品表单-->
+    <div aria-labelledby="myModalLabel" class="modal fade" id="myModal" role="dialog" tabindex="-1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Shopping Cart</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-hover ">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <thead class="modal-header">
+                                <tr>
+                                    <th>Commodities</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total Price</th>
+                                    <th>Operation</th>
+                                </tr>
+                                </thead>
+                                <tbody class="modal-body" id="goods">
+
+                                <tr th:each="item:${Shopping_cart}">
+                                    <td hidden="hidden" id="itemid" th:text="${item.id}">test</td>
+                                    <td th:text="${item.name}"> name</td>
+                                    <td th:text="${#numbers.formatDecimal(item.price,0,2)}"> price</td>
+                                    <td style="text-align: center;">
+                                        <input id='jian' onclick='change(this,-1)' type='button' value='-'/>
+                                        <input id='text' readonly='readonly' size='1' style='text-align:center;'
+                                               th:value='${item.num}' type='text'/>
+                                        <input id='add' onclick='change(this,1)' type='button' value='+'/>
+                                    </td>
+                                    <td th:text="${#numbers.formatDecimal(item.price,0,2)} * ${item.num}"> price</td>
+                                    <td style="text-align:center;">
+                                        <input onclick='del(this)' type='button' value='Remove'/>
+                                    </td>
+                                    <td hidden="hidden" id="itemremain" th:text="${item.remain}">99</td>
+                                </tr>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td>RMB ￥</td>
+                                    <td colspan="3" style="text-align:center">total</td>
+                                    <td id="total"></td>
+                                </tr>
+                                </tfoot>
+                                <label for="Address">Please enter your Address</label>
+                                <input class="form-control" id="Address" type="text">
+                            </div>
+                        </div>
+                    </table>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                    <button class="btn btn-primary" data-dismiss="modal" id="buy_goods_from_cart"
+                            onclick="buy_buy_buy(this)"
+                            type="button">go to buy
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- </header> -->
+</div>
+<div class="w recom">
+    <div class="recom_hd">
+        <img alt="" height="163px" src="images/recom.jpg" width="205px">
+    </div>
+    <div class="recom_bd">
+        <ul>
+            <li><img alt="" height="163px" src="upload/recom_03.jpg" width="205px"></li>
+            <li><img alt="" height="163px" src="upload/recom_03.jpg" width="205px"></li>
+            <li><img alt="" height="163px" src="upload/recom_03.jpg" width="205px"></li>
+            <li><img alt="" height="163px" src="upload/recom_03.jpg" width="205px"></li>
+        </ul>
+    </div>
+</div>
+<div id="all_items">
+    <div th:each="seller:${sellers}">
+        <h1 style="text-align:center" th:text="${seller.name}">Loading...</h1>
+        <div th:each="kind:${seller.kinds}">
+            <div class="snav w">
+                <h3 th:text="${kind.name}">Loading...</h3>
+            </div>
+            <ul class="all_goods w">
+                <li class="goods" th:each="item:${kind.items}">
+                    <a class="item-a">
+                        <img alt="" height="198px" th:src="${item.imgUrl}" width="194px">
+                        <div class="item_title" th:text="${item.item_title}">Loading...</div>
+                        <div class="item_price"><span>RMB ￥</span><span class="price_css"
+                                                                        th:text="${#numbers.formatDecimal(item.price,0,2)}">Loading...</span>
+                            <span>(only&nbsp; <span th:text="${item.amount}">xxx</span> left )</span>
+                        </div>
+                        <div class="seller_info">
+                            <span th:text="${item.seller_info}">Loading...</span>
+                            <span th:text="${item.address}">(address: <span>xxx</span>) </span>
+                        </div>
+                        <div class="item_footer">
+                            <button class="cart_button" onclick="addToShoppingCart(this)" th:id="${item.id}"><span
+                                    class="iconfont">&#xe630;</span>&nbsp;Add to Shopping Cart
+                            </button>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- 底部模块的制作 start -->
+<footer class="footer">
+    <div class="w">
+
+        <div class="mod_copyright">
+            <div class="links">
+                <a href="login" onclick="LogOut()">Log Out</a> | <a href="#">About us</a>
+            </div>
+            <div>
+                <a href="#">If you have any question, please send e-mail to 752016959@qq.com to contact us</a>
+            </div>
+            <div class="copyright">
+                address：Clsyyds Office, 3rd Floor, Haitang Dormitory No.7, Xidian University postcode：1xxx96
+                phone：4xx-6xx-4xxx fax：010-xxxx5100 email: clsyyds@gmai.com <br>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Snackbar -->
+<div id="snackbar-container" style="pointer-events:none;"></div>
+<!-- 底部模块的制作 end -->
+</body>
+
+</html>
