@@ -53,9 +53,9 @@ public class OrderPlotController extends OrderControllerBase {
             names = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
             values = Arrays.asList(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
             for (Order orders : ordersList) {
-                Date paymenttime = orders.getPaymenttime();
+                Date paymentTime = orders.getPaymenttime();
                 Calendar bef = Calendar.getInstance();
-                bef.setTime(paymenttime);
+                bef.setTime(paymentTime);
                 int xMonth = (now.get(Calendar.YEAR) - bef.get(Calendar.YEAR)) * 12 + (now.get(Calendar.MONTH) - bef.get(Calendar.MONTH));
                 if (xMonth <= 11 && xMonth >= 0) {
                     int k = names.indexOf(xMonth + 1);
