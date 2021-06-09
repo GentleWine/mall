@@ -414,7 +414,7 @@
                 data: {},
                 dataType: 'json',
                 success: function (data) {
-                    if (data['state'] == "SUCCESS") {
+                    if (data['state'] === "SUCCESS") {
                         cleanShoppingCart();
                     } else {
                         alert("buy Failed");
