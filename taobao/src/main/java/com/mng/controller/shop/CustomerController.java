@@ -38,8 +38,14 @@ public class CustomerController extends ShopControllerBase {
         user.setSpent_money(spentmoney);
 
         List<SellerDomain> sellers = getSellers(shops);
+
+        //购物车请求合并
+        String phone = request.getSession().getAttribute("phone").toString();
+        List<com.mng.entity.redis.Shoppingcart> items = scRepository.findByPhone(phone);
+
         model.addAttribute("sellers", sellers);
         model.addAttribute("user", user);
+        model.addAttribute("Shopping_cart", items);
         return "index";
     }
 }

@@ -19,11 +19,11 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
     <!-- 引入我们初始化样式文件 -->
-    <link href="base.css" rel="stylesheet">
+    <link href="css/base.css" rel="stylesheet">
     <!-- 引入我们公共的样式文件 -->
-    <link href="common.css" rel="stylesheet">
+    <link href="css/common.css" rel="stylesheet">
     <!-- 引入我们index.css文件  -->
-    <link href="index.css" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet">
 
 
     <style>
@@ -135,17 +135,6 @@
                 console.log(data);
             }
         });
-
-        $.ajax({
-            type: "get",
-            url: "/shopping_cart",
-            async: false,
-            data: {},
-            dataType: 'json',
-            success: function (data) {
-                console.log(data);
-            }
-        });
     });
     /*
     接口：/shopping_cart (get)
@@ -181,7 +170,8 @@
     改变购物车商品数量。发送数据如下：
     {
         id:xxx // 操作物品的唯一id
-        op: 0 ; 1 ; 2 //分别代表对应物品数量加 1 ，减 1，直接清空（id对应物品清空）  
+        op: 0 ; 1 ; 2 ; 3 //分别代表对应物品数量加 1 ；减 1；直接清空（id对应物品清空） ； 代表向购物车发送一件新商品，此情况下会发送商品的所有信息  
+        data: json对象的序列化字符串
     }
     要求返回：
     {
@@ -218,9 +208,19 @@
         tbody.innerHTML = "";
     }
 
-    function Changeitem(id, op) {
+    function Changeitem(id, op,data=null) {
         var res = 0;
         id = parseInt(id);
+        let name=null;
+        let price=null;
+        let num=null;
+        let remain=null;
+        if(data != null){
+            name = data['name'];
+            price = data['price'];
+            num = data['num'];
+            remain = data['remain'];
+        }
         $.ajax(
             {
                 type: "get",
@@ -228,7 +228,11 @@
                 async: false,
                 data: {
                     'id': id,
-                    'op': op
+                    'op': op,
+                    'name':name,
+                    'price':price,
+                    'num':num,
+                    'remain':remain
                 },
                 dataType: 'json',
                 success: function (data) {
@@ -243,7 +247,7 @@
     }
 
     //this js中指当前对象
-    function addToShoppingCart(btn) {
+      function addToShoppingCart(btn) {
         let a = btn.parentNode.parentNode;
         let id = btn.getAttribute('id');
         let divs = a.getElementsByTagName("div");
@@ -254,9 +258,8 @@
         // console.log(remain);
         let tbody = document.getElementById("goods");
         let row = tbody.insertRow();//insertRow表格开头插入新行
-        let data = {}
-        row.innerHTML =
-            "<td hidden='hidden' >" + id + "</td>" +
+        row.innerHTML = 
+        "<td hidden='hidden' >" + id + "</td>" +
             "<td>" + name + "</td>" +
             "<td>" + price + "</td>" +
             '<td style="text-align: center;">' +
@@ -272,25 +275,15 @@
             "</tr>";
         total();
         showSnackbar("Successfully added " + name + " ×1 to cart.");
-        id = parseInt(id);
-        $.ajax({
-            type: "get",
-            url: "/shopping_cart/add_item",
-            async: false,
-            data: {
-                'id': id,
-                'name': name,
-                'price': price,
-                'num': 1,
-                'remain': remain
-            },
-            dataType: 'json',
-            success: function (data) {
-                console.log(data);
-            }
-        });
-    }
-
+        let data = {
+                'id':id,
+                'name':name,
+                'price':price,
+                'num':1,
+                'remain':remain
+            };
+        Changeitem(id,0,data);
+         }
 
     function showSnackbar(str) {
         let el = document.createElement("div");
@@ -337,9 +330,9 @@
         //调用total方法，求总计
         total();
         if (n == 1) {
-            Changeitem(id, 1);
+            Changeitem(id, 0);
         } else {
-            Changeitem(id, 2);
+            Changeitem(id, 1);
         }
     }
 
@@ -365,7 +358,7 @@
         tr.parentNode.removeChild(tr);
         //tr.remove(tr);
         total();
-        Changeitem(id, 0);
+        Changeitem(id, 2);
     }
 
     function buy_buy_buy() {

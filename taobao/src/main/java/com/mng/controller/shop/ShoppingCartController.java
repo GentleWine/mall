@@ -1,6 +1,7 @@
 package com.mng.controller.shop;
 
 import com.mng.annotation.LoginRequired;
+import com.mng.entity.redis.Shoppingcart;
 import com.mng.repository.CommodityRepository;
 import com.mng.repository.redis.ScRepository;
 import com.mng.util.JsonBuilder;
@@ -14,25 +15,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.logging.Logger;
 
 @LoginRequired
-@Controller("/shopping_cart")
+@Controller
 public class ShoppingCartController {
     @Autowired
     ScRepository scRepository;
     @Autowired
     CommodityRepository commodityRepository;
 
-    @GetMapping("/add_item")
-    String getshoppingcart(Model model, HttpServletRequest request) {
-        String phone = request.getSession().getAttribute("phone").toString();
-        List<com.mng.entity.redis.Shoppingcart> items = scRepository.findByPhone(phone);
-        model.addAttribute("Shopping_cart", items);
-        return "index";
-    }
-
-    @GetMapping("/change")
+    @GetMapping("/shopping_cart/change")
         //id: stuff id , op: operations
     void change(@RequestParam("id") String id, @RequestParam("op") Integer op,
                 HttpServletRequest request, HttpServletResponse response) {
@@ -47,7 +42,7 @@ public class ShoppingCartController {
                     shoppingcart.setPhone(phone);
                     shoppingcart.setId(id);
                     shoppingcart.setName(request.getParameter("name"));
-                    shoppingcart.setPrice(Integer.parseInt(request.getParameter("price")));
+                    shoppingcart.setPrice(Double.parseDouble(request.getParameter("price")));
                     shoppingcart.setNum(1);
                     //TODO: Why's the double is the type of amount here?
                     int amount = (int) commodityRepository.findByComid(Integer.parseInt(id)).get(0).getAmount().doubleValue();
@@ -66,12 +61,12 @@ public class ShoppingCartController {
                     shoppingcart.setRemain(shoppingcart.getRemain() + 1);
                     scRepository.save(shoppingcart);
                 } else {
-                    scRepository.deleteByIdAndPhone(id, phone);
+                    scRepository.delete(scRepository.findByIdAndPhone(id, phone));
                 }
                 break;
             case 2:
                 if (scRepository.findByIdAndPhone(id, phone) != null)
-                    scRepository.deleteByIdAndPhone(id, phone);
+                    scRepository.delete(scRepository.findByIdAndPhone(id, phone));
                 break;
             default: {
                 try {
@@ -98,12 +93,14 @@ public class ShoppingCartController {
 
     }
 
-    @GetMapping("/clear")
+    @GetMapping("/shopping_cart/clear")
     void clear(HttpServletRequest request, HttpServletResponse response) {
         JsonBuilder json = JsonBuilder.newObject();
         String phone = request.getSession().getAttribute("phone").toString();
         PrintWriter writer;
-        scRepository.deleteByPhone(phone);
+        List<Shoppingcart> shoppingcarts =scRepository.findByPhone(phone);
+        for(Shoppingcart item : shoppingcarts)
+            scRepository.delete(item);
         try {
             writer = response.getWriter();
             json.put("state", "SUCCESS");

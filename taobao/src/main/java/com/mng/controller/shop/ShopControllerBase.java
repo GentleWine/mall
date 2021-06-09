@@ -9,6 +9,7 @@ import com.mng.repository.CategoryRepository;
 import com.mng.repository.CommodityRepository;
 import com.mng.repository.ShopRepository;
 import com.mng.repository.UserRepository;
+import com.mng.repository.redis.ScRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -25,6 +26,8 @@ public abstract class ShopControllerBase {
     protected CategoryRepository categoryRepository;
     @Autowired
     protected UserRepository userRepository;
+    @Autowired
+    protected ScRepository scRepository;
 
     public List<SellerDomain> getSellers(List<Shop> shops) {
         List<SellerDomain> sellers = new ArrayList<>();
