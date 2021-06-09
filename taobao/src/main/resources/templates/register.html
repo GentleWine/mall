@@ -26,6 +26,14 @@
             margin-top: 5px;
         }
 
+        .btn.btn-default {
+            display: inline-block;
+        }
+
+        .btn.btn-primary {
+            display: inline-block;
+        }
+
 
     </style>
     <title>Register</title>
@@ -159,10 +167,11 @@
                             <option value="2">Administrator</option>
                         </select>
                     </li>
-                    <li class="agree" style="position:relative; right:120px;"><label for="user_agreement"></label>
-                        If you want to register seller,please
+                    <li class="agree" style="position:relative; right:30px;">
+                        If you want to register as a seller, please
                         <!-- <a href="#"><u data-target="#myModal" data-toggle="modal">Click</u></a></li> -->
-                        <button data-target="#myModal" data-toggle="modal" type="button"><u>Click </u></button>
+                        <button data-target="#myModal" data-toggle="modal" type="button"><u>Click to set up your
+                            shop </u></button>
                         <div aria-labelledby="myModalLabel" class="modal fade" id="myModal" role="dialog" tabindex="-1">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -170,18 +179,18 @@
                                         <button aria-label="Close" class="close" data-dismiss="modal"
                                                 type="button"><span
                                                 aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="myModalLabel">Add Commodity</h4>
+                                        <h4 class="modal-title" id="myModalLabel">Shop Settings</h4>
                                     </div>
                                     <div class="modal-body">
                                         <form id="infoTable">
                                             <div class="form-group">
-                                                <label for="Store_name">Store name</label>
+                                                <label for="Store_name">Shop Name</label>
                                                 <input aria-describedby="emailHelp" class="form-control" id="Store_name"
                                                        type="text">
 
                                             </div>
                                             <div class="form-group">
-                                                <label for="Address">Store address</label>
+                                                <label for="Address">Shop Address</label>
                                                 <input class="form-control" id="Address" type="text">
                                             </div>
 
@@ -189,9 +198,12 @@
                                     </div>
 
                                     <div class="modal-footer">
-                                        <button class="btn btn-default" data-dismiss="modal" type="button">Close
-                                        </button>
-                                        <button class="btn btn-primary" type="button">Save Changes</button>
+                                        <div style="display: flex; width: 100%; align-items: center; justify-content: space-between;">
+                                            <button class="btn btn-default" data-dismiss="modal" type="button"
+                                                    style="margin-left: 0px">Close
+                                            </button>
+                                            <button class="btn btn-primary" type="button">Save</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
