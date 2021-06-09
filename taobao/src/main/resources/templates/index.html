@@ -129,8 +129,6 @@
             type: "get",
             url: "/home",
             async: false,
-            data: {},
-            dataType: 'json',
             success: function (data) {
                 console.log(data);
             }
@@ -310,7 +308,7 @@
         //用n<0来表示点击了减button
         if (amount <= 1 && n < 0) {
             return;
-        } else if (amount <= remain && n > 0) {
+        } else if (amount == remain - 1  && n > 0) {
             return
         }
         //根据加减来改变数量
@@ -369,22 +367,6 @@
         $.ajax(
             {
                 type: "get",
-                url: "/shopping_cart/clear",
-                async: false,
-                data: {},
-                dataType: 'json',
-                success: function (data) {
-                    if (data['state'] == "SUCCESS") {
-                        cleanShoppingCart();
-                    } else {
-                        alert("buy Failed");
-                        console.log(data['errorinfo']);
-                    }
-                }
-            });
-        $.ajax(
-            {
-                type: "get",
                 url: "/shopping_cart/buy",
                 async: false,
                 data: {
@@ -400,21 +382,23 @@
                     }
                 }
             });
+        $.ajax(
+            {
+                type: "get",
+                url: "/shopping_cart/clear",
+                async: false,
+                data: {},
+                dataType: 'json',
+                success: function (data) {
+                    if (data['state'] == "SUCCESS") {
+                        cleanShoppingCart();
+                    } else {
+                        alert("buy Failed");
+                        console.log(data['errorinfo']);
+                    }
+                }
+            });
     }
-
-    function LogOut() {
-        $.ajax({
-            type: "get",
-            url: "/user/logout",
-            async: false,
-            data: {},
-            dataType: 'json',
-            success: function (data) {
-                console.log(data);
-            }
-        });
-    }
-
     function InputLabel(btn) {
         let line = document.getElementById("search_line");
         line.innerHTML = btn.innerHTML;
@@ -479,7 +463,11 @@
             }
         });
     }
-
+    function post_username(){
+           var username = [[${user.name}]];
+           window.location.href = "/user/orders?username="+username;
+           console.log(username);
+        }
     // function test(){
     //     let goods_index = document.getElementById("all_items");
     //     goods_index.innerHTML = "<ul class='all_goods w' id='search_res'></ul>";
@@ -502,7 +490,7 @@
     <!--     <button type="button" onclick="test()">test</button> -->
     <div class="Order_history">
         <button><img alt="" src="dingdan.png"></button>
-        <span onclick="function(){window.location.href = " order";}">Click to query historical order</span>
+        <span onclick="post_username()">Click to query historical order</span>
     </div>
     <div class="hello_user">
         <p>welcome to XDUBuy! Dear :&nbsp;</p>
@@ -652,7 +640,7 @@
 
         <div class="mod_copyright">
             <div class="links">
-                <a href="login" onclick="LogOut()">Log Out</a> | <a href="#">About us</a>
+                <a href="/logout">Log Out</a> | <a href="#">About us</a>
             </div>
             <div>
                 <a href="#">If you have any question, please send e-mail to 752016959@qq.com to contact us</a>
