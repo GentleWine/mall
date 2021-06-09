@@ -49,7 +49,7 @@
 
         #snackbar-container {
             position: fixed;
-            bottom: 0px;
+            bottom: 0;
             left: 50%;
         }
 
@@ -359,23 +359,23 @@
         Changeitem(id, 2);
     }
 
-        function make_order(address){
+    function make_order(address) {
         let goods = document.getElementById("goods");
         let childtr = goods.getElementsByTagName('tr');
-        var nowNode = null;
-        var nowjson = null;
-        var nowtds = null;
-        var data = []
-        for(var i = 0;i < childtr.length;i++){
+        let nowNode = null;
+        let nowjson = null;
+        let nowtds = null;
+        let data = [];
+        for (let i = 0; i < childtr.length; i++) {
             nowNode = childtr[i];
             nowtds = nowNode.getElementsByTagName('td');
             let id = parseInt(nowtds[0].innerHTML);
             let totalprice = parseFloat(nowtds[4].innerHTML);
             let quantity = parseInt(nowtds[3].getElementsByTagName("input")[1].innerHTML);
             nowjson = {
-                'id':id,
-                'totalprice':totalprice,
-                'quantity':quantity
+                'id': id,
+                'totalprice': totalprice,
+                'quantity': quantity
             }
             data.push(nowjson);
         }
@@ -386,11 +386,11 @@
                 async: false,
                 data: {
                     'address': address,
-                    'data':JSON.stringify(data)
+                    'data': JSON.stringify(data)
                 },
                 dataType: 'json',
                 success: function (data) {
-                    if (data['state'] == "SUCCESS") {
+                    if (data['state'] === "SUCCESS") {
                         alert("you have successfully bought all the goods!And you've spent " + money + " RMB");
                     } else {
                         alert("buy Failed");
@@ -399,6 +399,7 @@
                 }
             });
     }
+
     function buy_buy_buy() {
         let money = $.trim($("#spent_money").text());
         let address = $.trim($("#Address").val());
@@ -436,7 +437,6 @@
         let remain = data["remain"].toString();
         let info = data["info"];
         let address = data["address"];
-        +price.toString()
         let id = data["id"];
         theli = theli + "<a class='item-a'>" +
             "<img alt='' height='198px' src='" + img + "' width='194p'>" +
@@ -458,7 +458,7 @@
         $("#search_res").append(theli);
     }
 
-    function Search_item() {
+    function searchItem() {
         let line = document.getElementById("search_line");
         let info = line.innerHTML;
         if (info == null) {
@@ -488,7 +488,7 @@
         });
     }
 
-    function post_username() {
+    function postUsername() {
         let username = [[${user.name}]];
         window.location.href = "/user/orders?username=" + username;
         console.log(username);
@@ -514,7 +514,7 @@
 <!-- 欢迎您界面 -->
 <div class="hello w">
     <!--     <button type="button" onclick="test()">test</button> -->
-    <div class="Order_history" onclick="post_username()">
+    <div class="Order_history" onclick="postUsername()">
         <button><img alt="" src="dingdan.png"></button>
         <span>Historical order</span>
     </div>
@@ -651,7 +651,8 @@
                         <div class="item_title" th:text="${item.item_title}">Loading...</div>
                         <div class="item_price"><span>RMB ￥</span><span class="price_css"
                                                                         th:text="${#numbers.formatDecimal(item.price,0,2)}">Loading...</span>
-                            <span>(<span th:text="${#numbers.formatDecimal(item.amount, 0, 0)}">xxx</span> in stock)</span>
+                            <span>(<span
+                                    th:text="${#numbers.formatDecimal(item.amount, 0, 0)}">xxx</span> in stock)</span>
                         </div>
                         <div class="seller_info">
                             <span th:text="${item.seller_info}">Loading...</span>
