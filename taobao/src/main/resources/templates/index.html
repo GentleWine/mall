@@ -208,7 +208,7 @@
         tbody.innerHTML = "";
     }
 
-    function Changeitem(id, op) {
+    function Changeitem(id, op,data=null) {
         var res = 0;
         id = parseInt(id);
         $.ajax(
@@ -218,7 +218,8 @@
                 async: false,
                 data: {
                     'id': id,
-                    'op': op
+                    'op': op,
+                    'data':JSON.stringify(data)
                 },
                 dataType: 'json',
                 success: function (data) {
@@ -268,7 +269,7 @@
                 'num':1,
                 'remain':remain
             };
-        Changeitem(id,3,data);
+        Changeitem(id,0,data);
          }
 
     function showSnackbar(str) {
