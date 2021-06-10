@@ -50,94 +50,13 @@
         }
 
     </style>
-    <script th:inline="javascript" type="text/javascript">
+<!--     <script th:inline="javascript" type="text/javascript">
         $(function () {
-            var shopid = [[${shopid}]];
-            $.ajax({
-                "url": "/barVO",
-                "type": "POST",
-                "data": {"sign": 0, "shopid": shopid},
-                "success": function (data) {
-                    console.log(data.names)
-                    console.log(data.values)
-
-                    // 基于准备好的dom，初始化echarts实例
-                    var myChart = echarts.init(document.getElementById('week'));
-
-                    // 指定图表的配置项和数据
-                    option = {
-                        title: {
-                            text: 'Weekly Sales (￥)'
-                        },
-                        tooltip: {},
-                        legend: {
-                            data: 'Weekly Sales'// 此处数据无关紧要
-                        },
-                        xAxis: {
-                            type: 'category',
-                            data: data.names,
-                        },
-                        yAxis: {
-                            type: 'value',
-                        },
-                        series: [{
-                            name: 'Weekly Sales',
-                            type: 'bar',
-                            data: data.values,
-
-
-                        }]
-                    };
-                    // 使用刚指定的配置项和数据显示图表。
-                    myChart.setOption(option);
-                }
-
-            });
-
-            $.ajax({
-                "url": "/barVO",
-                "type": "POST",
-                "data": {"sign": 1, "shopid": shopid},
-                "success": function (data) {
-                    console.log(data.names)
-                    console.log(data.values)
-
-                    // 基于准备好的dom，初始化echarts实例
-                    var myChart = echarts.init(document.getElementById('month'));
-
-                    // 指定图表的配置项和数据
-                    option = {
-                        title: {
-                            text: 'Weekly Sales (￥)'
-                        },
-                        tooltip: {},
-                        legend: {
-                            data: 'Weekly Sales'// 此处数据无关紧要
-                        },
-                        xAxis: {
-                            type: 'category',
-                            data: data.names,
-                        },
-                        yAxis: {
-                            type: 'value',
-                        },
-                        series: [{
-                            name: 'Weekly Sales',
-                            type: 'bar',
-                            data: data.values,
-
-
-                        }]
-                    };
-                    // 使用刚指定的配置项和数据显示图表。
-                    myChart.setOption(option);
-                }
-
-            });
+            
         });
 
 
-    </script>
+    </script> -->
 
 </head>
 
