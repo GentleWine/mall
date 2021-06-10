@@ -94,9 +94,10 @@ public class BuyController {
         temp += i.getPayment();
         user.setSpentmoney(temp);
         List<Commodity> items = commodityRepository.findByComid(i.getComid());
-        items.get(0).setAmount(items.get(0).getAmount()-1);
+        items.get(0).setAmount(items.get(0).getAmount()-i.getNumber());
         userRepository.save(user);
         orderRepository.save(i);
+        commodityRepository.save(items.get(0));
     }
 
     //从数据库获取所有的订单数据，返回一个List
