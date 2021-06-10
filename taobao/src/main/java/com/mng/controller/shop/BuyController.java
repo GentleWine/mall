@@ -60,11 +60,11 @@ public class BuyController {
         User user = users.get(0);
         order.setUserid(user.getUserid());
 
-        order.setNumber(1);
         order.setComid(comid);
         List<Commodity> shops=commodityRepository.findByComid(comid);
         order.setShopid(shops.get(0).getShopid());
         order.setPayment((double) price);
+        order.setNumber((int) (price / shops.get(0).getPrice()));
         buy(order, user);
 
         Log log= new Log();
