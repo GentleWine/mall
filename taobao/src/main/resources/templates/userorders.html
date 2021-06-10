@@ -147,7 +147,7 @@
     <thead>
     <tr>  <!-- 需要协商更改参数 -->
         <th>Order Id</th>
-        <th>User Id</th>
+        <th>Shop Id</th>
         <th>Commodity Id</th>
         <th>number</th>
         <th>payment</th>
@@ -159,7 +159,7 @@
     <tbody>
     <tr th:each="prod: ${allProducts}">
         <td th:text="${prod.orderid}">null</td>
-        <td th:text="${prod.userid}">null</td>
+        <td th:text="${prod.shopid}">null</td>
         <td th:text="${prod.comid}">null</td>
         <td th:text="${prod.number}">null</td>
         <td th:text="${#numbers.formatDecimal(prod.payment, 1, 2)}">0</td>
