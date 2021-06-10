@@ -36,7 +36,7 @@ public class AdminOrderController extends OrderContentProvider {
     public OrderListResponse generateOrderTable(HttpServletRequest request, EntityListRequest body) {
         setLimit(body.getLimit());
         setPage(body.getPage());
-        return generateUserList();
+        return generateOrderList();
     }
 
     @ResponseBody

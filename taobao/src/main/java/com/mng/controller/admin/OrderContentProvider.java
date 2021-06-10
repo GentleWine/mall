@@ -33,7 +33,7 @@ public class OrderContentProvider extends OrderControllerBase {
         return pages.getContent();
     }
 
-    public OrderListResponse generateUserList() {
+    public OrderListResponse generateOrderList() {
         List<Order> allOrders = findOrdersByPageAndLimit(this.getPage(), this.getLimit());
         return OrderListResponse.builder()
                 .code(0)
