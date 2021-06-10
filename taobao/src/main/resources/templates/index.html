@@ -49,7 +49,7 @@
 
         #snackbar-container {
             position: fixed;
-            bottom: 0;
+            bottom: 0px;
             left: 50%;
         }
 
@@ -148,7 +148,7 @@
         num (int);
         remain (int) //库存
     }
-    
+
     接口：/shopping_cart/add_item  （get）:
     向购物车加入一种商品。发送数据如下：
     {
@@ -168,7 +168,7 @@
     改变购物车商品数量。发送数据如下：
     {
         id:xxx // 操作物品的唯一id
-        op: 0 ; 1 ; 2 ; 3 //分别代表对应物品数量加 1 ；减 1；直接清空（id对应物品清空） ； 代表向购物车发送一件新商品，此情况下会发送商品的所有信息  
+        op: 0 ; 1 ; 2 ; 3 //分别代表对应物品数量加 1 ；减 1；直接清空（id对应物品清空） ； 代表向购物车发送一件新商品，此情况下会发送商品的所有信息
         data: json对象的序列化字符串
     }
     要求返回：
@@ -206,14 +206,14 @@
         tbody.innerHTML = "";
     }
 
-    function Changeitem(id, op, data = null) {
-        let res = 0;
+    function Changeitem(id, op,data=null) {
+        var res = 0;
         id = parseInt(id);
-        let name = null;
-        let price = null;
-        let num = null;
-        let remain = null;
-        if (data != null) {
+        let name=null;
+        let price=null;
+        let num=null;
+        let remain=null;
+        if(data != null){
             name = data['name'];
             price = data['price'];
             num = data['num'];
@@ -227,14 +227,14 @@
                 data: {
                     'id': id,
                     'op': op,
-                    'name': name,
-                    'price': price,
-                    'num': num,
-                    'remain': remain
+                    'name':name,
+                    'price':price,
+                    'num':num,
+                    'remain':remain
                 },
                 dataType: 'json',
                 success: function (data) {
-                    if (data['state'] === "SUCCESS") {
+                    if (data['state'] == "SUCCESS") {
                         res = 1;
                     } else {
                         console.log(data['errorinfo']);
@@ -245,7 +245,7 @@
     }
 
     //this js中指当前对象
-    function addToShoppingCart(btn) {
+      function addToShoppingCart(btn) {
         let a = btn.parentNode.parentNode;
         let id = btn.getAttribute('id');
         let divs = a.getElementsByTagName("div");
@@ -257,7 +257,7 @@
         let tbody = document.getElementById("goods");
         let row = tbody.insertRow();//insertRow表格开头插入新行
         row.innerHTML =
-            "<td hidden='hidden' >" + id + "</td>" +
+        "<td hidden='hidden' >" + id + "</td>" +
             "<td>" + name + "</td>" +
             "<td>" + price + "</td>" +
             '<td style="text-align: center;">' +
@@ -274,14 +274,14 @@
         total();
         showSnackbar("Successfully added " + name + " ×1 to cart.");
         let data = {
-            'id': id,
-            'name': name,
-            'price': price,
-            'num': 1,
-            'remain': remain
-        };
-        Changeitem(id, 0, data);
-    }
+                'id':id,
+                'name':name,
+                'price':price,
+                'num':1,
+                'remain':remain
+            };
+        Changeitem(id,0,data);
+         }
 
     function showSnackbar(str) {
         let el = document.createElement("div");
@@ -308,7 +308,7 @@
         //用n<0来表示点击了减button
         if (amount <= 1 && n < 0) {
             return;
-        } else if (amount === remain - 1 && n > 0) {
+        } else if (amount == remain - 1  && n > 0) {
             return
         }
         //根据加减来改变数量
@@ -327,7 +327,7 @@
         tds[4].innerHTML = (price * amount).toFixed(2);
         //调用total方法，求总计
         total();
-        if (n === 1) {
+        if (n == 1) {
             Changeitem(id, 0);
         } else {
             Changeitem(id, 1);
@@ -341,7 +341,7 @@
         let sum = 0;
         for (let i = 0; i < trs.length; i++) {
             let tds = trs[i].getElementsByTagName("td");
-            let m = tds[4].innerHTML;
+            let m = tds[3].innerHTML;
             sum += parseFloat(m);
         }
         let total = document.getElementById("total");
@@ -358,48 +358,48 @@
         total();
         Changeitem(id, 2);
     }
-
-    function make_order(address) {
+     function make_order(address){
         let goods = document.getElementById("goods");
         let childtr = goods.getElementsByTagName('tr');
-        let nowNode = null;
-        let nowjson = null;
-        let nowtds = null;
-        let data = [];
-        for (let i = 0; i < childtr.length; i++) {
+        var nowNode = null;
+        var nowjson = null;
+        var nowtds = null;
+        var data = []
+        for(var i = 0;i < childtr.length;i++){
             nowNode = childtr[i];
             nowtds = nowNode.getElementsByTagName('td');
-            let id = parseInt(nowtds[0].innerHTML);
-            let totalprice = parseFloat(nowtds[4].innerHTML);
-            let quantity = parseInt(nowtds[3].getElementsByTagName("input")[1].innerHTML);
+            id = nowtds[0].innerHTML;
+            totalprice = parseFloat(nowtds[4].innerHTML);
+            quantity = parseInt(nowtds[3].getElementsByTagName("input")[1].innerHTML);
             nowjson = {
-                'id': id,
-                'totalprice': totalprice,
-                'quantity': quantity
+                'id':id,
+                'totalprice':totalprice,
+                'quantity':quantity
             }
             data.push(nowjson);
         }
+        console.log(JSON.stringify(data));
         $.ajax(
             {
-                type: "get",
+                type: "post",
                 url: "/shopping_cart/buy",
                 async: false,
                 data: {
                     'address': address,
-                    'data': JSON.stringify(data)
+                    'data':JSON.stringify(data)
                 },
                 dataType: 'json',
                 success: function (data) {
-                    if (data['state'] === "SUCCESS") {
-                        window.location.reload();
+                    if (data['state'] == "SUCCESS") {
+                        alert("you have successfully bought all the goods!And you've spent " + money + " RMB");
                     } else {
                         alert("buy Failed");
                         console.log(data['errorinfo']);
                     }
                 }
             });
+            console.log(data);
     }
-
     function buy_buy_buy() {
         let money = $.trim($("#spent_money").text());
         let address = $.trim($("#Address").val());
@@ -414,7 +414,7 @@
                 data: {},
                 dataType: 'json',
                 success: function (data) {
-                    if (data['state'] === "SUCCESS") {
+                    if (data['state'] == "SUCCESS") {
                         cleanShoppingCart();
                     } else {
                         alert("buy Failed");
@@ -423,7 +423,6 @@
                 }
             });
     }
-
     function InputLabel(btn) {
         let line = document.getElementById("search_line");
         line.innerHTML = btn.innerHTML;
@@ -431,13 +430,14 @@
 
     function AddSearchRes(data) {
         let theli = "<li class='goods'>";
-        let img = data["imgUrl"];
-        let name = data["name"];
-        let price = data["price"].toString();
-        let remain = data["remain"].toString();
-        let info = data["info"];
-        let address = data["address"];
-        let id = data["id"];
+        var img = data["imgUrl"];
+        var name = data["name"];
+        var price = data["price"].toString();
+        var remain = data["remain"].toString();
+        var info = data["info"];
+        var address = data["address"];
+        +price.toString()
+        var id = data["id"];
         theli = theli + "<a class='item-a'>" +
             "<img alt='' height='198px' src='" + img + "' width='194p'>" +
             "<div class='item_title'>" + name + "</div>" +
@@ -458,7 +458,7 @@
         $("#search_res").append(theli);
     }
 
-    function searchItem() {
+    function Search_item() {
         let line = document.getElementById("search_line");
         let info = line.innerHTML;
         if (info == null) {
@@ -473,7 +473,7 @@
             },
             dataType: 'json',
             success: function (data) {
-                if (data["state"] === "SUCCESS") {
+                if (data["state"] == "SUCCESS") {
                     goods_index = document.getElementById("all_items");
                     goods_index.innerHTML = "<ul class='all_goods w' id='search_res'></ul>"
                     QueryList = data["QueryList"];
@@ -487,13 +487,11 @@
             }
         });
     }
-
-    function postUsername() {
-        let username = [[${user.name}]];
-        window.location.href = "/user/orders?username=" + username;
-        console.log(username);
-    }
-
+    function post_username(){
+           var username = [[${user.name}]];
+           window.location.href = "/user/orders?username="+username;
+           console.log(username);
+        }
     // function test(){
     //     let goods_index = document.getElementById("all_items");
     //     goods_index.innerHTML = "<ul class='all_goods w' id='search_res'></ul>";
@@ -514,16 +512,16 @@
 <!-- 欢迎您界面 -->
 <div class="hello w">
     <!--     <button type="button" onclick="test()">test</button> -->
-    <div class="Order_history" onclick="postUsername()">
-        <button><img alt="" src="dingdan.png"></button>
-        <span>Historical order</span>
+    <div class="Order_history">
+        <button><img alt="" src="dingdan.png" onclick="post_username()"></button>
+        <span onclick="post_username()">Click to query historical order</span>
     </div>
     <div class="hello_user">
-        <p style="margin:0">welcome to XDUBuy, Dear&nbsp;</p>
-        <p style="margin:0" th:text="${user.name}">username</p>
-        <p style="margin:0">!&nbsp;This month you've spent&nbsp;</p>
-        <p style="margin:0" id="spent_money" th:text="${user.spent_money}">0</p>
-        <p style="margin:0">&nbsp;RMB in total.</p>
+        <p>welcome to XDUBuy! Dear :&nbsp;</p>
+        <p th:text="${user.name}">username</p>
+        <p>&nbsp;&nbsp;This month you'v spent </p>
+        <p id="spent_money" th:text="${user.spent_money}">999</p>
+        <p>RMB in total.</p>
     </div>
     <div class="search">
         <p hidden="hidden" id="search_line"></p>
@@ -535,20 +533,10 @@
     height: 35px;
     background-color: #b1191a;
     font-size: 16px;
-    color: #fff;">search
-            </button>
-        </form>
+    color: #fff;">search</button></form>
+
     </div>
-    <div class="search_small_button ">
-        <button onclick="InputLabel(this)" type="button">pen</button>
-        <button onclick="InputLabel(this)" type="button">computer</button>
-        <button onclick="InputLabel(this)" type="button">phone</button>
-        <button onclick="InputLabel(this)" type="button">food</button>
-        <button onclick="InputLabel(this)" type="button">1</button>
-        <button onclick="InputLabel(this)" type="button">2</button>
-        <button onclick="InputLabel(this)" type="button">3</button>
-        <button onclick="InputLabel(this)" type="button">4</button>
-    </div>
+
 </div>
 <div class="col-md-2">
     <button class='shopping_cart' data-target="#myModal" data-toggle="modal" onclick="" type='button'>
@@ -615,7 +603,7 @@
                     <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
                     <button class="btn btn-primary" data-dismiss="modal" id="buy_goods_from_cart"
                             onclick="buy_buy_buy(this)"
-                            type="button">Checkout
+                            type="button">Check Out
                     </button>
                 </div>
             </div>
@@ -651,8 +639,7 @@
                         <div class="item_title" th:text="${item.item_title}">Loading...</div>
                         <div class="item_price"><span>RMB ￥</span><span class="price_css"
                                                                         th:text="${#numbers.formatDecimal(item.price,0,2)}">Loading...</span>
-                            <span>(<span
-                                    th:text="${#numbers.formatDecimal(item.amount, 0, 0)}">xxx</span> in stock)</span>
+                            <span>(only&nbsp; <span th:text="${item.amount}">xxx</span> left )</span>
                         </div>
                         <div class="seller_info">
                             <span th:text="${item.seller_info}">Loading...</span>
