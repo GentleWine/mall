@@ -27,6 +27,7 @@ import java.util.Optional;
 @LoginRequired
 @UserTypeOnly(UserType.ADMIN)
 public class AdminUserController extends UserContentProvider {
+
     @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public UserListResponse generateUserTable(HttpServletRequest request, EntityListRequest body) {
