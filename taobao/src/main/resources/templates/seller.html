@@ -353,8 +353,8 @@
                 <div class="item_title" th:text="${item.item_title}">Loading...</div>
                 <div class="item_price"><span>RMB ￥</span><span class="price_css"
                                                                 th:text="${#numbers.formatDecimal(item.price,0,2)}">Loading...</span>
-                    <span>(only&nbsp; <span
-                            th:text="${#numbers.formatDecimal(item.amount,0,0)}">xxx</span> left )</span>
+                    <span>(only&nbsp;<span
+                            th:text="${#numbers.formatDecimal(item.amount,0,0)}">xxx</span> left)</span>
                 </div>
                 <div class="seller_info">
                     <span th:text="${item.seller_info}">Loading...</span>
@@ -377,11 +377,11 @@
                 <a href="/logout">Log Out</a> | <a href="#">About us</a>
             </div>
             <div>
-                <a href="#">If you have any question, please send e-mail to clsyyds@gmai.com to contact us</a>
+                <a href="#">If you have any question, please send e-mail to clsyyds@gmail.com to contact us</a>
             </div>
             <div class="copyright">
                 address：Clsyyds Office, 3rd Floor, Haitang Dormitory No.7, Xidian University postcode：123496
-                phone：412-614-4112 fax：010-12345100 email: clsyyds@gmai.com <br>
+                phone：412-614-4112 fax：010-12345100 email: clsyyds@gmail.com <br>
             </div>
         </div>
     </div>
