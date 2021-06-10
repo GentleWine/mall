@@ -53,7 +53,7 @@ public abstract class ShopControllerBase {
                     item.setId(commodity.getComid());
                     item.setAmount(commodity.getAmount());
                     item.setAddress(shop.getAddress());
-                    if (commodity.getMainimage() == null) {
+                    if (commodity.getMainimage() == null || "1".equals(commodity.getMainimage())) {
                         item.setImgUrl("favicon.png");
                     } else {
                         item.setImgUrl(commodity.getMainimage());
