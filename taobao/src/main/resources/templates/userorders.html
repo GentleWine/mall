@@ -70,7 +70,7 @@
         <th>Commodity Id</th>
         <th>number</th>
         <th>payment</th>
-        <th>peymenttype</th>
+<!--         <th>peymenttype</th> -->
         <th>time</th>
         <th>status</th>
     </tr>
@@ -82,7 +82,7 @@
         <td th:text="${prod.comid}">null</td>
         <td th:text="${prod.number}">null</td>
         <td th:text="${#numbers.formatDecimal(prod.payment, 1, 2)}">0</td>
-        <td th:text="${#numbers.formatDecimal(prod.paymenttype, 1, 0)}">0</td>
+<!--         <td th:text="${#numbers.formatDecimal(prod.paymenttype, 1, 0)}">0</td> -->
         <td th:text="${prod.paymenttime}">null</td>
         <td th:text="${#numbers.formatDecimal(prod.status, 1, 0)}">0</td>
     </tr>
