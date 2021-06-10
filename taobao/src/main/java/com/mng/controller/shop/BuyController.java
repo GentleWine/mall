@@ -37,35 +37,48 @@ public class BuyController {
             //@RequestParam("address") String address,@RequestParam("data")String data){
 
 
-        String[] temp=data.split(",");
-        System.out.println(temp.length);
-        for (String i :temp){
-            System.out.println(i);
+        String[] temp1=data.split("}");
+        for(int j =0;j<temp1.length-1;j++){
+            String[] temp=temp1[j].split(",");
+            System.out.println(temp.length);
+            for (String i :temp){
+                System.out.println(i);
+            }
+            String id="";
+            String payment="";
+            if (j==0){
+                id=temp[0].substring(7);
+                payment=temp[1].substring(13);
+            }
+            else {
+                id=temp[1].substring(6);
+                payment=temp[2].substring(13);
+            }
+            System.out.println(id);
+            int comid=Integer.parseInt(id.substring(1,id.length()-1));
+            int price=Integer.parseInt(payment);
+            System.out.println(comid);
+            Order order = new Order();
+            order.setOrderid(0);
+            order.setStatus(1);
+            order.setPaymenttime(new Date());
+            order.setPaymenttype(1);
+            String username = (String) request.getSession().getAttribute("username");
+            List<User> users = userRepository.findByUsername(username);
+            User user = users.get(0);
+            order.setUserid(user.getUserid());
+
+
+            order.setComid(comid);
+            List<Commodity> shops=commodityRepository.findByComid(comid);
+            order.setShopid(shops.get(0).getShopid());
+            order.setPayment((double) price);
+            order.setNumber((int) (price / shops.get(0).getPrice()));
+            buy(order, user);
         }
-        System.out.println(temp[1]);
-        String id=temp[0].substring(7);
-        System.out.println(id);
-        int comid=Integer.parseInt(id.substring(1,id.length()-1));
-        String payment=temp[1].substring(13);
-        int price=Integer.parseInt(payment);
-        System.out.println(comid);
 
-        Order order = new Order();
-        order.setOrderid(0);
-        order.setStatus(1);
-        order.setPaymenttime(new Date());
-        order.setPaymenttype(1);
-        String username = (String) request.getSession().getAttribute("username");
-        List<User> users = userRepository.findByUsername(username);
-        User user = users.get(0);
-        order.setUserid(user.getUserid());
 
-        order.setComid(comid);
-        List<Commodity> shops=commodityRepository.findByComid(comid);
-        order.setShopid(shops.get(0).getShopid());
-        order.setPayment((double) price);
-        order.setNumber((int) (price / shops.get(0).getPrice()));
-        buy(order, user);
+        //buy(order, user);
 
         Log log= new Log();
         log.state="SUCCESS";
