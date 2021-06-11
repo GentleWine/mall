@@ -34,7 +34,7 @@ public class BuyController {
 
     @RequestMapping(value = "/shopping_cart/buy",method = RequestMethod.POST)
     public Log a(HttpServletRequest request,@RequestParam("data")String data){
-            //@RequestParam("address") String address,@RequestParam("data")String data){
+        //@RequestParam("address") String address,@RequestParam("data")String data){
 
 
         String[] temp1=data.split("}");
@@ -61,7 +61,10 @@ public class BuyController {
             Order order = new Order();
             order.setOrderid(0);
             order.setStatus(1);
-            order.setPaymenttime(new Date());
+            Date time=new Date();
+            long now=time.getTime()+8 * 60 * 60 * 1000;
+            time.setTime(now);
+            order.setPaymenttime(time);
             order.setPaymenttype(1);
             String username = (String) request.getSession().getAttribute("username");
             List<User> users = userRepository.findByUsername(username);
