@@ -357,23 +357,23 @@
         Changeitem(id, 2);
     }
 
-    function make_order(address){
+    function make_order(address) {
         let goods = document.getElementById("goods");
         let childtr = goods.getElementsByTagName('tr');
         var nowNode = null;
         var nowjson = null;
         var nowtds = null;
         var data = []
-        for(var i = 0;i < childtr.length;i++){
+        for (var i = 0; i < childtr.length; i++) {
             nowNode = childtr[i];
             nowtds = nowNode.getElementsByTagName('td');
             id = nowtds[0].innerHTML;
             totalprice = parseFloat(nowtds[4].innerHTML);
             quantity = parseInt(nowtds[3].getElementsByTagName("input")[1].innerHTML);
             nowjson = {
-                'id':id,
-                'totalprice':totalprice,
-                'quantity':quantity
+                'id': id,
+                'totalprice': totalprice,
+                'quantity': quantity
             }
             data.push(nowjson);
         }
