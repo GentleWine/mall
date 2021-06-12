@@ -148,7 +148,6 @@
         num (int);
         remain (int) //库存
     }
-
     接口：/shopping_cart/add_item  （get）:
     向购物车加入一种商品。发送数据如下：
     {
@@ -163,7 +162,6 @@
         state:"SUCCESS" or "Failed"
         errorinfo: xxx // 错误信息
     }
-
     接口：/shopping_cart/change （get）
     改变购物车商品数量。发送数据如下：
     {
@@ -359,29 +357,29 @@
         Changeitem(id, 2);
     }
 
-    function make_order(address) {
+    function make_order(address){
         let goods = document.getElementById("goods");
         let childtr = goods.getElementsByTagName('tr');
-        let nowNode = null;
-        let nowjson = null;
-        let nowtds = null;
-        let data = [];
-        for (let i = 0; i < childtr.length; i++) {
+        var nowNode = null;
+        var nowjson = null;
+        var nowtds = null;
+        var data = []
+        for(var i = 0;i < childtr.length;i++){
             nowNode = childtr[i];
             nowtds = nowNode.getElementsByTagName('td');
-            let id = parseInt(nowtds[0].innerHTML);
-            let totalprice = parseFloat(nowtds[4].innerHTML);
-            let quantity = parseInt(nowtds[3].getElementsByTagName("input")[1].innerHTML);
+            id = nowtds[0].innerHTML;
+            totalprice = parseFloat(nowtds[4].innerHTML);
+            quantity = parseInt(nowtds[3].getElementsByTagName("input")[1].innerHTML);
             nowjson = {
-                'id': id,
-                'totalprice': totalprice,
-                'quantity': quantity
+                'id':id,
+                'totalprice':totalprice,
+                'quantity':quantity
             }
             data.push(nowjson);
         }
         $.ajax(
             {
-                type: "get",
+                type: "post",
                 url: "/shopping_cart/buy",
                 async: false,
                 data: {
@@ -538,16 +536,6 @@
     color: #fff;" type="submit">search
             </button>
         </form>
-    </div>
-    <div class="search_small_button ">
-        <button onclick="InputLabel(this)" type="button">pen</button>
-        <button onclick="InputLabel(this)" type="button">computer</button>
-        <button onclick="InputLabel(this)" type="button">phone</button>
-        <button onclick="InputLabel(this)" type="button">food</button>
-        <button onclick="InputLabel(this)" type="button">1</button>
-        <button onclick="InputLabel(this)" type="button">2</button>
-        <button onclick="InputLabel(this)" type="button">3</button>
-        <button onclick="InputLabel(this)" type="button">4</button>
     </div>
 </div>
 <div class="col-md-2">
