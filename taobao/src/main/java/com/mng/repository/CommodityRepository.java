@@ -17,7 +17,7 @@ public interface CommodityRepository extends JpaRepository<Commodity, Integer> {
     List<Commodity> findByShopidAndName(Integer shopid, String name);
 
     List<Commodity> findByComid(Integer comid);
-    
+
     List<Commodity> findByName(String name);
 
     @Transactional

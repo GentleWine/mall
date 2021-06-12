@@ -522,20 +522,20 @@
         <p style="margin:0">welcome to XDUBuy, Dear&nbsp;</p>
         <p style="margin:0" th:text="${user.name}">username</p>
         <p style="margin:0">!&nbsp;This month you've spent&nbsp;</p>
-        <p style="margin:0" id="spent_money" th:text="${user.spent_money}">0</p>
+        <p id="spent_money" style="margin:0" th:text="${user.spent_money}">0</p>
         <p style="margin:0">&nbsp;RMB in total.</p>
     </div>
     <div class="search">
         <p hidden="hidden" id="search_line"></p>
-        <form action="/search"><input id="" name="content" required="required" placeholder="food" type="text">
-            <button class="search_button" onclick="" type="submit" style="position: relative;
+        <form action="/search"><input id="" name="content" placeholder="food" required="required" type="text">
+            <button class="search_button" onclick="" style="position: relative;
     top: -35px;
     left: 228px;
     width: 81px;
     height: 35px;
     background-color: #b1191a;
     font-size: 16px;
-    color: #fff;">search
+    color: #fff;" type="submit">search
             </button>
         </form>
     </div>

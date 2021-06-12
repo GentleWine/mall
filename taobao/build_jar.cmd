@@ -1,3 +1,3 @@
 cd taobao
-gradlew build
+gradlew bootjar
 pause

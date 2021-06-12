@@ -1,6 +1,5 @@
 package com.mng.controller.account;
 
-import com.fasterxml.jackson.databind.JsonSerializer;
 import com.mng.annotation.LoginRequired;
 import com.mng.controller.shop.ShopControllerBase;
 import com.mng.domain.ItemDomain;
@@ -57,18 +56,18 @@ public class SearchController extends ShopControllerBase {
             i.setKinds(kinds);
         }
         sellers.removeIf(i -> i.getKinds().size() == 0);
-        if (sellers.size()==0){
+        if (sellers.size() == 0) {
             SellerDomain i = new SellerDomain();
             i.setName("search result");
             i.setAddress("flexible");
-            List<KindDomain> kinds=new ArrayList<>();
-            KindDomain k =new KindDomain();
+            List<KindDomain> kinds = new ArrayList<>();
+            KindDomain k = new KindDomain();
             kinds.add(k);
             k.setName("search result");
-            List<ItemDomain>  items = new ArrayList<>();
-            List<Commodity>  commoditys=commodityRepository.findByName(content);
-            for(Commodity temp : commoditys){
-                ItemDomain item=new ItemDomain();
+            List<ItemDomain> items = new ArrayList<>();
+            List<Commodity> commoditys = commodityRepository.findByName(content);
+            for (Commodity temp : commoditys) {
+                ItemDomain item = new ItemDomain();
                 item.setAddress(shopRepository.findByShopid(temp.getShopid()).get(0).getAddress());
                 item.setAmount(temp.getAmount());
                 item.setId(temp.getComid());

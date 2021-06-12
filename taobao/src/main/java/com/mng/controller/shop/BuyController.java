@@ -1,6 +1,5 @@
 package com.mng.controller.shop;
 
-import com.alibaba.fastjson.JSONObject;
 import com.mng.annotation.LoginRequired;
 import com.mng.entity.Commodity;
 import com.mng.entity.Order;
@@ -9,8 +8,10 @@ import com.mng.repository.CommodityRepository;
 import com.mng.repository.OrderRepository;
 import com.mng.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -19,50 +20,43 @@ import java.util.List;
 @RestController
 @LoginRequired
 public class BuyController {
-    static class Log{
-        String state;
-        String errorinfo;
-    }
     @Autowired
     protected OrderRepository orderRepository;
-
     @Autowired
     protected UserRepository userRepository;
-
     @Autowired
     protected CommodityRepository commodityRepository;
 
-    @RequestMapping(value = "/shopping_cart/buy",method = RequestMethod.POST)
-    public Log a(HttpServletRequest request,@RequestParam("data")String data){
+    @RequestMapping(value = "/shopping_cart/buy", method = RequestMethod.POST)
+    public Log a(HttpServletRequest request, @RequestParam("data") String data) {
         //@RequestParam("address") String address,@RequestParam("data")String data){
 
 
-        String[] temp1=data.split("}");
-        for(int j =0;j<temp1.length-1;j++){
-            String[] temp=temp1[j].split(",");
+        String[] temp1 = data.split("}");
+        for (int j = 0; j < temp1.length - 1; j++) {
+            String[] temp = temp1[j].split(",");
             System.out.println(temp.length);
-            for (String i :temp){
+            for (String i : temp) {
                 System.out.println(i);
             }
-            String id="";
-            String payment="";
-            if (j==0){
-                id=temp[0].substring(7);
-                payment=temp[1].substring(13);
-            }
-            else {
-                id=temp[1].substring(6);
-                payment=temp[2].substring(13);
+            String id;
+            String payment;
+            if (j == 0) {
+                id = temp[0].substring(7);
+                payment = temp[1].substring(13);
+            } else {
+                id = temp[1].substring(6);
+                payment = temp[2].substring(13);
             }
             System.out.println(id);
-            int comid=Integer.parseInt(id.substring(1,id.length()-1));
-            int price=Integer.parseInt(payment);
+            int comid = Integer.parseInt(id.substring(1, id.length() - 1));
+            int price = Integer.parseInt(payment);
             System.out.println(comid);
             Order order = new Order();
             order.setOrderid(0);
             order.setStatus(1);
-            Date time=new Date();
-            long now=time.getTime()+8 * 60 * 60 * 1000;
+            Date time = new Date();
+            long now = time.getTime() + 8 * 60 * 60 * 1000;
             time.setTime(now);
             order.setPaymenttime(time);
             order.setPaymenttype(1);
@@ -73,7 +67,7 @@ public class BuyController {
 
 
             order.setComid(comid);
-            List<Commodity> shops=commodityRepository.findByComid(comid);
+            List<Commodity> shops = commodityRepository.findByComid(comid);
             order.setShopid(shops.get(0).getShopid());
             order.setPayment((double) price);
             order.setNumber((int) (price / shops.get(0).getPrice()));
@@ -83,13 +77,11 @@ public class BuyController {
 
         //buy(order, user);
 
-        Log log= new Log();
-        log.state="SUCCESS";
-        log.errorinfo="None";
+        Log log = new Log();
+        log.state = "SUCCESS";
+        log.errorinfo = "None";
         return log;
     }
-
-
 
     //生成订单方法,要求传入订单i和user，然后保存，然后购买的用户增加spentmoney
     public void buy(Order i, User user) {
@@ -97,7 +89,7 @@ public class BuyController {
         temp += i.getPayment();
         user.setSpentmoney(temp);
         List<Commodity> items = commodityRepository.findByComid(i.getComid());
-        items.get(0).setAmount(items.get(0).getAmount()-i.getNumber());
+        items.get(0).setAmount(items.get(0).getAmount() - i.getNumber());
         userRepository.save(user);
         orderRepository.save(i);
         commodityRepository.save(items.get(0));
@@ -125,5 +117,10 @@ public class BuyController {
     public List<Order> getOrdersByShopid(int shopid) {
         List<Order> orders = orderRepository.findByShopid(shopid);
         return orders;
+    }
+
+    static class Log {
+        String state;
+        String errorinfo;
     }
 }
